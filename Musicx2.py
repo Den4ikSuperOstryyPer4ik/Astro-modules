@@ -22,8 +22,8 @@ from urllib.parse import quote_plus
 from .. import loader  # noqa
 from .. import utils  # noqa
 import re
-    @loader.tds
-    class Musicx2betaMod(loader.Module):
+@loader.tds
+class Musicx2betaMod(loader.Module):
     """Найти музыку через бота @Den4ikSOPer4ik_music_bot(beta)"""
     async def smx2cmd(self, message):
         """Используй: .smx2 «название», чтобы найти музыку по названию.""" 
