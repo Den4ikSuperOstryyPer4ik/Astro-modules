@@ -3,7 +3,7 @@
 # meta developer: @ToXicUse, @Den4ikSuperOstryyPer4ik
 
 from bs4 import BeautifulSoup
-import spotipy
+
 import requests
 from aiogram.types import (
     InlineKeyboardMarkup,
@@ -85,7 +85,7 @@ def add_protocol(x):
 
 @loader.tds
 class LyricsMod(loader.Module):
-    """Музыка и текста песен"""
+    """Музыка и тексты песен"""
 
     strings = {
         "name": "Music Module",
@@ -300,7 +300,7 @@ class LyricsMod(loader.Module):
             return await message.edit("<b>Нету аргументов.</b>")  
         try:
             await message.edit("<b>Загрузка...</b>") 
-            music = await message.client.inline_query('@Den4ikSOPer4ik_music_bot', args) 
+            music = await message.client.inline_query('Den4ikSOPer4ik_music_bot', args) 
             await message.delete() 
             await message.client.send_file(message.to_id, music[0].result.document, reply_to=reply.id if reply else None) 
         except: return await message.client.send_message(message.chat_id, f"<b>Музыка с названием <code>{args}</code> не найдена.</b>")
