@@ -40,6 +40,7 @@ class LikeAndTrollmod(loader.Module):
 	(в дополнение к комплиментам и оскорблениям, мы добавили поздравление с 9 мая)"""
 	strings = {"name": "Compliments and Toxicity"}
 	async def likeZpmcmd(self, message): 
+		"""—>комплиментики для девушки в ЛС"""
 		await message.edit("Ты......")
 		await sleep(0.5)
 		await message.edit("Ты...прекрасная...")
