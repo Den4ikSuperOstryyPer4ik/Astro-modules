@@ -42,7 +42,7 @@ class RandomGeneratePasswordMod(loader.Module):
     strings = {
         "name": "RandomPasswordGenerator",
         "_cfg_pass_length": "set password length (in number of characters)",
-        "_cfg_simbols_in_pass": "",
+        "_cfg_simbols_in_pass": "Will there be additional characters in the generated password (+-*!&$#?=@<>)?",
 
     }
     strings_ru = {
