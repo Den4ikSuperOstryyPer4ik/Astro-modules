@@ -74,6 +74,7 @@ class RandomGeneratePasswordMod(loader.Module):
             )
         )
     async def generatepasscmd(self, message: Message):
+        """—>сгенерировать случайный пароль
         await utils.answer(message, '<em>Ваш новый случайный пароль генерируется...</em>')
         await asyncio.sleep(1)
         additional_symbols = self.config["additional symbols in pass"]
