@@ -1,2 +1,2 @@
 Compliments
-RandomPassword
+RandomPasswordGenerator
