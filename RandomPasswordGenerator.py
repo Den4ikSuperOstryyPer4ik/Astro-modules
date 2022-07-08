@@ -38,7 +38,7 @@
 #        🔒 Licensed under the GNU GPLv3
 #    https://www.gnu.org/licenses/agpl-3.0.html
 # scope: hikka_only
-# meta developer: @Den4ikSOP_ToXicUse_Mods
+# meta developer: @AstroModules
 # meta pic: https://img.icons8.com/clouds/500/000000/lock-2.png
 # meta banner: https://0x0.st/oQgL.jpg
 
