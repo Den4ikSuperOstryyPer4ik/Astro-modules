@@ -29,7 +29,7 @@
 #       🔒 Licensed under the GNU GPLv3
 #    https://www.gnu.org/licenses/agpl-3.0.html
 
-# meta developer: @Den4ikSOP_ToXicUse_Mods
+# meta developer: @AstroModules
 # meta pic: https://img.icons8.com/external-smashingstocks-glyph-smashing-stocks/66/000000/external-love-message-network-and-communication-smashingstocks-glyph-smashing-stocks.png
 # scope: hikka_only
 __version__ = (2, 0, 0)
