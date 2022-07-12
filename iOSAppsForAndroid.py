@@ -1,46 +1,30 @@
-# ______                 ___  _  _
-# |  _  \               /   |(_)| |
-# | | | |  ___  _ __   / /| | _ | | __
-# | | | | / _ \| '_ \ / /_| || || |/ /
-# | |/ / |  __/| | | |\___  || ||   <
-# |___/   \___||_| |_|    |_/|_||_|\_\
-#  _____                            _____       _
-# /  ___|                          |  _  |     | |
-# \ `--.  _   _  _ __    ___  _ __ | | | | ___ | |_  _ __  _   _  _   _
-#  `--. \| | | || '_ \  / _ \| '__|| | | |/ __|| __|| '__|| | | || | | |
-# /\__/ /| |_| || |_) ||  __/| |   \ \_/ /\__ \| |_ | |   | |_| || |_| |
-# \____/  \__,_|| .__/  \___||_|    \___/ |___/ \__||_|    \__, | \__, |
-#  ______       | |       ___  _  _                         __/ |  __/ |
-#  | ___ \      |_|      /   |(_)| |                       |___/  |___/
-#  | |_/ /  ___  _ __   / /| | _ | | __
-#  |  __/  / _ \| '__| / /_| || || |/ /
-#  | |     | __/| |    \___  || ||   <
-#  \_|     \___||_|        |_/|_||_|\_\
-#                             _
-#                            | |
-#            __ _  _ __    __| |
-#           / _` || '_ \  / _` |
-#          | (_| || | | || (_| |
-#           \__,_||_| |_| \__,_|
-#  _____                                     ___  _  _
-# |_   _|                                   /   |(_)| |
-#   | |    ___  __  __ _   _   __ _  _ __  / /| | _ | | __
-#   | |   / _ \ \ \/ /| | | | / _` || '__|/ /_| || || |/ /
-#   | |  | (_) | >  < | |_| || (_| || |   \___  || ||   <
-#   \_/   \___/ /_/\_\ \__, | \__,_||_|       |_/|_||_|\_\
-#                       __/ |
-#                      |___/
-#                © Copyright 2022
+#     ___  ___  ___  ___                    
+#    |   \/ __|/ _ \| _ \                   
+#    | |) \__ \ (_) |  _/                   
+#    |___/|___/\___/|_|   
+#                  _    
+#     __ _ _ _  __| |                       
+#    / _` | ' \/ _` |                       
+#    \__,_|_||_\__,_|                       
+#     _____                      _ _  _ _   
+#    |_   _|____ ___  _ __ _ _ _| | |(_) |__
+#      | |/ _ \ \ / || / _` | '_|_  _| | / /
+#      |_|\___/_\_\\_, \__,_|_|   |_||_|_\_\
+#                  |__/                     
+#
+#                 © Copyright 2022
 #
 #      https://t.me/Den4ikSuperOstryyPer4ik
 #                      and
-#           https://t.me/ToXicUse
-#        🔒 Licensed under the GNU GPLv3
+#             https://t.me/ToXicUse
+#
+#       🔒 Licensed under the GNU AGPLv3
 #    https://www.gnu.org/licenses/agpl-3.0.html
-# scope: hikka_only
+#
 # meta developer: @AstroModules
 # meta pic: https://0x0.st/o18O.jpg
-# meta banner: https://0x0.st/o1AM.jpg
+# meta banner: https://0x0.st/o1AM.jpg 
+# scope: hikka_only
 
 from .. import loader, utils
 from telethon.tl.types import Message
@@ -48,17 +32,19 @@ import asyncio
 
 @loader.tds
 class iOSAppsForAndroid(loader.Module):
-	"""🇷🇺 iOS приложения на Android, или же 
+	"""
+	🇷🇺 iOS приложения на Android, или же 
 	проще говоря Android приложения с интерфейсом, как на iOS
-	Авторы/Authors: @Den4ikSuperOstryyPer4ik & @ToXicUse
 	🇺🇸 iOS Applications for Android, or more simply,
-	Android applications with an interface like on iOS"""
+	Android applications with an interface like on iOS
+	"""
 
 	strings = {
 		"name": "iOSappsForAndroid",
 		"apps-list": "<b>The list of applications in the module at the moment:\nApplication name --> command</b>\n<i>1) iCall --> .iCallApp \n2) iLauncher --> .iLauncherApp \n3) iLock --> .iLockApp \n4) iSwiftKeyboard --> .iSwiftApp \n5) iWhatsApp --> .iWhatsApp \n6)iNotes --> .iNotesApp \n7) iMessages --> .iMessagesApp \n8) iContacts --> .iContactsApp \n9) iPhotos --> .iPhotosApp \n10) iCalculator --> .iCalculator\n<b>All applications are taken from the channel @progi95 & @IbreymMods</b></i>",
 		"support_chat_btn": "🎩 Support Chat 🎓",
 		"more_modules_btn": "🌌 More Modules ✨",
+		"wait": "🕑Waiting...",
 		"isto4nik_apps": "Channel Apps",
 		"isto4nik_apps2": "Channel Apps 2",
 		"iCalculator_text": "<b>ICalculator Pro is an ios—style calculator for your android, with ios design, with calculator history and with other settings.\n♦️ Ibreym Mods (https://t.me/IbreymMods).\nMods: the full version is open, without ads.\nIbreym Mods. (<a href='https://telegra.ph/Kalkulyator-v-stile-ios-16-na-lyuboj-android-07-12 '>screenshots</a></b>",
@@ -80,6 +66,7 @@ class iOSAppsForAndroid(loader.Module):
 		"apps-list": "<b>Список приложений в модуле на данный момент:\nНазвание приложения --> команда</b> \n<i>1) iCall --> .iCallApp \n2) iLauncher --> .iLauncherApp \n3) iLock --> .iLockApp \n4) iSwiftKeyboard --> .iSwiftApp \n5) iWhatsApp --> .iWhatsApp \n6)iNotes --> .iNotesApp \n7) iMessages --> .iMessagesApp \n8) iContacts --> iContactsApp \n9) iPhotos --> iPhotosApp \n10) iCalculator --> .iCalculatorApp\n<b>Все приложения взяты из канала @progi95 & @IbreymMods</b></i>",
 		"support_chat_btn": "🎩 Чат поддержки 🎓",
 		"more_modules_btn": "🌌 Больше Модулей ✨",
+		"wait": "🕑Ожидайте...",
 		"isto4nik_apps": "Канал приложений",
 		"isto4nik_apps2": "Канал приложений 2",
 		"iCalculator_text": "<b>iCalculator Pro — калькулятор в стиле ios на ваш андроид, с ios дизайном, с историей калькулятора и с другими настройками.\n♦️ Ibreym Mods (https://t.me/IbreymMods).\nМоды: открыта полная версия, без рекламы.\nIbreym Mods. (<a href='https://telegra.ph/Kalkulyator-v-stile-ios-16-na-lyuboj-android-07-12'>скрины</a></b>",
@@ -113,16 +100,15 @@ class iOSAppsForAndroid(loader.Module):
 
 	async def iCallAppcmd(self, message: Message):
 		""" --> iCall"""
-		await message.edit("🕑Ожидайте... | 🕑Waiting...")
+		await utils.answer(self.strings("wait"))
 		await asyncio.sleep(1)
 		file = "https://t.me/progi95/3806"
 		await message.respond(self.strings("iCall_text"), file=file)
-		await message.delete()
 
 	async def iLauncherAppcmd(self, message: Message):
 		""" --> iLauncher"""
 		await self.inline.form(
-			self.strings["iLauncher_text1"],
+			self.strings("iLauncher_text1"),
 			message=message,
 			reply_markup=[
 				[{"text": "🎥Видеообзор", "url": "https://youtu.be/D3IjVjuy9kI"}],
@@ -135,11 +121,10 @@ class iOSAppsForAndroid(loader.Module):
 
 	async def iLockAppcmd(self, message: Message):
 		""" -->iLock"""
-		await message.edit("🕑Ожидайте... | 🕑Waiting...")
+		await utils.answer(self.strings("wait"))
 		await asyncio.sleep(1)
 		file = "https://t.me/progi95/3796"
 		await message.respond(self.strings("iLock_text"), file=file)
-		await message.delete()
 
 	async def iSwiftAppcmd(self, message: Message):
 		""" --> iSwiftKeyboard"""
@@ -171,40 +156,35 @@ class iOSAppsForAndroid(loader.Module):
 
 	async def iNotesAppcmd(self, message: Message):
 		""" --> iNotes"""
-		await message.edit("🕑Ожидайте... | 🕑Waiting...")
+		await utils.answer(self.strings("wait"))
 		await asyncio.sleep(1)
 		file = "https://t.me/IbreymMods/576"
 		await message.respond(self.strings("iNotes_text"), file=file)
-		await message.delete()
 
 	async def iPhotosAppcmd(self, message: Message):
 		""" --> iPhotos"""
-		await message.edit("🕑Ожидайте... | 🕑Waiting...")
+		await utils.answer(self.strings("wait"))
 		await asyncio.sleep(1)
 		file = "https://t.me/IbreymMods/574"
 		await message.respond(self.strings("iPhotos_text"), file=file)
-		await message.delete()
 
 	async def iContactsAppcmd(self, message: Message):
 		""" --> iContacts"""
-		await message.edit("🕑Ожидайте... | 🕑Waiting...")
+		await utils.answer(self.strings("wait"))
 		await asyncio.sleep(1)
 		file = "https://t.me/IbreymMods/573"
 		await message.respond(self.strings("iContacts_text"), file=file)
-		await message.delete()
 
 	async def iMessagesAppcmd(self, message: Message):
 		""" --> iMessages"""
-		await message.edit("🕑Ожидайте... | 🕑Waiting...")
+		await utils.answer(self.strings("wait"))
 		await asyncio.sleep(1)
 		file = "https://t.me/IbreymMods/572"
 		await message.respond(self.strings("iMessages_text"), file=file)
-		await message.delete()
 
 	async def iCalculatorAppcmd(self, message: Message):
 		""" --> iCalculator"""
-		await message.edit("🕑Ожидайте... | 🕑Waiting...")
+		await utils.answer(self.strings("wait"))
 		await asyncio.sleep(1)
 		file = "https://t.me/IbreymMods/577"
 		await message.respond(self.strings("iCalculator_text"), file=file)
-		await message.delete()
