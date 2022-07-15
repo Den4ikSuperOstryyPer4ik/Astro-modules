@@ -15,7 +15,7 @@
 #    https://www.gnu.org/licenses/agpl-3.0.html
 # meta developer: @AstroModules
 # meta pic: https://0x0.st/o18O.jpg
-# meta banner: https://0x0.st/o1AM.jpg
+# meta banner: https://i.imgur.com/tfsKJll.jpeg
 # scope: hikka_only
 
 from .. import loader, utils
