@@ -16,6 +16,7 @@
 
 # meta developer: @AstroModules
 # meta pic: https://img.icons8.com/external-smashingstocks-glyph-smashing-stocks/66/000000/external-love-message-network-and-communication-smashingstocks-glyph-smashing-stocks.png
+# meta banner: https://imgur.com/aD9wZrv
 # scope: hikka_only
 __version__ = (2, 0, 0)
 from .. import loader, utils
