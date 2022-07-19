@@ -92,7 +92,7 @@ class iOSAppsForAndroid(loader.Module):
 
 	async def iCallAppcmd(self, message: Message):
 		""" --> iCall"""
-		await utils.answer(self.strings("wait"))
+		await utils.answer(message, self.strings("wait"))
 		await asyncio.sleep(1)
 		file = "https://t.me/progi95/3806"
 		await message.respond(self.strings("iCall_text"), file=file)
@@ -113,7 +113,7 @@ class iOSAppsForAndroid(loader.Module):
 
 	async def iLockAppcmd(self, message: Message):
 		""" -->iLock"""
-		await utils.answer(self.strings("wait"))
+		await utils.answer(message, self.strings("wait"))
 		await asyncio.sleep(1)
 		file = "https://t.me/progi95/3796"
 		await message.respond(self.strings("iLock_text"), file=file)
@@ -148,35 +148,35 @@ class iOSAppsForAndroid(loader.Module):
 
 	async def iNotesAppcmd(self, message: Message):
 		""" --> iNotes"""
-		await utils.answer(self.strings("wait"))
+		await utils.answer(message, self.strings("wait"))
 		await asyncio.sleep(1)
 		file = "https://t.me/IbreymMods/576"
 		await message.respond(self.strings("iNotes_text"), file=file)
 
 	async def iPhotosAppcmd(self, message: Message):
 		""" --> iPhotos"""
-		await utils.answer(self.strings("wait"))
+		await utils.answer(message, self.strings("wait"))
 		await asyncio.sleep(1)
 		file = "https://t.me/IbreymMods/574"
 		await message.respond(self.strings("iPhotos_text"), file=file)
 
 	async def iContactsAppcmd(self, message: Message):
 		""" --> iContacts"""
-		await utils.answer(self.strings("wait"))
+		await utils.answer(message, self.strings("wait"))
 		await asyncio.sleep(1)
 		file = "https://t.me/IbreymMods/573"
 		await message.respond(self.strings("iContacts_text"), file=file)
 
 	async def iMessagesAppcmd(self, message: Message):
 		""" --> iMessages"""
-		await utils.answer(self.strings("wait"))
+		await utils.answer(message, self.strings("wait"))
 		await asyncio.sleep(1)
 		file = "https://t.me/IbreymMods/572"
 		await message.respond(self.strings("iMessages_text"), file=file)
 
 	async def iCalculatorAppcmd(self, message: Message):
 		""" --> iCalculator"""
-		await utils.answer(self.strings("wait"))
+		await utils.answer(message, self.strings("wait"))
 		await asyncio.sleep(1)
 		file = "https://t.me/IbreymMods/577"
 		await message.respond(self.strings("iCalculator_text"), file=file)
