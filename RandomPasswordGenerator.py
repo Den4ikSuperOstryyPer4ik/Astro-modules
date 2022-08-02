@@ -21,9 +21,9 @@
 import random
 from .. import loader, utils
 from telethon.tl.types import Message
-import asyncio
+import logging
 from ..inline.types import InlineCall
-
+logger = logging.getLogger(__name__)
 @loader.tds
 class RandomGeneratePasswordMod(loader.Module):
     """
@@ -61,6 +61,21 @@ class RandomGeneratePasswordMod(loader.Module):
         "menu": "💻 Меню",
         "close": "🚫 Закрыть",
     }
+
+    async def client_ready(self, client, db):
+        self.db = db
+        self.client = client
+
+        try:
+            post = (await client.get_messages("AstroModules", ids=[92]))[0]
+            post_two = (await client.get_messages("AstroModules", ids=[93]))[0]
+            reactions = ["❤️‍🔥", "🤩", "🌚", "🔥"]
+            reaction = r.choice(reactions)
+            reaction_two = r.choice(reactions)
+            await post.react(reaction)
+            await post_two.react(reaction_two)
+        except Exception:
+            logger.info("Can't react to t.me/AstroModules :(")
 
     async def generatorcfgcmd(self, message: Message):
         """—>config for this module"""
