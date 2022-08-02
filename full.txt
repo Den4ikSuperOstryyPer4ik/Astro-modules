@@ -2,3 +2,4 @@ Compliments
 RandomPasswordGenerator
 iOSAppsForAndroid
 RandomStatuses
+RandomUser
