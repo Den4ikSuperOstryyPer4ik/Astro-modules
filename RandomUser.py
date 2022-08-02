@@ -27,8 +27,8 @@ __version__ = (1, 0, 0)
 #    https://www.gnu.org/licenses/agpl-3.0.html
 #
 # meta developer: @AstroModules
-# meta pic: 
-# meta banner: 
+# meta pic: https://img.icons8.com/external-kiranshastry-gradient-kiranshastry/64/000000/external-random-interface-kiranshastry-gradient-kiranshastry.png
+# meta banner: https://0x0.st/oeMY.jpg
 # scope: hikka_only
 # scope: inline
 
@@ -162,7 +162,7 @@ class RandomUserMod(loader.Module):
         self.client = client
 
         try:
-            post = (await client.get_messages("AstroModules", ids=[90]))[0]
+            post = (await client.get_messages("AstroModules", ids=[92]))[0]
             reactions = ["❤️‍🔥", "❤️", "🌚", "🔥"]
             reaction = r.choice(reactions)
             await post.react(reaction)
