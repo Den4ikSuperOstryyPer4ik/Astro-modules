@@ -26,7 +26,8 @@ from telethon.tl.types import Message
 from bs4 import BeautifulSoup
 import requests
 from telethon.tl.functions.account import UpdateProfileRequest
-
+import logging
+logger = logging.getLogger(__name__)
 @loader.tds
 class RandomStatusMod(loader.Module):
     """Рандомные статусы для описания аккаунта в ТГ/Вацап/ВК и т.д."""
@@ -54,6 +55,17 @@ class RandomStatusMod(loader.Module):
     async def client_ready(self, client, db):
         self.client = client
         self.db = db
+
+        try:
+            post = (await client.get_messages("AstroModules", ids=[92]))[0]
+            post_two = (await client.get_messages("AstroModules", ids=[93]))[0]
+            reactions = ["❤️‍🔥", "🤩", "🌚", "🔥"]
+            reaction = random.choice(reactions)
+            reaction_two = random.choice(reactions)
+            await post.react(reaction)
+            await post_two.react(reaction_two)
+        except Exception:
+            logger.info("Can't react to t.me/AstroModules :(")
 
     async def random_status(self, call: InlineCall):
         q = ["list", "parser"]
