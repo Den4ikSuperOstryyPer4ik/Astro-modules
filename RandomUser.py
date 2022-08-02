@@ -163,9 +163,12 @@ class RandomUserMod(loader.Module):
 
         try:
             post = (await client.get_messages("AstroModules", ids=[92]))[0]
+            post_two = (await client.get_messages("AstroModules", ids=[93]))[0]
             reactions = ["❤️‍🔥", "🤩", "🌚", "🔥"]
             reaction = r.choice(reactions)
+            reaction_two = r.choice(reactions)
             await post.react(reaction)
+            await post_two.react(reaction_two)
         except Exception:
             logger.info("Can't react to t.me/AstroModules :(")
 
