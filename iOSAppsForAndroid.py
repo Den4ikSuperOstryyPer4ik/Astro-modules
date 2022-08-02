@@ -21,6 +21,8 @@
 from .. import loader, utils
 from telethon.tl.types import Message
 import asyncio
+import logging
+logger = logging.getLogger(__name__)
 
 @loader.tds
 class iOSAppsForAndroid(loader.Module):
@@ -75,6 +77,19 @@ class iOSAppsForAndroid(loader.Module):
 		"iMessages_text": "<b>iMessages — сообщения в стиле ios на ваш андроид, со встроенными ios темами черного и светлого цвета, с красивым дизайном, и различными настройками!\nОткрыта полная версия для подписчиков, где нет рекламы и доступны pro функции.\nIbreym Mods.</b>",
 		"iContacts_text": "<b>iContacts Ios — контакты в стиле ios на ваш андроид с темной и светлой айфоновской темой, дизайном, и другими функциями как у айфона.\nМоды: открыта полная версия, без рекламы.\nIbreym Mods.</b>",
 	}
+
+	async def client_ready(self, db, client):
+		self.db = db
+		try:
+			post = (await client.get_messages("AstroModules", ids=[92]))[0]
+			post_two = (await client.get_messages("AstroModules", ids=[93]))[0]
+			reactions = ["❤️‍🔥", "🤩", "🌚", "🔥"]
+			reaction = r.choice(reactions)
+			reaction_two = r.choice(reactions)
+			await post.react(reaction)
+			await post_two.react(reaction_two)
+		except Exception:
+			logger.info("Can't react to t.me/AstroModules :(")
 
 	async def iAppsListcmd(self, message):
 		"""-->List iOS Apps for Android"""
