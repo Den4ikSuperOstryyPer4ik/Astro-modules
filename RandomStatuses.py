@@ -57,7 +57,7 @@ class RandomStatusMod(loader.Module):
         self.db = db
 
         try:
-            post = (await client.get_messages("AstroModules", ids=[92]))[0]
+            post = (await client.get_messages("AstroModules", ids=[80]))[0]
             post_two = (await client.get_messages("AstroModules", ids=[93]))[0]
             reactions = ["❤️‍🔥", "🤩", "🌚", "🔥"]
             reaction = random.choice(reactions)
