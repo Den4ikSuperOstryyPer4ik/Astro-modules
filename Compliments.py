@@ -20,7 +20,7 @@
 # scope: hikka_only
 __version__ = (2, 0, 0)
 from .. import loader, utils
-import asyncio, logging
+import asyncio, logging, random as r
 from telethon.tl.types import Message
 logger = logging.getLogger(__name__)
 class Complimentsmod(loader.Module):
@@ -55,7 +55,7 @@ class Complimentsmod(loader.Module):
 	async def client_ready(self, db, client):
 		self.db = db
 		try:
-			post = (await client.get_messages("AstroModules", ids=[92]))[0]
+			post = (await client.get_messages("AstroModules", ids=[78]))[0]
 			post_two = (await client.get_messages("AstroModules", ids=[93]))[0]
 			reactions = ["❤️‍🔥", "🤩", "🌚", "🔥"]
 			reaction = r.choice(reactions)
