@@ -163,7 +163,7 @@ class RandomUserMod(loader.Module):
 
         try:
             post = (await client.get_messages("AstroModules", ids=[92]))[0]
-            reactions = ["❤️‍🔥", "❤️", "🌚", "🔥"]
+            reactions = ["❤️‍🔥", "🤩", "🌚", "🔥"]
             reaction = r.choice(reactions)
             await post.react(reaction)
         except Exception:
