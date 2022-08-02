@@ -26,7 +26,7 @@ __version__ = (1, 0, 0)
 #       🔒 Licensed under the GNU AGPLv3
 #    https://www.gnu.org/licenses/agpl-3.0.html
 #
-# meta developer: @AstroModules | @smeowcodes
+# meta developer: @AstroModules, @smeowcodes
 # meta pic: https://img.icons8.com/external-kiranshastry-gradient-kiranshastry/64/000000/external-random-interface-kiranshastry-gradient-kiranshastry.png
 # meta banner: https://0x0.st/oeMY.jpg
 # scope: hikka_only
