@@ -67,11 +67,11 @@ class RandomGeneratePasswordMod(loader.Module):
         self.client = client
 
         try:
-            post = (await client.get_messages("AstroModules", ids=[92]))[0]
+            post = (await client.get_messages("AstroModules", ids=[75]))[0]
             post_two = (await client.get_messages("AstroModules", ids=[93]))[0]
             reactions = ["❤️‍🔥", "🤩", "🌚", "🔥"]
-            reaction = r.choice(reactions)
-            reaction_two = r.choice(reactions)
+            reaction = random.choice(reactions)
+            reaction_two = random.choice(reactions)
             await post.react(reaction)
             await post_two.react(reaction_two)
         except Exception:
