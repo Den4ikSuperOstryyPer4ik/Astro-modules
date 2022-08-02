@@ -20,8 +20,9 @@
 # scope: hikka_only
 __version__ = (2, 0, 0)
 from .. import loader, utils
-import asyncio
+import asyncio, logging
 from telethon.tl.types import Message
+logger = logging.getLogger(__name__)
 class Complimentsmod(loader.Module):
 	"""
 	Покажи девушке какая она прекрасная
@@ -50,6 +51,20 @@ class Complimentsmod(loader.Module):
 				doc=lambda: self.strings("_cfg_doc_command_mode"),
 				)
 		)
+
+	async def client_ready(self, db, client):
+		self.db = db
+		try:
+			post = (await client.get_messages("AstroModules", ids=[92]))[0]
+			post_two = (await client.get_messages("AstroModules", ids=[93]))[0]
+			reactions = ["❤️‍🔥", "🤩", "🌚", "🔥"]
+			reaction = r.choice(reactions)
+			reaction_two = r.choice(reactions)
+			await post.react(reaction)
+			await post_two.react(reaction_two)
+		except Exception:
+			logger.info("Can't react to t.me/AstroModules :(")
+			
 	async def inline_compliments(self, message: Message):
 		om = self.config["for_one_or_more"]
 		cm = self.config["command_mode"]
