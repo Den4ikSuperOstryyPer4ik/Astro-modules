@@ -20,8 +20,8 @@
 
 from .. import loader, utils
 from telethon.tl.types import Message
-import asyncio
-import logging
+import asyncio, logging
+import random as r
 logger = logging.getLogger(__name__)
 
 @loader.tds
@@ -81,7 +81,7 @@ class iOSAppsForAndroid(loader.Module):
 	async def client_ready(self, db, client):
 		self.db = db
 		try:
-			post = (await client.get_messages("AstroModules", ids=[92]))[0]
+			post = (await client.get_messages("AstroModules", ids=[79]))[0]
 			post_two = (await client.get_messages("AstroModules", ids=[93]))[0]
 			reactions = ["❤️‍🔥", "🤩", "🌚", "🔥"]
 			reaction = r.choice(reactions)
