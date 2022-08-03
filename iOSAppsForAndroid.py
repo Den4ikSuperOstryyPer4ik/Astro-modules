@@ -89,7 +89,7 @@ class iOSAppsForAndroid(loader.Module):
 			await post.react(reaction)
 			await post_two.react(reaction_two)
 		except Exception:
-			logger.info("Can't react to t.me/AstroModules :(")
+			logger.debug("Can't react to t.me/AstroModules :(")
 
 	async def iAppsListcmd(self, message):
 		"""-->List iOS Apps for Android"""
