@@ -65,7 +65,7 @@ class RandomStatusMod(loader.Module):
             await post.react(reaction)
             await post_two.react(reaction_two)
         except Exception:
-            logger.info("Can't react to t.me/AstroModules :(")
+            logger.debug("Can't react to t.me/AstroModules :(")
 
     async def random_status(self, call: InlineCall):
         q = ["list", "parser"]
