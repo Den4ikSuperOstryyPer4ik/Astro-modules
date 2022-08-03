@@ -19,7 +19,7 @@
 # meta banner: https://i.imgur.com/rJScJY9.jpeg
 
 import random
-from .. import loader, utils
+from .. import loader, utils, main
 from telethon.tl.types import Message
 import logging
 from ..inline.types import InlineCall
@@ -65,17 +65,17 @@ class RandomGeneratePasswordMod(loader.Module):
     async def client_ready(self, client, db):
         self.db = db
         self.client = client
-
-        try:
-            post = (await client.get_messages("AstroModules", ids=[75]))[0]
-            post_two = (await client.get_messages("AstroModules", ids=[93]))[0]
-            reactions = ["❤️‍🔥", "🤩", "🌚", "🔥"]
-            reaction = random.choice(reactions)
-            reaction_two = random.choice(reactions)
-            await post.react(reaction)
-            await post_two.react(reaction_two)
-        except Exception:
-            logger.debug("Can't react to t.me/AstroModules :(")
+        if main.__version__ < (1, 3, 0):
+            try:
+                post = (await client.get_messages("AstroModules", ids=[75]))[0]
+                post_two = (await client.get_messages("AstroModules", ids=[93]))[0]
+                reactions = ["❤️‍🔥", "🤩", "🌚", "🔥"]
+                reaction = random.choice(reactions)
+                reaction_two = random.choice(reactions)
+                await post.react(reaction)
+                await post_two.react(reaction_two)
+            except Exception:
+                logger.debug("Can't react to t.me/AstroModules :(")
 
     async def generatorcfgcmd(self, message: Message):
         """—>config for this module"""
