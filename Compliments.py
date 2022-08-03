@@ -19,7 +19,7 @@
 # meta banner: https://imgur.com/aD9wZrv
 # scope: hikka_only
 __version__ = (2, 0, 0)
-from .. import loader, utils
+from .. import loader, utils, main
 import asyncio, logging, random as r
 from telethon.tl.types import Message
 logger = logging.getLogger(__name__)
@@ -54,16 +54,17 @@ class Complimentsmod(loader.Module):
 
 	async def client_ready(self, db, client):
 		self.db = db
-		try:
-			post = (await client.get_messages("AstroModules", ids=[78]))[0]
-			post_two = (await client.get_messages("AstroModules", ids=[93]))[0]
-			reactions = ["❤️‍🔥", "🤩", "🌚", "🔥"]
-			reaction = r.choice(reactions)
-			reaction_two = r.choice(reactions)
-			await post.react(reaction)
-			await post_two.react(reaction_two)
-		except Exception:
-			logger.debug("Can't react to t.me/AstroModules :(")
+		if main.__version__ < (1, 3, 0):
+			try:
+				post = (await client.get_messages("AstroModules", ids=[78]))[0]
+				post_two = (await client.get_messages("AstroModules", ids=[93]))[0]
+				reactions = ["❤️‍🔥", "🤩", "🌚", "🔥"]
+				reaction = r.choice(reactions)
+				reaction_two = r.choice(reactions)
+				await post.react(reaction)
+				await post_two.react(reaction_two)
+			except Exception:
+				logger.debug("Can't react to t.me/AstroModules :(")
 			
 	async def inline_compliments(self, message: Message):
 		om = self.config["for_one_or_more"]
