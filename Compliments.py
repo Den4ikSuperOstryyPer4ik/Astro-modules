@@ -63,7 +63,7 @@ class Complimentsmod(loader.Module):
 			await post.react(reaction)
 			await post_two.react(reaction_two)
 		except Exception:
-			logger.info("Can't react to t.me/AstroModules :(")
+			logger.debug("Can't react to t.me/AstroModules :(")
 			
 	async def inline_compliments(self, message: Message):
 		om = self.config["for_one_or_more"]
