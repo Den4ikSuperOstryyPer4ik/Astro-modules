@@ -19,7 +19,7 @@
 # meta banner: https://i.imgur.com/6iLFm51.jpeg
 # scope: hikka_only
 
-from .. import loader
+from .. import loader, main
 import random
 from ..inline.types import InlineCall
 from telethon.tl.types import Message
@@ -55,17 +55,17 @@ class RandomStatusMod(loader.Module):
     async def client_ready(self, client, db):
         self.client = client
         self.db = db
-
-        try:
-            post = (await client.get_messages("AstroModules", ids=[80]))[0]
-            post_two = (await client.get_messages("AstroModules", ids=[93]))[0]
-            reactions = ["❤️‍🔥", "🤩", "🌚", "🔥"]
-            reaction = random.choice(reactions)
-            reaction_two = random.choice(reactions)
-            await post.react(reaction)
-            await post_two.react(reaction_two)
-        except Exception:
-            logger.debug("Can't react to t.me/AstroModules :(")
+        if main.__version__ < (1, 3, 0):
+            try:
+                post = (await client.get_messages("AstroModules", ids=[80]))[0]
+                post_two = (await client.get_messages("AstroModules", ids=[93]))[0]
+                reactions = ["❤️‍🔥", "🤩", "🌚", "🔥"]
+                reaction = random.choice(reactions)
+                reaction_two = random.choice(reactions)
+                await post.react(reaction)
+                await post_two.react(reaction_two)
+            except Exception:
+                logger.debug("Can't react to t.me/AstroModules :(")
 
     async def random_status(self, call: InlineCall):
         q = ["list", "parser"]
