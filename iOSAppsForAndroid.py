@@ -18,7 +18,7 @@
 # meta banner: https://i.imgur.com/tfsKJll.jpeg
 # scope: hikka_only
 
-from .. import loader, utils
+from .. import loader, utils, main
 from telethon.tl.types import Message
 import asyncio, logging
 import random as r
@@ -80,16 +80,17 @@ class iOSAppsForAndroid(loader.Module):
 
 	async def client_ready(self, db, client):
 		self.db = db
-		try:
-			post = (await client.get_messages("AstroModules", ids=[79]))[0]
-			post_two = (await client.get_messages("AstroModules", ids=[93]))[0]
-			reactions = ["❤️‍🔥", "🤩", "🌚", "🔥"]
-			reaction = r.choice(reactions)
-			reaction_two = r.choice(reactions)
-			await post.react(reaction)
-			await post_two.react(reaction_two)
-		except Exception:
-			logger.debug("Can't react to t.me/AstroModules :(")
+		if main.__version__ < (1, 3, 0):
+			try:
+				post = (await client.get_messages("AstroModules", ids=[79]))[0]
+				post_two = (await client.get_messages("AstroModules", ids=[93]))[0]
+				reactions = ["❤️‍🔥", "🤩", "🌚", "🔥"]
+				reaction = r.choice(reactions)
+				reaction_two = r.choice(reactions)
+				await post.react(reaction)
+				await post_two.react(reaction_two)
+			except Exception:
+				logger.debug("Can't react to t.me/AstroModules :(")
 
 	async def iAppsListcmd(self, message):
 		"""-->List iOS Apps for Android"""
