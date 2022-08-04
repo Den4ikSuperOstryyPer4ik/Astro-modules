@@ -56,7 +56,6 @@ class RandomStatusesMod(loader.Module):
     async def client_ready(self, client, db):
         logger.info("Привет от t.me/AstroModules :)")
 
-    @loader.callback_handler()
     async def random_status(self, call: InlineCall):
         q = ["list", "parser"]
         rand1 = random.choice(q)
@@ -163,7 +162,6 @@ class RandomStatusesMod(loader.Module):
             ],
         )
 
-    @loader.callback_handler()
     async def set_status(self, call: InlineCall):
         await self.client(UpdateProfileRequest(about=self.mn))
         await call.edit(f'Био(Обо мне в профиле) изменено успешно на:\n«<code>{self.mn}</code>»',
