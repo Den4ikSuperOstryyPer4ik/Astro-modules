@@ -20,6 +20,7 @@
 # scope: hikka_only
 # scope: hikka_min 1.3.0
 
+from tokenize import group
 from .. import loader, utils as u
 import logging
 from telethon.tl.functions.channels import InviteToChannelRequest
@@ -30,7 +31,8 @@ class HikkaCommandsLoggerMod(loader.Module):
     """Hikka Commands Logger"""
     strings = {
         "name": "HikkaCommandsLogger",
-        "log": "<b>Command:\n« <code>{}</code> »\n\nFrom --> {}\nIn {}\nCommand Message Link --> <a href='https://t.me/c/{}/{}'>CLICK</a></b>",
+        "log-groups": "<b>#GROUP\nCommand:\n« <code>{}</code> »\n\nFrom --> {}\nIn {}\nCommand Message Link --> <a href='https://t.me/c/{}/{}'>CLICK</a></b>",
+        "log-pm": "<b>#PM\nCommand:\n« <code>{}</code> »\n\nFrom --> {}</b>",
     }
 
     async def client_ready(self, client, db):
@@ -48,7 +50,7 @@ class HikkaCommandsLoggerMod(loader.Module):
 
     @loader.watcher()
     @loader.tag(only_commands=True)
-    async def watcher(self, message):
+    async def watcher_chats(self, message):
         sender = await message.get_sender()
 
         if not sender.username:
@@ -56,28 +58,54 @@ class HikkaCommandsLoggerMod(loader.Module):
         else:
             user_link = f"<a href='https://t.me/{sender.username}'>{sender.first_name}</a>"
 
-        if message.is_private:
-            chat_title = "PM"
+        chat = await self._client.get_entity(message.peer_id)
+        chat_title = chat.title
+        if not chat.username:
+            chat_link = f"{chat_title}"
         else:
-            chat = await self._client.get_entity(message.peer_id)
-            chat_title = chat.title
-            if not chat.username:
-                chat_link = f"CHAT: {chat_title}"
-            else:
-                chat_link = f"CHAT: <a href='https://t.me/{chat.username}'>{chat_title}</a>"
-            
-            chat_title = chat.title
-
-
+            chat_link = f"CHAT: <a href='https://t.me/{chat.username}'>{chat_title}</a>"
+        
         async def send():
             await self.inline.bot.send_message(
                 self.chat_logs,
-                self.strings("log").format(
+                self.strings("log-groups").format(
                     message.raw_text,
                     user_link,
                     chat_link,
                     chat.id,
                     message.id
+                ),
+                disable_web_page_preview=True,
+                parse_mode="HTML",
+            )
+
+        try:
+            await send()
+        except Exception:
+            await self._client(
+                InviteToChannelRequest(
+                    self.chat_l,
+                    [self.inline.bot_username],
+                )
+            )
+            await send()
+
+    @loader.watcher()
+    @loader.tag(only_commands=True, only_pm=True)
+    async def watcher_pm(self, message):
+        sender = await message.get_sender()
+
+        if not sender.username:
+            user_link = f"<a href=tg://user?id={sender.id}>{sender.first_name}</a>"
+        else:
+            user_link = f"<a href='https://t.me/{sender.username}'>{sender.first_name}</a>"
+        
+        async def send():
+            await self.inline.bot.send_message(
+                self.chat_logs,
+                self.strings("log-pm").format(
+                    message.raw_text,
+                    user_link
                 ),
                 disable_web_page_preview=True,
                 parse_mode="HTML",
