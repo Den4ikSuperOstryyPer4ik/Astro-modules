@@ -48,8 +48,7 @@ class HikkaCommandsLoggerMod(loader.Module):
         self.chat_logs = f"-100{self.chat_l.id}"
         logger.info("Привет от t.me/AstroModules :)")
 
-    @loader.watcher()
-    @loader.tag(only_commands=True)
+    @loader.watcher(only_commands=True)
     async def watcher_chats(self, message):
         sender = await message.get_sender()
 
@@ -90,8 +89,7 @@ class HikkaCommandsLoggerMod(loader.Module):
             )
             await send()
 
-    @loader.watcher()
-    @loader.tag(only_commands=True, only_pm=True)
+    @loader.watcher(only_commands=True, only_pm=True)
     async def watcher_pm(self, message):
         sender = await message.get_sender()
 
