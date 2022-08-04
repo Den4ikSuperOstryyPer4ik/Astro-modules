@@ -18,18 +18,18 @@
 # meta pic: https://img.icons8.com/bubbles/500/000000/messages-mac.png
 # meta banner: https://i.imgur.com/6iLFm51.jpeg
 # scope: hikka_only
+# scope: inline
+# scope: hikka_min 1.3.0
 
-from .. import loader, main
-import random
+from .. import loader
+import random, requests, logging
 from ..inline.types import InlineCall
 from telethon.tl.types import Message
 from bs4 import BeautifulSoup
-import requests
 from telethon.tl.functions.account import UpdateProfileRequest
-import logging
 logger = logging.getLogger(__name__)
 @loader.tds
-class RandomStatusMod(loader.Module):
+class RandomStatusesMod(loader.Module):
     """Рандомные статусы для описания аккаунта в ТГ/Вацап/ВК и т.д."""
     strings = {
         "name": "RandomStatuses",
@@ -39,6 +39,7 @@ class RandomStatusMod(loader.Module):
         "set_status": "⚙️ Сохранить в био 📥",
     }
 
+    @loader.command()
     async def rstatuscmd(self, message: Message):
         """Рандомный статус на описание аккаунта в ТГ/ВК/Вацап и т.д."""
         await self.inline.form(
@@ -53,20 +54,9 @@ class RandomStatusMod(loader.Module):
         )
 
     async def client_ready(self, client, db):
-        self.client = client
-        self.db = db
-        if main.__version__ < (1, 3, 0):
-            try:
-                post = (await client.get_messages("AstroModules", ids=[80]))[0]
-                post_two = (await client.get_messages("AstroModules", ids=[93]))[0]
-                reactions = ["❤️‍🔥", "🤩", "🌚", "🔥"]
-                reaction = random.choice(reactions)
-                reaction_two = random.choice(reactions)
-                await post.react(reaction)
-                await post_two.react(reaction_two)
-            except Exception:
-                logger.debug("Can't react to t.me/AstroModules :(")
+        logger.info("Привет от t.me/AstroModules :)")
 
+    @loader.callback_handler()
     async def random_status(self, call: InlineCall):
         q = ["list", "parser"]
         rand1 = random.choice(q)
@@ -173,6 +163,7 @@ class RandomStatusMod(loader.Module):
             ],
         )
 
+    @loader.callback_handler()
     async def set_status(self, call: InlineCall):
         await self.client(UpdateProfileRequest(about=self.mn))
         await call.edit(f'Био(Обо мне в профиле) изменено успешно на:\n«<code>{self.mn}</code>»',
