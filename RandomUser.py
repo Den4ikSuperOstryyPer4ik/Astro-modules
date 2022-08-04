@@ -177,7 +177,6 @@ class RandomUserMod(loader.Module):
             message=message
         )
 
-    @loader.callback_handler()
     async def rand_user_inline(self, call: InlineCall):
         rand_user = r.choice(self.users)
         self.user = await self.client.get_entity(rand_user)
@@ -239,7 +238,6 @@ class RandomUserMod(loader.Module):
             ]
         )
 
-    @loader.callback_handler()
     async def add_to_admins_user(self, call: InlineCall):
         pref1 = self.strings("prefix-1")
         pref2 = self.strings("prefix-2")
@@ -290,7 +288,6 @@ class RandomUserMod(loader.Module):
                 ]
             )
 
-    @loader.callback_handler()
     async def mute_user(self, call: InlineCall):
         text = self.strings("user-muted")
         emoji_list = ["🤩", "🥳", "🤪", "😜", "😝", "😋", "😘", "🤯", "🤠", "😈", "🎃", "😺", "👀",
@@ -333,7 +330,6 @@ class RandomUserMod(loader.Module):
         except UserAdminInvalidError:
             return await call.answer(self.strings("no_rights"), show_alert=True)
 
-    @loader.callback_handler()
     async def unmute_user(self, call: InlineCall):
         text = self.strings("user-unmuted")
         emoji_list = ["🤩", "🥳", "🤪", "😜", "😝", "😋", "😘", "🤯", "🤠", "😈", "🎃", "😺", "👀",
@@ -363,7 +359,6 @@ class RandomUserMod(loader.Module):
             ]
         )
 
-    @loader.callback_handler()
     async def ban_user(self, call: InlineCall):
         if not self.chat.admin_rights and not self.chat.creator:
             return await call.answer(self.strings("not_admin"), show_alert=True)
@@ -403,7 +398,6 @@ class RandomUserMod(loader.Module):
         except UserAdminInvalidError:
             return await call.answer(self.strings("no_rights"), show_alert=True)
 
-    @loader.callback_handler()
     async def unban_user(self, call: InlineCall):
         text = self.strings("user-unbanned")
         emoji_list = ["🤩", "🥳", "🤪", "😜", "😝", "😋", "😘", "🤯", "🤠", "😈", "🎃", "😺", "👀",
@@ -437,7 +431,6 @@ class RandomUserMod(loader.Module):
             ]
         )
 
-    @loader.callback_handler()
     async def kick_user(self, call: InlineCall):
         text = self.strings("user-kicked")
         emoji_list = ["🤩", "🥳", "🤪", "😜", "😝", "😋", "😘", "🤯", "🤠", "😈", "🎃", "😺", "👀",
@@ -476,7 +469,6 @@ class RandomUserMod(loader.Module):
             ]
         )
 
-    @loader.callback_handler()
     async def invite_user(self, call: InlineCall):
         emoji_list = ["🤩", "🥳", "🤪", "😜", "😝", "😋", "😘", "🤯", "🤠", "😈", "🎃", "😺", "👀",
         "🙊", "🙈", "🙉", "🐵", "🐸", "🐣", "🌝", "🌚", "🌜", "🌛", "🌙", "✨", "⚡️", "🌟", "⭐️",
