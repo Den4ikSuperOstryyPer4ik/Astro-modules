@@ -17,19 +17,18 @@
 # meta developer: @AstroModules
 # meta pic: https://img.icons8.com/clouds/500/000000/lock-2.png
 # meta banner: https://i.imgur.com/rJScJY9.jpeg
-
-import random
-from .. import loader, utils, main
+# scope: inline
+# scope: hikka_min 1.3.0
+__version__ = (2, 0, 0)
+from .. import loader, utils
 from telethon.tl.types import Message
-import logging
+import logging, random
 from ..inline.types import InlineCall
 logger = logging.getLogger(__name__)
 @loader.tds
-class RandomGeneratePasswordMod(loader.Module):
+class PasswordGeneratorMod(loader.Module):
     """
-    🇷🇺 Генератор рандомного пароля/пин-кода
-    Настроить генератор можно через конфиг
-    🇺🇸 Random password/pincode generator
+    Random password/pincode generator
     You can configure the generator through the config
     """
 
@@ -48,12 +47,11 @@ class RandomGeneratePasswordMod(loader.Module):
     }
 
     strings_ru = {
+        "_cls_doc": "Генератор рандомного пароля/пин-кода\nНастроить генератор можно через конфиг",
         "_cfg_doc_pass_length": "выставьте длину пароля(в кол-ве символов)",
         "_cfg_doc_pin_code_length": "выставьте длину Пин-Кода(в кол-ве символов)",
         "_cfg_doc_simbols_in_pass": "Какие символы должны быть в сгенерированном пароле?",
         "what_to_generate": "🆗 Что надо сгенерировать?",
-        "_cmd_doc_generatorcfg": "—>конфиг этого модуля",
-        "_cmd_doc_igenerator": "—>сгенерировать случайный пароль/пин-код",
         "new_random_pass": "🔣 Новый рандомный пароль 🆕",
         "new_random_pincode": "🔢 Новый рандомный PIN-код 🆕",
         "pass": "<b>🆕 Ваш новый пароль в {} символов:\n<code>{}</code></b>",
@@ -63,26 +61,13 @@ class RandomGeneratePasswordMod(loader.Module):
     }
 
     async def client_ready(self, client, db):
-        self.db = db
-        self.client = client
-        if main.__version__ < (1, 3, 0):
-            try:
-                post = (await client.get_messages("AstroModules", ids=[75]))[0]
-                post_two = (await client.get_messages("AstroModules", ids=[93]))[0]
-                reactions = ["❤️‍🔥", "🤩", "🌚", "🔥"]
-                reaction = random.choice(reactions)
-                reaction_two = random.choice(reactions)
-                await post.react(reaction)
-                await post_two.react(reaction_two)
-            except Exception:
-                logger.debug("Can't react to t.me/AstroModules :(")
+        logger.info("Привет от t.me/AstroModules :)")
 
+    @loader.command(ru_doc="—>конфиг этого модуля")
     async def generatorcfgcmd(self, message: Message):
         """—>config for this module"""
         name = self.strings("name")
-        await self.allmodules.commands["config"](
-            await utils.answer(message, f"{self.get_prefix()}config {name}")
-        )
+        await self.allmodules.commands["config"](await utils.answer(message, f"{self.get_prefix()}config {name}"))
 
     def __init__(self):
         self._ratelimit = []
@@ -105,6 +90,8 @@ class RandomGeneratePasswordMod(loader.Module):
                 doc=lambda: self.strings("_cfg_doc_simbols_in_pass"),
             )
         )
+
+    @loader.command(ru_doc="—>сгенерировать случайный пароль/пин-код")
     async def igeneratorcmd(self, message: Message):
         """—>generate random password/pin"""
         await self.inline.form(
@@ -117,6 +104,7 @@ class RandomGeneratePasswordMod(loader.Module):
             message=message,
         )
 
+    @loader.callback_handler()
     async def igenerator(self, call: InlineCall):
         await call.edit(
             self.strings("what_to_generate"),
@@ -127,6 +115,7 @@ class RandomGeneratePasswordMod(loader.Module):
             ],
         )
 
+    @loader.callback_handler()
     async def new_random_pass(self, call: InlineCall):
         symbols_in_pass = self.config["symbols_in_pass"]
         password_length = self.config["password_length"]
@@ -142,6 +131,7 @@ class RandomGeneratePasswordMod(loader.Module):
                 ]
             )
 
+    @loader.callback_handler()
     async def new_random_pincode(self, call: InlineCall):
         pincode_length = self.config["pincode_length"]
         chars = '1234567890'
