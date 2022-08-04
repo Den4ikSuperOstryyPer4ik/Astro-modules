@@ -104,7 +104,6 @@ class PasswordGeneratorMod(loader.Module):
             message=message,
         )
 
-    @loader.callback_handler()
     async def igenerator(self, call: InlineCall):
         await call.edit(
             self.strings("what_to_generate"),
@@ -115,7 +114,6 @@ class PasswordGeneratorMod(loader.Module):
             ],
         )
 
-    @loader.callback_handler()
     async def new_random_pass(self, call: InlineCall):
         symbols_in_pass = self.config["symbols_in_pass"]
         password_length = self.config["password_length"]
@@ -131,7 +129,6 @@ class PasswordGeneratorMod(loader.Module):
                 ]
             )
 
-    @loader.callback_handler()
     async def new_random_pincode(self, call: InlineCall):
         pincode_length = self.config["pincode_length"]
         chars = '1234567890'
