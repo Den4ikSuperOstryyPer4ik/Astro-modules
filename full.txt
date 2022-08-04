@@ -3,3 +3,4 @@ RandomPasswordGenerator
 iOSAppsForAndroid
 RandomStatuses
 RandomUser
+commands_logger
