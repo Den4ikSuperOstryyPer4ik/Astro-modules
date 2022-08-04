@@ -16,7 +16,7 @@
 #
 # meta developer: @AstroModules
 # meta pic: https://0x0.st/oeWa.jpg
-# meta banner: https://0x0.st/oeW1.png
+# meta banner: https://0x0.st/oeW2.png
 # scope: hikka_only
 # scope: hikka_min 1.3.0
 
