@@ -100,7 +100,7 @@ class iOSAppsForAndroid(loader.Module):
 				[{"text": "iCalculator", "callback": self.icalculator},
 				{"text": "iCompas", "callback": self.icompas},
 				{"text": "iVoice", "callback": self.ivoice}],
-				[{"text": "iTelegram", "callback": self.itelegram}]
+				[{"text": "iTelegram", "callback": self.itelegram}],
 				[{"text": self.strings("support_chat_btn"), "url": "https://t.me/AstroModulesChat"},
 				{"text": self.strings("more_modules_btn"), "url": "https://t.me/AstroModules"}],
 				[{"text": self.strings("close_btn"), "action": "close"}],
