@@ -51,6 +51,7 @@ class iOSAppsForAndroid(loader.Module):
 		"icompas2": "<b>🚀Description of the modification:\n— Update: 1.1.5\n— The full version is open.\n— Removed ads.\n— All functionality is available.\n— Removed unnecessary.</b>",
 		"ivoice1": "<b>iVoice Pro is an iOS—style voice recorder with full iphone design and functionality on android. A dark and light theme, a choice of quality and a full version without ads are available.\n🔑Mods: PRO version.</b>",
 		"ivoice2": "<b>🚀Description of the modification:\n— Update: 1.6.1\n— The full version is open.\n— Removed ads.\n— All functionality is available.\n— Removed unnecessary.\n— Updated to the latest version.\n— And so on.</b>",
+		"itelegram": "<b>Ibreym-Telegram is an iPhone telegram for android, with a very beautiful iPhone design, themes, fonts and with various cool settings.</b>"
 	}
 
 	strings_ru = {
@@ -77,6 +78,7 @@ class iOSAppsForAndroid(loader.Module):
 		"icompas2": "<b>🚀Описание модификации:\n— Обнова: 1.1.5\n— Открыта полная версия.\n— Удалена реклама.\n— Доступен весь функционал.\n— Удалено лишнее.</b>",
 		"ivoice1": "<b>🚀iVoice Pro — диктофон в стиле ios в полным дизайном и функционалом iphone на android. Доступны тёмная и светлая тема, выбор качества и полная версия без рекламы.\n🔑Моды: PRO версия.</b>",
 		"ivoice2": "<b>🚀Описание модификации:\n— Обнова: 1.6.1.\n— <a href='https://t.me/progi95_screen/41'>Скрин</a>.\n— Открыта полная версия.\n— Удалена реклама.\n— Доступен весь функционал.\n— Удалено лишнее.\n— Обновлена до последней версии.\n— И прочее.</b>",
+		"itelegram": "<b>Ibreym-Telegram — это айфоновский телеграм на андроид, с очень красивым, айфоновским дизайном, темами, шрифтами и с различными классными настройками.</b>",
 	}
 
 	@loader.command(ru_doc="-->Inline Лист iOS приложений для Android")
@@ -98,6 +100,7 @@ class iOSAppsForAndroid(loader.Module):
 				[{"text": "iCalculator", "callback": self.icalculator},
 				{"text": "iCompas", "callback": self.icompas},
 				{"text": "iVoice", "callback": self.ivoice}],
+				[{"text": "iTelegram", "callback": self.itelegram}]
 				[{"text": self.strings("support_chat_btn"), "url": "https://t.me/AstroModulesChat"},
 				{"text": self.strings("more_modules_btn"), "url": "https://t.me/AstroModules"}],
 				[{"text": self.strings("close_btn"), "action": "close"}],
@@ -146,3 +149,6 @@ class iOSAppsForAndroid(loader.Module):
 	async def ivoice(self, *_):
 		await self.client.send_message(self.chat_id,self.strings("ivoice1"),file="https://0x0.st/oelz.jpg")
 		await self.client.send_message(self.chat_id,self.strings("ivoice2"),file="https://t.me/progi95/3851")
+
+	async def itelegram(self, *_):
+		await self.client.send_message(self.chat_id,self.strings("itelegram"),file="https://t.me/IbreymMods/585")
