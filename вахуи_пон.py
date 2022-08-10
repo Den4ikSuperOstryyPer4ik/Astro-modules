@@ -1,6 +1,6 @@
-#               _             __  __           _       _           
-#     /\       | |           |  \/  |         | |     | |          
-#    /  \   ___| |_ _ __ ___ | \  / | ___   __| |_   _| | ___  ___ 
+#               _             __  __           _       _
+#     /\       | |           |  \/  |         | |     | |
+#    /  \   ___| |_ _ __ ___ | \  / | ___   __| |_   _| | ___  ___
 #   / /\ \ / __| __| '__/ _ \| |\/| |/ _ \ / _` | | | | |/ _ \/ __|
 #  / ____ \\__ \ |_| | | (_) | |  | | (_) | (_| | |_| | |  __/\__ \
 # /_/    \_\___/\__|_|  \___/|_|  |_|\___/ \__,_|\__,_|_|\___||___/
@@ -17,15 +17,18 @@
 # meta developer: @AstroModules
 # scope: hikka_only
 # scope: hikka_min 1.3.0
+
 import random
 from telethon.tl.types import Message
 from .. import loader
 
+
 @loader.tds
 class ВахуиПонMod(loader.Module):
     """пон и вахуи"""
-    strings = {"name": "ВАХУИ-ПОН","pon": "пон","vahui": "вахуи"}
-    
+
+    strings = {"name": "ВАХУИ-ПОН", "pon": "пон", "vahui": "вахуи"}
+
     @loader.command()
     async def понcmd(self, message: Message):
         """--> пон"""
@@ -33,7 +36,7 @@ class ВахуиПонMod(loader.Module):
         await message.respond(file=m)
         if message.out:
             await message.delete()
-        
+
     @loader.command()
     async def вахуиcmd(self, message: Message):
         """--> вахуи"""

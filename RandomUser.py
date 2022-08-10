@@ -34,9 +34,13 @@ __version__ = (1, 6, 0)
 # scope: hikka_min 1.3.0
 
 from .. import loader
-from telethon.tl.types import Message
 from ..inline.types import InlineCall
-import logging, random as r
+
+from telethon.tl.types import Message
+import logging
+import random as r
+import grapheme
+
 from telethon.errors import ChatAdminRequiredError, UserAdminInvalidError
 from telethon.tl.functions.channels import EditAdminRequest, EditBannedRequest, InviteToChannelRequest
 from telethon.tl.types import ChatAdminRights, ChatBannedRights
@@ -72,6 +76,8 @@ UNMUTE_RIGHTS = ChatBannedRights(
 
 class RandomUserMod(loader.Module):
     "choose a random user in chat\nAutors: @AstroModules & @smeowcodes"
+
+    emoji_list = list(grapheme.graphemes("🤩🥳🤪😜😝😋😘🤯🤠😈🎃😺👀🙊🙈🙉🐵🐸🐣🌝🌚🌜🌛🌙✨⚡️🌟⭐️💫💥☄️❄️☀️🌪🔥☃️☁️💨💧💦🌊🍓🍉🍋🍊🍐🍎🍌🍇🫐🍈🍒🍑🥭🍍🥝"))
 
     strings = {
         "name": "RandomUser",
@@ -154,9 +160,6 @@ class RandomUserMod(loader.Module):
         "invite-error-8": "Вы заблокировали этого пользователя.",
     }
 
-    async def client_ready(self, client, db):
-        logger.info("Привет от t.me/AstroModules :)")
-
     @loader.command(ru_doc="--> выбрать случайного пользователя в чате | inline-меню с призовыми кнопками")
     async def irandusercmd(self, message: Message):
         "choose a random user in chat | inline menu with prize buttons"
@@ -180,10 +183,7 @@ class RandomUserMod(loader.Module):
     async def rand_user_inline(self, call: InlineCall):
         rand_user = r.choice(self.users)
         self.user = await self.client.get_entity(rand_user)
-        emoji_list = ["🤩", "🥳", "🤪", "😜", "😝", "😋", "😘", "🤯", "🤠", "😈", "🎃", "😺", "👀",
-        "🙊", "🙈", "🙉", "🐵", "🐸", "🐣", "🌝", "🌚", "🌜", "🌛", "🌙", "✨", "⚡️", "🌟", "⭐️",
-        "💫", "💥", "☄️", "❄️", "☀️", "🌪", "🔥", "☃️", "☁️", "💨", "💧", "💦", "🌊", "🍓", "🍉", "🍋",
-        "🍊", "🍐", "🍎", "🍌", "🍇", "🫐", "🍈", "🍒", "🍑", "🥭", "🍍", "🥝"]
+        emoji_list = list(grapheme.graphemes("🤩🥳🤪😜😝😋😘🤯🤠😈🎃😺👀🙊🙈🙉🐵🐸🐣🌝🌚🌜🌛🌙✨⚡️🌟⭐️💫💥☄️❄️☀️🌪🔥☃️☁️💨💧💦🌊🍓🍉🍋🍊🍐🍎🍌🍇🫐🍈🍒🍑🥭🍍🥝"))
         emoji = r.choice(emoji_list)
 
         if not self.user.username:
@@ -191,8 +191,7 @@ class RandomUserMod(loader.Module):
             self.id_or_username = self.strings("id").format(self.user.id)
         else:
             self.link = f"<a href='https://t.me/{self.user.username}'>{self.user.first_name}</a>"
-            emoji_list2 = [ "👤", "👶", "👧", "🧒", "👦", "👩", "🧑", "👨", "👩‍🦱", "🧑‍🦱", "👨‍🦱", "👩‍🦰", "🧑‍🦰",
-            "👨‍🦰", "👱‍♀", "👱", "👱‍♂", "👩‍🦳", "🧑‍🦳", "👨‍🦳", "👵", "🧓", "👴"]
+            emoji_list2 = list(grapheme.graphemes("👤👶👧🧒👦👩🧑👨👩‍🦱🧑‍🦱👨‍🦱👩‍🦰🧑‍🦰👨‍🦰👱‍♀👱👱‍♂👩‍🦳🧑‍🦳👨‍🦳👵🧓👴"))
             emoji2 = r.choice(emoji_list2)
             self.id_or_username = self.strings("id+username").format(emoji2, self.user.username, self.user.id)
 
@@ -247,11 +246,7 @@ class RandomUserMod(loader.Module):
         prefs = [pref1, pref2, pref3, pref4, pref5]
         prefix = r.choice(prefs)
         text = self.strings("text-adm").format(prefix)
-        emoji_list = ["🤩", "🥳", "🤪", "😜", "😝", "😋", "😘", "🤯", "🤠", "😈", "🎃", "😺", "👀", 
-        "🙊", "🙈", "🙉", "🐵", "🐸", "🐣", "🌝", "🌚", "🌜", "🌛", "🌙", "✨", "⚡️", "🌟", "⭐️", 
-        "💫", "💥", "☄️", "❄️", "☀️", "🌪", "🔥", "☃️", "☁️", "💨", "💧", "💦", "🌊", "🍓", "🍉", 
-        "🍋", "🍊", "🍐", "🍎", "🍌", "🍇", "🫐", "🍈", "🍒", "🍑", "🥭", "🍍", "🥝"]
-        emoji = r.choice(emoji_list)
+        emoji = r.choice(self.emoji_list)
 
         if not self.chat.admin_rights and not self.chat.creator:
             return await call.answer(self.strings("not_admin"), show_alert=True)
@@ -290,11 +285,7 @@ class RandomUserMod(loader.Module):
 
     async def mute_user(self, call: InlineCall):
         text = self.strings("user-muted")
-        emoji_list = ["🤩", "🥳", "🤪", "😜", "😝", "😋", "😘", "🤯", "🤠", "😈", "🎃", "😺", "👀",
-        "🙊", "🙈", "🙉", "🐵", "🐸", "🐣", "🌝", "🌚", "🌜", "🌛", "🌙", "✨", "⚡️", "🌟", "⭐️",
-        "💫", "💥", "☄️", "❄️", "☀️", "🌪", "🔥", "☃️", "☁️", "💨", "💧", "💦", "🌊", "🍓", "🍉",
-        "🍋", "🍊", "🍐", "🍎", "🍌", "🍇", "🫐", "🍈", "🍒", "🍑", "🥭", "🍍", "🥝"]
-        emoji = r.choice(emoji_list)
+        emoji = r.choice(self.emoji_list)
         
         if not self.chat.admin_rights and not self.chat.creator:
             return await call.answer(self.strings("not_admin"), show_alert=True)
@@ -332,11 +323,7 @@ class RandomUserMod(loader.Module):
 
     async def unmute_user(self, call: InlineCall):
         text = self.strings("user-unmuted")
-        emoji_list = ["🤩", "🥳", "🤪", "😜", "😝", "😋", "😘", "🤯", "🤠", "😈", "🎃", "😺", "👀",
-        "🙊", "🙈", "🙉", "🐵", "🐸", "🐣", "🌝", "🌚", "🌜", "🌛", "🌙", "✨", "⚡️", "🌟", "⭐️",
-        "💫", "💥", "☄️", "❄️", "☀️", "🌪", "🔥", "☃️", "☁️", "💨", "💧", "💦", "🌊", "🍓", "🍉",
-        "🍋", "🍊", "🍐", "🍎", "🍌", "🍇", "🫐", "🍈", "🍒", "🍑", "🥭", "🍍", "🥝"]
-        emoji = r.choice(emoji_list)
+        emoji = r.choice(self.emoji_list)
         if not self.chat.admin_rights and not self.chat.creator:
             return await call.answer(self.strings("no_rights"), show_alert=True)
 
@@ -372,11 +359,7 @@ class RandomUserMod(loader.Module):
                 ChatBannedRights(until_date=None, view_messages=True)
             ))
             text = self.strings("user-banned")
-            emoji_list = ["🤩", "🥳", "🤪", "😜", "😝", "😋", "😘", "🤯", "🤠", "😈", "🎃", "😺", "👀",
-            "🙊", "🙈", "🙉", "🐵", "🐸", "🐣", "🌝", "🌚", "🌜", "🌛", "🌙", "✨", "⚡️", "🌟", "⭐️",
-            "💫", "💥", "☄️", "❄️", "☀️", "🌪", "🔥", "☃️", "☁️", "💨", "💧", "💦", "🌊", "🍓", "🍉",
-            "🍋", "🍊", "🍐", "🍎", "🍌", "🍇", "🫐", "🍈", "🍒", "🍑", "🥭", "🍍", "🥝"]
-            emoji = r.choice(emoji_list)
+            emoji = r.choice(self.emoji_list)
             await call.answer(text, show_alert=True)
             await call.edit(
                 self.strings("user-...").format(emoji, self.link, self.id_or_username, text),
@@ -400,11 +383,7 @@ class RandomUserMod(loader.Module):
 
     async def unban_user(self, call: InlineCall):
         text = self.strings("user-unbanned")
-        emoji_list = ["🤩", "🥳", "🤪", "😜", "😝", "😋", "😘", "🤯", "🤠", "😈", "🎃", "😺", "👀",
-        "🙊", "🙈", "🙉", "🐵", "🐸", "🐣", "🌝", "🌚", "🌜", "🌛", "🌙", "✨", "⚡️", "🌟", "⭐️",
-        "💫", "💥", "☄️", "❄️", "☀️", "🌪", "🔥", "☃️", "☁️", "💨", "💧", "💦", "🌊", "🍓", "🍉",
-        "🍋", "🍊", "🍐", "🍎", "🍌", "🍇", "🫐", "🍈", "🍒", "🍑", "🥭", "🍍", "🥝"]
-        emoji = r.choice(emoji_list)
+        emoji = r.choice(self.emoji_list)
         if not self.chat.admin_rights and not self.chat.creator:
             return await call.answer(self.strings("no_rights"), show_alert=True)
 
@@ -433,11 +412,7 @@ class RandomUserMod(loader.Module):
 
     async def kick_user(self, call: InlineCall):
         text = self.strings("user-kicked")
-        emoji_list = ["🤩", "🥳", "🤪", "😜", "😝", "😋", "😘", "🤯", "🤠", "😈", "🎃", "😺", "👀",
-        "🙊", "🙈", "🙉", "🐵", "🐸", "🐣", "🌝", "🌚", "🌜", "🌛", "🌙", "✨", "⚡️", "🌟", "⭐️",
-        "💫", "💥", "☄️", "❄️", "☀️", "🌪", "🔥", "☃️", "☁️", "💨", "💧", "💦", "🌊", "🍓", "🍉",
-        "🍋", "🍊", "🍐", "🍎", "🍌", "🍇", "🫐", "🍈", "🍒", "🍑", "🥭", "🍍", "🥝"]
-        emoji = r.choice(emoji_list)
+        emoji = r.choice(self.emoji_list)
 
         if not self.chat.admin_rights and not self.chat.creator:
             return await call.answer(self.strings("no_rights"), show_alert=True)
@@ -470,11 +445,7 @@ class RandomUserMod(loader.Module):
         )
 
     async def invite_user(self, call: InlineCall):
-        emoji_list = ["🤩", "🥳", "🤪", "😜", "😝", "😋", "😘", "🤯", "🤠", "😈", "🎃", "😺", "👀",
-        "🙊", "🙈", "🙉", "🐵", "🐸", "🐣", "🌝", "🌚", "🌜", "🌛", "🌙", "✨", "⚡️", "🌟", "⭐️",
-        "💫", "💥", "☄️", "❄️", "☀️", "🌪", "🔥", "☃️", "☁️", "💨", "💧", "💦", "🌊", "🍓", "🍉",
-        "🍋", "🍊", "🍐", "🍎", "🍌", "🍇", "🫐", "🍈", "🍒", "🍑", "🥭", "🍍", "🥝"]
-        emoji = r.choice(emoji_list)
+        emoji = r.choice(self.emoji_list)
         try:
             if not self.message.is_channel and self.message.is_group:
                 await self.client(
