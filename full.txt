@@ -4,3 +4,4 @@ iOSAppsForAndroid
 RandomStatuses
 RandomUser
 commands_logger
+inline_bot_manager
