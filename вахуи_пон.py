@@ -32,15 +32,25 @@ class ВахуиПонMod(loader.Module):
     @loader.command()
     async def понcmd(self, message: Message):
         """--> пон"""
+        reply = await message.get_reply_message()
         m = random.choice(await self.client.get_messages("@PON_STICKS", limit=100))
-        await message.respond(file=m)
+        if reply:
+            await self.client.send_message(message.chat_id, file=m, reply_to=reply)
+        else:
+            await message.respond(file=m)
+
         if message.out:
             await message.delete()
 
     @loader.command()
     async def вахуиcmd(self, message: Message):
         """--> вахуи"""
+        reply = await message.get_reply_message()
         m = random.choice(await self.client.get_messages("@VAHUI_STICKS", limit=100))
-        await message.respond(file=m)
+        if reply:
+            await self.client.send_message(message.chat_id, file=m, reply_to=reply)
+        else:
+            await message.respond(file=m)
+
         if message.out:
             await message.delete()
