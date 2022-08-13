@@ -34,6 +34,7 @@ class ПонВахуиMod(loader.Module):
     async def понcmd(self, message: Message):
         """--> инлайн пон"""
         self.chat_id = message.chat_id
+        self.reply_pon = await message.get_reply_message()
         await self.inline.form(
             message=message,
             text="👇<b>пон</b>👇",
@@ -42,11 +43,17 @@ class ПонВахуиMod(loader.Module):
 
     async def sticker_pon(self, *_):
         m = random.choice(await self._client.get_messages("@PON_STICKS", limit=100))
-        await self.client.send_message(self.chat_id, file=m)
+        if self.reply_pon:
+            await self.client.send_message(self.chat_id, file=m, reply_to=self.reply_pon)
+        else:
+            await self.client.send_message(self.chat_id, file=m)
 
     async def sticker_vahui(self, *_):
         m = random.choice(await self._client.get_messages("@VAHUI_STICKS", limit=100))
-        await self.client.send_message(self.chat_id, file=m)
+        if self.reply_vahui:
+            await self.client.send_message(self.chat_id, file=m, reply_to=self.reply_vahui)
+        else:
+            await self.client.send_message(self.chat_id, file=m)
 
     async def pon(self, call: InlineCall):
         await call.edit(
@@ -94,6 +101,7 @@ class ПонВахуиMod(loader.Module):
     @loader.command()
     async def вахуиcmd(self, message: Message):
         """--> вахуи"""
+        self.reply_vahui = await message.get_reply_message()
         self.chat_id = message.chat_id
         await self.inline.form(
             message=message,
