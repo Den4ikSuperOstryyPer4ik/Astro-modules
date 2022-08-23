@@ -30,7 +30,7 @@ from telethon.tl.types import Message
 logger = logging.getLogger(__name__)
 
 
-class Complimentsmod(loader.Module):
+class ComplimentsMod(loader.Module):
     """
     Покажи девушке какая она прекрасная
     (ну или им, какие они прекрасные)
@@ -38,21 +38,6 @@ class Complimentsmod(loader.Module):
 
     strings = {
         "name": "Compliments",
-        "_cfg_doc_for_one_or_more": (
-            "Please choose, compliments will be for 1 female person, or for all female"
-            " people in chat \n if for 1 person-> one \n if for all female people in"
-            ' the chat-> more \n if you put something In the config, except "one" and'
-            ' "more", the command will not work !!!!'
-        ),
-        "_cfg_doc_command_mode": (
-            "Please select the command mode, what will be the animation: \n if you want"
-            " to print the list of compliments -> 1 \n if you want the compliment to be"
-            " replaced by another and at the end a complete list is being bred -> 2 \n"
-            " attention! if you put Something in the config except “1” and “2”, the"
-            " command will not work !!!"
-        ),
-    }
-    strings_ru = {
         "_cfg_doc_for_one_or_more": (
             "Выберите пожалуйста, комплименты будут для 1 человека женского пола, или"
             " для всех людей женского пола в чате \nЕсли для 1 человека--> one \nЕсли"
@@ -65,7 +50,6 @@ class Complimentsmod(loader.Module):
             " полный список --> 2"
         ),
     }
-
     def __init__(self):
         self._ratelimit = []
         self.config = loader.ModuleConfig(
@@ -373,4 +357,5 @@ class Complimentsmod(loader.Module):
                 [{"text": "🚫", "action": "close"}],
             ],
             message=message,
+            disable_security=True,
         )
