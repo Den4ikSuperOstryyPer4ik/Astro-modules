@@ -6,3 +6,4 @@ RandomUser
 commands_logger
 inline_bot_manager
 dl_yt_preview
+TxAFK
