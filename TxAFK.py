@@ -131,7 +131,7 @@ class TxAFKMod(loader.Module):
 		a_afk_bio_nofb = "В афк."
 		lastname = self.strings("lname")
 		if self.config['feedback_bot'] == None:
-			await message.client(UpdateProfileRequest(about=a_afk_bio_nofb))
+			await message.client(UpdateProfileRequest(about=a_afk_bio_nofb, last_name=self.strings("lname")))
 		else:
 			a_afk_bio = 'На данный момент в АФК. Связь только через '
 			feedback = self.config['feedback_bot']
