@@ -36,7 +36,7 @@ logger = logging.getLogger(__name__)
 
 @loader.tds
 class TxAFKMod(loader.Module):
-	"""AFK модуль от @AstroModules с изменением био и имени
+	"""Афк модуль от AstroModules с изменением био и имени
 
 	🚀 version: 1.0"""
 
@@ -100,13 +100,13 @@ class TxAFKMod(loader.Module):
 
 
 	async def txcfgcmd(self, message):
-		"""  - открыть конфиг этого модуля"""
+		"""Конфиг модуля"""
 		await self.allmodules.commands["config"](
 					await utils.answer(message, f"{self.get_prefix()}config TxAFK")
 				)
 
 	async def goafkcmd(self, message):
-		"""  - включить режим AFK"""
+		"""Войти в AFK режим"""
 		try:
 			user_id = (
 				(
@@ -131,7 +131,7 @@ class TxAFKMod(loader.Module):
 		a_afk_bio_nofb = "В афк."
 		lastname = self.strings("lname")
 		if self.config['feedback_bot'] == None:
-			await message.client(UpdateProfileRequest(about=a_afk_bio_nofb, last_name=self.strings("lname")))
+			await message.client(UpdateProfileRequest(about=a_afk_bio_nofb, last_name=lastname))
 		else:
 			a_afk_bio = 'На данный момент в АФК. Связь только через '
 			feedback = self.config['feedback_bot']
@@ -142,7 +142,7 @@ class TxAFKMod(loader.Module):
 		await message.client(UpdateProfileRequest(last_name=lastname))
 
 	async def ungoafkcmd(self, message):
-		"""  - отключить режим AFK"""
+		"""Выйти из режима AFK"""
 		msg = await utils.answer(message, '<emoji document_id=5213107179329953547>⏰</emoji> <b>Отключаю режим АФК...</b>')
 		sbio = self.config['standart_bio']
 		lastname0 = self.strings('lname0')
@@ -253,6 +253,14 @@ class TxAFKMod(loader.Module):
 		self._db.set(__name__, "gone", None)
 		self._db.set(__name__, "ratelimit", [])
 		await self.allmodules.log("unafk")
+		if self.config['standart_bio'] == None:
+			lastname = self.strings("lname0")
+			about = self.strings("lname0")
+			await self._client(UpdateProfileRequest(about=about, last_name=lastname))
+		else:
+			aboutt = self.config['standart_bio']
+			lastname = self.strings("lname0")
+			await self._client(UpdateProfileRequest(about=aboutt, last_name=lastname))
 		await call.edit(
 		self.strings["bt_off_afk"],
 		reply_markup=[
@@ -267,6 +275,15 @@ class TxAFKMod(loader.Module):
 		self._db.set(__name__, "afk", True)
 		self._db.set(__name__, "gone", time.time())
 		self._db.set(__name__, "ratelimit", [])
+		a_afk_bio_nofb = "В афк."
+		lastname = self.strings("lname")
+		if self.config['feedback_bot'] == None:
+			await self._client(UpdateProfileRequest(about=a_afk_bio_nofb, last_name=lastname))
+		else:
+			a_afk_bio = 'На данный момент в АФК. Связь только через '
+			feedback = self.config['feedback_bot']
+			aaa = a_afk_bio + feedback
+			await self._client(UpdateProfileRequest(about=aaa))
 		await call.edit(
 		self.strings["bt_on_afk"],
 		reply_markup=[
