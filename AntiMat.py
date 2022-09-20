@@ -56,9 +56,9 @@ class AntiMatMod(loader.Module):
 			"am_status",
 			"antimat",
 		)
-		if am == "":
+		if antimat == "":
 			self.db.set("am_status", "antimat", False)
-		if am == False:
+		if antimat == False:
 			self.db.set("am_status", "antimat", True)
 			await utils.answer(message, self.strings("am_on"))
 		else:
