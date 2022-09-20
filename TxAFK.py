@@ -53,7 +53,7 @@ class TxAFKMod(loader.Module):
 		"bt_off_afk": "⚠️ АФК режим отключен",
 		"bt_on_afk": "💤 АФК режим снова активен",
 
-		"_cfg_cst_btn": "Ссылка на чат которая будет отоброжаться вместе с уведомлением",
+		"_cfg_cst_btn": "Ссылка на чат которая будет отоброжаться вместе с уведомлением. (Чтобы вообще убрать напишите None)",
 		"standart_bio_text": "Кастомное описание профиля",
 		"feedback_bot__text": "Юзер вашего фидбэк бота (если имеется)",
 		"button__text": "Добавить инлайн кнопку отключения АФК режима?",
@@ -201,52 +201,88 @@ class TxAFKMod(loader.Module):
 				self._db.get(__name__, "gone")
 			).replace(microsecond=0)
 			time = now - gone
-			if self.config["button"] == False:
-				if self.config["custom_text__afk"] == None:
-					await self.inline.form(message=message, text=f"<b>🔅 Я сейчас нахожусь в АФК.</b>\n\nПоследний раз был в сети <code>{time}</code> назад.", reply_markup=[{"text": self.config['custom_button'][0], "url": self.config['custom_button'][1]}])
-				else:
-					await self.inline.form(message=message, text=self._afk_custom_text(), reply_markup=[{"text": self.config['custom_button'][0], "url": self.config['custom_button'][1]}])
-			
-			elif self.config['button'] == True:
-				if self.config["custom_text__afk"] == None:
-					await self.inline.form(
-						message=message, 
-						text=f"<b>🔅 Я сейчас нахожусь в АФК.</b>\n\nПоследний раз был в сети <code>{time}</code> назад.", 
-						reply_markup=[
-							[
-								{
-									"text": self.config['custom_button'][0],
-									"url": self.config['custom_button'][1],
-								}
-							],
-							[
-								{
-									"text": "🚫 Выйти с афк 🚫", 
-									"callback": self.button_cancel,
-								}
+			if self.config['custom_button'] == None:
+				if self.config["button"] == False:
+					if self.config["custom_text__afk"] == None:
+						await self.inline.form(message=message, text=f"<b>🔅 Я сейчас нахожусь в АФК.</b>\n\nПоследний раз был в сети <code>{time}</code> назад.")
+					else:
+						await self.inline.form(message=message, text=self._afk_custom_text())
+				
+				elif self.config['button'] == True:
+					if self.config["custom_text__afk"] == None:
+						await self.inline.form(
+							message=message, 
+							text=f"<b>🔅 Я сейчас нахожусь в АФК.</b>\n\nПоследний раз был в сети <code>{time}</code> назад.", 
+							reply_markup=[
+								[
+									{
+										"text": "🚫 Выйти с афк 🚫", 
+										"callback": self.button_cancel,
+									}
+								]
 							]
-						]
-					)
+						)
 
-				else:
-					await self.inline.form(
-						message=message, 
-						text=self._afk_custom_text(), 
-						reply_markup=[
-							[
-								{
-									"text": self.config['custom_button'][0],
-									"url": self.config['custom_button'][1],
-								}
-							],
-							[
-								{
-									"text": "🚫 Выйти с афк 🚫", 
-									"callback": self.button_cancel,
-								}
+					else:
+						await self.inline.form(
+							message=message, 
+							text=self._afk_custom_text(), 
+							reply_markup=[
+								[
+									{
+										"text": "🚫 Выйти с афк 🚫", 
+										"callback": self.button_cancel,
+									}
+								]
 							]
-						]
-					)
+						)
+			else:
+				if self.config["button"] == False:
+					if self.config["custom_text__afk"] == None:
+						await self.inline.form(message=message, text=f"<b>🔅 Я сейчас нахожусь в АФК.</b>\n\nПоследний раз был в сети <code>{time}</code> назад.", reply_markup=[{"text": self.config['custom_button'][0], "url": self.config['custom_button'][1]}])
+					else:
+						await self.inline.form(message=message, text=self._afk_custom_text(), reply_markup=[{"text": self.config['custom_button'][0], "url": self.config['custom_button'][1]}])
+				
+				elif self.config['button'] == True:
+					if self.config["custom_text__afk"] == None:
+						await self.inline.form(
+							message=message, 
+							text=f"<b>🔅 Я сейчас нахожусь в АФК.</b>\n\nПоследний раз был в сети <code>{time}</code> назад.", 
+							reply_markup=[
+								[
+									{
+										"text": self.config['custom_button'][0],
+										"url": self.config['custom_button'][1],
+									}
+								],
+								[
+									{
+										"text": "🚫 Выйти с афк 🚫", 
+										"callback": self.button_cancel,
+									}
+								]
+							]
+						)
+
+					else:
+						await self.inline.form(
+							message=message, 
+							text=self._afk_custom_text(), 
+							reply_markup=[
+								[
+									{
+										"text": self.config['custom_button'][0],
+										"url": self.config['custom_button'][1],
+									}
+								],
+								[
+									{
+										"text": "🚫 Выйти с афк 🚫", 
+										"callback": self.button_cancel,
+									}
+								]
+							]
+						)
 
 	async def button_cancel(self, call: InlineCall):
 		self._db.set(__name__, "afk", False)
