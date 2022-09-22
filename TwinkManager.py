@@ -430,7 +430,7 @@ class TwinkManagerMod(loader.Module):
 			if tp3 == False:
 				if tp2 == False:
 					m = await utils.answer(message, f'{p1}{args}')
-					await self.allmodules.commands["loadmod"](
+					await self.allmodules.commands[f"{args}"](
 						await utils.answer(m, f"{self.get_prefix()}{args}")
 					)
 				else:
