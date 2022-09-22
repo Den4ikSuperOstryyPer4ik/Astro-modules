@@ -421,22 +421,47 @@ class TwinkManagerMod(loader.Module):
 		p1 = self.config['prefix_1']
 		p2 = self.config['prefix_2']
 		p3 = self.config['prefix_3']
+		full = self.db.get(__name__, "allAcc")
 
-		tp2 = self.db.get(__name__, "prefixN2")
-		tp3 = self.db.get(__name__, "prefixN3")
-		if tp3 == False:
-			if tp2 == False:
-				m = await utils.answer(message, f'{p1}{args}')
-				await utils.answer(m, '<emoji document_id=5213442551851262055>✔️</emoji> <b>Готово</b>')
+		if full == True:
+			tp2 = self.db.get(__name__, "prefixN2")
+			tp3 = self.db.get(__name__, "prefixN3")
+
+			if tp3 == False:
+				if tp2 == False:
+					m = await utils.answer(message, f'{p1}{args}')
+					await self.allmodules.commands["loadmod"](
+						await utils.answer(m, f"{self.get_prefix()}{args}")
+					)
+				else:
+					m = await utils.answer(message, f'{p1}{args}')
+					n = await utils.answer(m, f'{p2}{args}')
+					await self.allmodules.commands[f"{args}"](
+						await utils.answer(n, f"{self.get_prefix()}{args}")
+					)
 			else:
 				m = await utils.answer(message, f'{p1}{args}')
 				n = await utils.answer(m, f'{p2}{args}')
-				await utils.answer(n, '<emoji document_id=5213442551851262055>✔️</emoji> <b>Готово</b>')
+				o = await utils.answer(m, f'{p3}{args}')
+				await self.allmodules.commands[f"{args}"](
+					await utils.answer(o, f"{self.get_prefix()}{args}")
+				)
 		else:
-			m = await utils.answer(message, f'{p1}{args}')
-			n = await utils.answer(m, f'{p2}{args}')
-			o = await utils.answer(m, f'{p3}{args}')
-			await utils.answer(o, '<emoji document_id=5213442551851262055>✔️</emoji> <b>Готово</b>')
+			tp2 = self.db.get(__name__, "prefixN2")
+			tp3 = self.db.get(__name__, "prefixN3")
+			if tp3 == False:
+				if tp2 == False:
+					m = await utils.answer(message, f'{p1}{args}')
+					await utils.answer(m, '<emoji document_id=5213442551851262055>✔️</emoji> <b>Готово</b>')
+				else:
+					m = await utils.answer(message, f'{p1}{args}')
+					n = await utils.answer(m, f'{p2}{args}')
+					await utils.answer(n, '<emoji document_id=5213442551851262055>✔️</emoji> <b>Готово</b>')
+			else:
+				m = await utils.answer(message, f'{p1}{args}')
+				n = await utils.answer(m, f'{p2}{args}')
+				o = await utils.answer(m, f'{p3}{args}')
+				await utils.answer(o, '<emoji document_id=5213442551851262055>✔️</emoji> <b>Готово</b>')
 
 	@loader.watcher()
 	async def watcher(self, message: Message):
