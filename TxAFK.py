@@ -151,7 +151,7 @@ class TxAFKMod(loader.Module):
 		self._db.set(__name__, "ratelimit", [])
 		await self.allmodules.log("unafk")
 		if sbio == None:
-			await message.client(UpdateProfileRequest(about=''))
+			await message.client(UpdateProfileRequest(about='', last_name=lastname0))
 		else:
 			await message.client(UpdateProfileRequest(about=sbio, last_name=lastname0))
 		time.sleep(1)
