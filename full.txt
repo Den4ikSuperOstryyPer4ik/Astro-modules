@@ -10,3 +10,4 @@ TxAFK
 AntiMat
 TwinkManager
 RandomTrack
+dialogs_manager
