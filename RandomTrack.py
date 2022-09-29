@@ -79,6 +79,7 @@ class RandomTrackMod(loader.Module):
 		  <h> - хайперпоп музыка
 		  <m> - мемные звуки
 		  <my> - треки из вашего плейлиста
+		  <e> - ...
 
 		🤫 По желанию в конфиге можно установить свои каналы откуда будет выбираться музыка"""
 
@@ -90,7 +91,8 @@ class RandomTrackMod(loader.Module):
 		armx = self.config['remixes']            
 		apop = self.config['popular']           
 		amems = self.config['mems']             
-		aplaylist = self.config['playlist']     
+		aplaylist = self.config['playlist']
+		eeee = 'AM_tlove'
 
 		if not args:
 			await utils.answer(message, "<emoji document_id=5219806684066618617>🫠</emoji> <b>Подбираем трек...</b>")
@@ -138,6 +140,13 @@ class RandomTrackMod(loader.Module):
 			await utils.answer(message, "<emoji document_id=5219806684066618617>🫠</emoji> <b>Подбираем трек...</b>")
 			pop = random.choice(await self.client.get_messages(apop, limit=100))
 			await message.respond(file=pop)
+			if message.out:
+				await message.delete()
+				
+		if args == "e":
+			await utils.answer(message, "<emoji document_id=5219806684066618617>🫠</emoji> <b>Подбираем трек...</b>")
+			eee = random.choice(await self.client.get_messages(eeee, limit=100))
+			await message.respond(file=eee)
 			if message.out:
 				await message.delete()
 
