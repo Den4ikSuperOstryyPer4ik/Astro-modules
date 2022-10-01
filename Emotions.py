@@ -13,10 +13,11 @@
 #
 #       🔒 Licensed under the GNU AGPLv3
 #    https://www.gnu.org/licenses/agpl-3.0.html
-# meta developer: @AstroModules, @hikarimods
 
+# meta developer: @AstroModules, @hikarimods
 from .. import loader, utils
 import grapheme
+
 from telethon.tl.types import Message
 
 @loader.tds
@@ -25,6 +26,7 @@ class EmotionsMod(loader.Module):
 
 	strings = {
 		"name": "Emotions",
+		'delete_msg': "Удалять сообщение которое вызывает эмоцию?",
 		'on': "<emoji document_id=5373230475022179039>🥺</emoji> Emotions успешно активирован в этом чате.",
 		'off': "<emoji document_id=5373230475022179039>🥺</emoji> Emotions успешно деактивирован в этом чате",
 		'ok': "<emoji document_id=5188315103384050849>☑️</emoji>Эмоция успешно добавлена",
@@ -56,31 +58,32 @@ class EmotionsMod(loader.Module):
 				"🥺": "🥺 считает что это мило",
 			},
 		)
-		self.chats = self.get("active", [])
-		if self._tg_id == 1484386024:
-			pass
-		else:
-			raise loader.LoadError("Не трогай то, что тебе не пернадлежит!")
+
+	def __init__(self):
+		self.config = loader.ModuleConfig(
+			loader.ConfigValue(
+				'delete',
+				False,
+				doc=lambda: self.strings("delete_msg"),
+				validator=loader.validators.Boolean(),)
+		)
 
 	async def emogocmd(self, message: Message):
 		"""- вкл/выкл режим Emotions"""
 
 		cid = str(utils.get_chat_id(message))
-
 		if cid in self.chats:
 			self.chats.remove(cid)
 			await utils.answer(message, self.strings("off"))
 		else:
 			self.chats += [cid]
 			await utils.answer(message, self.strings("on"))
-
 		self.set("active", self.chats)
 
 	async def emoclearcmd(self, message: Message):
 		"""<y> - сбросить список эмоций до зоводских"""
 
 		args = utils.get_args_raw(message)
-
 		if args == "y":
 			await self.allmodules.commands["e"](
 				await utils.answer(message, f"{self.get_prefix()}e db.pop('EmotionsMod')")
@@ -88,8 +91,6 @@ class EmotionsMod(loader.Module):
 			await utils.answer(message, "<emoji document_id=5370842086658546991>☠️</emoji> <b>Список эмоций успешно сброшен до зоводских настроек\nПожалуйста, загрузите модуль еще раз.</b>")
 		else:
 			await utils.answer(message, '<emoji document_id=5370842086658546991>☠️</emoji> <b>Вы не подтвердили удаление!</b>')
-
-
 
 	async def emolistcmd(self, message: Message):
 		"""- вывести список доступных эмоций"""
@@ -103,12 +104,10 @@ class EmotionsMod(loader.Module):
 			),
 		)
 
-
 	async def emocmd(self, message: Message):
 		"""<символ|слово> <эмоция> - добавить эмоцию в базу"""
 
 		args = utils.get_args_raw(message)
-
 		try:
 			simvol = args.split(" ", 1)[0]
 			emotion = args.split(" ", 1)[1]
@@ -126,9 +125,6 @@ class EmotionsMod(loader.Module):
 		self.emo[simvol] = emotion
 		self.set("emo", self.emo)
 		await utils.answer(message, self.strings("ok"))
-
-
-
 
 	async def watcher(self, message: Message):
 		cid = str(utils.get_chat_id(message))
@@ -158,7 +154,6 @@ class EmotionsMod(loader.Module):
 			pass
 
 		sender = await self._client.get_entity(message.sender_id)
-
 		if utils.emoji_pattern.match(next(grapheme.graphemes(msg))):
 			msg = list(grapheme.graphemes(msg))
 			emoji = msg[0]
@@ -166,6 +161,8 @@ class EmotionsMod(loader.Module):
 		else:
 			emoji = "<emoji document_id=5373230475022179039>🥺</emoji>"
 
+		if self.config['delete'] == True:
+			await message.delete()
 		await utils.answer(
 			message, 
 			f'{emoji} <a href="tg://user?id={sender.id}">{utils.escape_html(sender.first_name)}</a> <b>{utils.escape_html(msg)}</b> {emoji}')
