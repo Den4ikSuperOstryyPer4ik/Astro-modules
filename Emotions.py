@@ -15,11 +15,11 @@ __version__ = (1, 0, 0)
 #       🔒 Licensed under the GNU AGPLv3
 #    https://www.gnu.org/licenses/agpl-3.0.html
 # meta developer: @AstroModules, @hikarimods
-
+from .. import loader, utils
 import grapheme
 from telethon.tl.types import Message
 
-from .. import loader, utils
+
 
 @loader.tds
 class EmotionsMod(loader.Module):
