@@ -64,7 +64,7 @@ class EmotionsMod(loader.Module):
 		self.config = loader.ModuleConfig(
 			loader.ConfigValue(
 				'delete',
-				False,
+				True,
 				doc=lambda: self.strings("delete_msg"),
 				validator=loader.validators.Boolean(),)
 		)
