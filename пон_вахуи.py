@@ -23,7 +23,6 @@ from ..inline.types import InlineCall
 from telethon.tl.types import Message
 from .. import loader
 
-
 @loader.tds
 class ПонВахуиMod(loader.Module):
     """пон и вахуи"""
