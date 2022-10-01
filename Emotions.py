@@ -1,4 +1,3 @@
-__version__ = (1, 0, 0)
 #               _             __  __           _       _
 #     /\       | |           |  \/  |         | |     | |
 #    /  \   ___| |_ _ __ ___ | \  / | ___   __| |_   _| | ___  ___
@@ -15,11 +14,10 @@ __version__ = (1, 0, 0)
 #       🔒 Licensed under the GNU AGPLv3
 #    https://www.gnu.org/licenses/agpl-3.0.html
 # meta developer: @AstroModules, @hikarimods
+
 from .. import loader, utils
 import grapheme
 from telethon.tl.types import Message
-
-
 
 @loader.tds
 class EmotionsMod(loader.Module):
@@ -59,6 +57,8 @@ class EmotionsMod(loader.Module):
 				"🥺": "🥺 считает что это мило",
 			},
 		)
+		self.chats = self.get("active", [])
+
 
 	def __init__(self):
 		self.config = loader.ModuleConfig(
@@ -73,18 +73,21 @@ class EmotionsMod(loader.Module):
 		"""- вкл/выкл режим Emotions"""
 
 		cid = str(utils.get_chat_id(message))
+
 		if cid in self.chats:
 			self.chats.remove(cid)
 			await utils.answer(message, self.strings("off"))
 		else:
 			self.chats += [cid]
 			await utils.answer(message, self.strings("on"))
+
 		self.set("active", self.chats)
 
 	async def emoclearcmd(self, message: Message):
 		"""<y> - сбросить список эмоций до зоводских"""
 
 		args = utils.get_args_raw(message)
+
 		if args == "y":
 			await self.allmodules.commands["e"](
 				await utils.answer(message, f"{self.get_prefix()}e db.pop('EmotionsMod')")
@@ -92,6 +95,8 @@ class EmotionsMod(loader.Module):
 			await utils.answer(message, "<emoji document_id=5370842086658546991>☠️</emoji> <b>Список эмоций успешно сброшен до зоводских настроек\nПожалуйста, загрузите модуль еще раз.</b>")
 		else:
 			await utils.answer(message, '<emoji document_id=5370842086658546991>☠️</emoji> <b>Вы не подтвердили удаление!</b>')
+
+
 
 	async def emolistcmd(self, message: Message):
 		"""- вывести список доступных эмоций"""
@@ -105,10 +110,12 @@ class EmotionsMod(loader.Module):
 			),
 		)
 
+
 	async def emocmd(self, message: Message):
 		"""<символ|слово> <эмоция> - добавить эмоцию в базу"""
 
 		args = utils.get_args_raw(message)
+
 		try:
 			simvol = args.split(" ", 1)[0]
 			emotion = args.split(" ", 1)[1]
@@ -126,6 +133,9 @@ class EmotionsMod(loader.Module):
 		self.emo[simvol] = emotion
 		self.set("emo", self.emo)
 		await utils.answer(message, self.strings("ok"))
+
+
+
 
 	async def watcher(self, message: Message):
 		cid = str(utils.get_chat_id(message))
@@ -155,6 +165,7 @@ class EmotionsMod(loader.Module):
 			pass
 
 		sender = await self._client.get_entity(message.sender_id)
+
 		if utils.emoji_pattern.match(next(grapheme.graphemes(msg))):
 			msg = list(grapheme.graphemes(msg))
 			emoji = msg[0]
