@@ -154,7 +154,7 @@ class RandomTrackMod(loader.Module):
 				await message.delete()
 		if args == "n":
 			await utils.answer(message, "<emoji document_id=5219806684066618617>🫠</emoji> <b>Подбираем трек...</b>")
-			nst = random.choice(await self.client.get_messages(nstt, limit=30))
+			nst = random.choice(await self.client.get_messages(nstt, limit=200))
 			await message.respond(file=nst)
 			if message.out:
 				await message.delete()
