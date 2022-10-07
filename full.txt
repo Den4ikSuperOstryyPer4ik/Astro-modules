@@ -12,3 +12,4 @@ TwinkManager
 RandomTrack
 Emotions
 dialogs_manager
+YandexMusic
