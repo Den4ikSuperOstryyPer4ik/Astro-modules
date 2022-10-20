@@ -37,9 +37,7 @@ logger = logging.getLogger(__name__)
 
 @loader.tds
 class TxAFKMod(loader.Module):
-	"""Афк модуль от AstroModules с изменением био и имени
-
-	🚀 version: 1.0"""
+	"""Афк модуль от AstroModules с изменением био и имени"""
 
 	async def client_ready(self, client, db):
 		self._db = db
@@ -101,13 +99,13 @@ class TxAFKMod(loader.Module):
 
 
 	async def txcfgcmd(self, message):
-		"""Конфиг модуля"""
+		"""- открыть конфиг модуля"""
 		await self.allmodules.commands["config"](
 					await utils.answer(message, f"{self.get_prefix()}config TxAFK")
 				)
 
 	async def goafkcmd(self, message):
-		"""Войти в AFK режим"""
+		"""- войти в AFK режим"""
 		try:
 			user_id = (
 				(
@@ -143,7 +141,7 @@ class TxAFKMod(loader.Module):
 		await message.client(UpdateProfileRequest(last_name=lastname))
 
 	async def ungoafkcmd(self, message):
-		"""Выйти из режима AFK"""
+		"""- выйти из режима AFK"""
 		msg = await utils.answer(message, '<emoji document_id=5213107179329953547>⏰</emoji> <b>Отключаю режим АФК...</b>')
 		sbio = self.config['standart_bio']
 		lastname0 = self.strings('lname0')
