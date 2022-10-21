@@ -1,4 +1,4 @@
-__version__ = (1, 4, 0)
+__version__ = (1, 4, 1)
 #                _             __  __           _       _                
 #      /\       | |           |  \/  |         | |     | |               
 #     /  \   ___| |_ _ __ ___ | \  / | ___   __| |_   _| | ___  ___      
@@ -24,13 +24,11 @@ import logging
 import datetime
 import time
 
-from telethon import functions, types
+from telethon import types
 
 from ..inline.types import InlineCall
-from telethon.tl.types import Message
 from telethon.tl.functions.users import GetFullUserRequest
-from telethon.errors.rpcerrorlist import UsernameOccupiedError
-from telethon.tl.functions.account import UpdateProfileRequest, UpdateUsernameRequest
+from telethon.tl.functions.account import UpdateProfileRequest
 
 logger = logging.getLogger(__name__)
 
@@ -122,7 +120,6 @@ class TxAFKMod(loader.Module):
 			user_id = self._tg_id
 
 		user = await self._client(GetFullUserRequest(user_id))
-		user_ent = user.users[0]
 		
 		self._db.set(__name__, "afk", True)
 		self._db.set(__name__, "gone", time.time())
