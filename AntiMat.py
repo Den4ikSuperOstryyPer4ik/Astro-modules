@@ -1,4 +1,4 @@
-__version__ = (1, 2, 0)
+__version__ = (1, 2, 1)
 #                _             __  __           _       _                
 #      /\       | |           |  \/  |         | |     | |               
 #     /  \   ___| |_ _ __ ___ | \  / | ___   __| |_   _| | ___  ___      
@@ -19,9 +19,8 @@ __version__ = (1, 2, 0)
 from .. import loader, utils
 from telethon.tl.types import Message
 
-
 class AntiMatMod(loader.Module):
-	'''Модуль, который не даст вам сматериться)'''
+	'''Будьте культурным человеком, не материтесь'''
 
 	strings = {
 		"name": "Анти-Мат",
@@ -38,7 +37,6 @@ class AntiMatMod(loader.Module):
 		"list_txt": "Здесь вы можете добавить свои маты.\np.s.: добавляйте по одному мату",
 	}
 
-
 	def __init__(self):
 		self.config = loader.ModuleConfig(
 			loader.ConfigValue(
@@ -49,10 +47,9 @@ class AntiMatMod(loader.Module):
 			),
 		)
 
-
 	@loader.command()
 	async def antimat(self, message: Message):
-		'''- активировать или диактивировать режим АнтиМат'''
+		'''- активировать или диактивировать АнтиМат'''
 		antimat = self.db.get(
 			"am_status",
 			"antimat",
@@ -68,9 +65,7 @@ class AntiMatMod(loader.Module):
 
 	@loader.command()
 	async def matlist(self, message: Message):
-		"""- дополнить список матов
-
-		🤫 Автор модуля не очень любит материться. В связи с этим в конфиге может не быть некоторых матов которые вы часто используете."""
+		"""- открыть список матов"""
 		await self.allmodules.commands["config"](
 					await utils.answer(message, f"{self.get_prefix()}config Анти-Мат")
 				)
