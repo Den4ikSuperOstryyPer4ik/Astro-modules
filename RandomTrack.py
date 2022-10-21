@@ -1,4 +1,4 @@
-__version__ = (1, 3, 0)
+__version__ = (1, 3, 1)
 #                _             __  __           _       _                
 #      /\       | |           |  \/  |         | |     | |               
 #     /  \   ___| |_ _ __ ___ | \  / | ___   __| |_   _| | ___  ___      
@@ -33,7 +33,7 @@ class RandomTrackMod(loader.Module):
 		self.config = loader.ModuleConfig(
 			loader.ConfigValue(
 				"playlist",
-				"shyshomuz",
+				None,
 				doc=lambda: "Введите юзер своего канала с музыкой",
 			),
 			loader.ConfigValue(
@@ -81,9 +81,8 @@ class RandomTrackMod(loader.Module):
 		  <p> - популярная музыка
 		  <n> - ностальгические треки
 		  <my> - треки из вашего плейлиста
-		  <e> - ...
 
-		🤫 По желанию в конфиге можно установить свои каналы откуда будет выбираться музыка"""
+		🤫 По желанию, в конфиге, можно указать свои каналы откуда будет отбираться музыка"""
 
 		args = utils.get_args_raw(message)                  
 		afonks = self.config['fonks']           
@@ -146,12 +145,6 @@ class RandomTrackMod(loader.Module):
 			if message.out:
 				await message.delete()
 				
-		if args == "e":
-			await utils.answer(message, "<emoji document_id=5219806684066618617>🫠</emoji> <b>Подбираем трек...</b>")
-			eee = random.choice(await self.client.get_messages(eeee, limit=30))
-			await message.respond(file=eee)
-			if message.out:
-				await message.delete()
 		if args == "n":
 			await utils.answer(message, "<emoji document_id=5219806684066618617>🫠</emoji> <b>Подбираем трек...</b>")
 			nst = random.choice(await self.client.get_messages(nstt, limit=200))
