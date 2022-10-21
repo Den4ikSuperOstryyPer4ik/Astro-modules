@@ -1,4 +1,4 @@
-__version__ = (1, 0, 0)
+__version__ = (1, 0, 1)
 #                _             __  __           _       _                
 #      /\       | |           |  \/  |         | |     | |               
 #     /  \   ___| |_ _ __ ___ | \  / | ___   __| |_   _| | ___  ___      
@@ -43,4 +43,4 @@ class YaMusicMod(loader.Module):
 				await message.client.send_file(message.to_id, music[1].result.document, reply_to=reply.id if r else None) 
 			except:
 				await message.client.send_file(message.to_id, music[3].result.document, reply_to=reply.id if r else None) 
-		except: return await message.client.send_message(message.chat_id, f"<b>Нам не удалось найти трек с названием <code>{args}</code><b>")
+		except: return await message.client.send_message(message.chat_id, f"<b>😔 Нам не удалось найти трек с названием <code>{args}</code><b>")
