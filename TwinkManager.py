@@ -1,4 +1,4 @@
-__version__ = (1, 3, 0)
+__version__ = (1, 3, 1)
 #                _             __  __           _       _                
 #      /\       | |           |  \/  |         | |     | |               
 #     /  \   ___| |_ _ __ ___ | \  / | ___   __| |_   _| | ___  ___      
@@ -415,59 +415,7 @@ class TwinkManagerMod(loader.Module):
 				o = await utils.answer(m, f'{p3}{ld}')
 				await utils.answer(o, '<emoji document_id=5213442551851262055>✔️</emoji> <b>Готово</b>')
 
-	@loader.command()
-	async def t(self, message: Message):
-		""" <command> - выполнить какую-то другую команду на твинках"""
-
-
-		p1 = self.config['prefix_1']
-		p2 = self.config['prefix_2']
-		p3 = self.config['prefix_3']
-		full = self.db.get(__name__, "allAcc")
-		args = utils.get_args_raw(message)
-		command = args.split(" ", 1)[0]
-		msg = args.split(" ", 1)[1]
-
-		if full == True:
-			tp2 = self.db.get(__name__, "prefixN2")
-			tp3 = self.db.get(__name__, "prefixN3")
-
-			if tp3 == False:
-				if tp2 == False:
-					m = await utils.answer(message, f'{p1}{command}{msg}')
-					await self.allmodules.commands[f"{command}"](
-						await utils.answer(m, f"{self.get_prefix()}{command} {msg}")
-					)
-				else:
-					m = await utils.answer(message, f'{p1}{command} {msg}')
-					n = await utils.answer(m, f'{p2}{command} {msg}')
-					await self.allmodules.commands[f"{command}"](
-						await utils.answer(n, f"{self.get_prefix()}{command} {msg}")
-					)
-			else:
-				m = await utils.answer(message, f'{p1}{command} {msg}')
-				n = await utils.answer(m, f'{p2}{command} {msg}')
-				o = await utils.answer(m, f'{p3}{command} {msg}')
-				await self.allmodules.commands[f"{command}"](
-					await utils.answer(o, f"{self.get_prefix()}{command} {msg}")
-				)
-		else:
-			tp2 = self.db.get(__name__, "prefixN2")
-			tp3 = self.db.get(__name__, "prefixN3")
-			if tp3 == False:
-				if tp2 == False:
-					m = await utils.answer(message, f'{p1}{args}')
-					await utils.answer(m, '<emoji document_id=5213442551851262055>✔️</emoji> <b>Готово</b>')
-				else:
-					m = await utils.answer(message, f'{p1}{args}')
-					n = await utils.answer(m, f'{p2}{args}')
-					await utils.answer(n, '<emoji document_id=5213442551851262055>✔️</emoji> <b>Готово</b>')
-			else:
-				m = await utils.answer(message, f'{p1}{args}')
-				n = await utils.answer(m, f'{p2}{args}')
-				o = await utils.answer(m, f'{p3}{args}')
-				await utils.answer(o, '<emoji document_id=5213442551851262055>✔️</emoji> <b>Готово</b>')
-
+	
 	@loader.watcher()
 	async def watcher(self, message: Message):
 		if self.config['prefix_2'] == None:
