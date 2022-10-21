@@ -33,7 +33,7 @@ class EmotionsMod(loader.Module):
 		'list': "<emoji document_id=5373230475022179039>🥺</emoji> Доступные эмоции:\n\n{}\n\n<emoji document_id=5467928559664242360>❗️</emoji> Для добавления своих эмоций введите команду:\n    <code>.emo</code> <символ/слово> <эмоция>",
 	}
 
-	async def client_ready(self, client, db):
+	async def client_ready(self):
 		self.emo = self.get(
 			"emo",
 			{
