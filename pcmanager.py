@@ -17,7 +17,6 @@ __version__ = (1, 0, 0)
 #
 # meta developer: @AstroModules
 
-
 from .. import loader, utils
 
 from telethon.tl.types import Message
