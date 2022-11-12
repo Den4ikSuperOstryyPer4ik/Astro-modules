@@ -1,4 +1,4 @@
-__version__ = (1, 4, 1)
+__version__ = (1, 4, 2)
 #                _             __  __           _       _                
 #      /\       | |           |  \/  |         | |     | |               
 #     /  \   ___| |_ _ __ ___ | \  / | ___   __| |_   _| | ___  ___      
@@ -74,21 +74,32 @@ class TxAFKMod(loader.Module):
 				"None",
 				doc=lambda: self.strings("standart_bio_text"),
 			),
-            loader.ConfigValue(
-                "custom_button",
-                [
-                    "🦄 AstroModules 🦄",
-                    "https://t.me/AstroModulesChat",
-                ],
-                lambda: self.strings("_cfg_cst_btn"),
-                validator=loader.validators.Union(
-                    loader.validators.Series(fixed_len=2),
-                    loader.validators.NoneType(),
+			loader.ConfigValue(
+				"custom_button",
+				[
+					"🦄 AstroModules 🦄",
+					"https://t.me/AstroModulesChat",
+				],
+				lambda: self.strings("_cfg_cst_btn"),
+				validator=loader.validators.Union(
+					loader.validators.Series(fixed_len=2),
+					loader.validators.NoneType(),
+				),
+			),
+			loader.ConfigValue(
+				"ignore_chats",
+				[],
+				lambda: "Чаты, в которых при упоминании TxAFК не будет срабатывать",
+				validator=loader.validators.Series(
+                    validator=loader.validators.Union(
+                        loader.validators.TelegramID(),
+                        loader.validators.RegExp("[0-9]"),
+                    ),
                 ),
-            ),
+			),
 			loader.ConfigValue(
 				"button",
-				False,
+				True,
 				doc=lambda: self.strings("button__text"),
 				validator=loader.validators.Boolean(),
 			)
@@ -172,6 +183,8 @@ class TxAFKMod(loader.Module):
 
 	async def watcher(self, message):
 		if not isinstance(message, types.Message):
+			return
+		if message.chat.id in self.config['ignore_chats']: 
 			return
 		if message.mentioned or getattr(message.to_id, "user_id", None) == self._me.id:
 			afk_state = self.get_afk()
