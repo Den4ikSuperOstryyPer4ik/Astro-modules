@@ -184,6 +184,8 @@ class TxAFKMod(loader.Module):
 	async def watcher(self, message):
 		if not isinstance(message, types.Message):
 			return
+		if utils.get_chat_id(message) in self.config['ignore_chats']: 
+			return
 		if message.mentioned or getattr(message.to_id, "user_id", None) == self._me.id:
 			afk_state = self.get_afk()
 			if not afk_state:
