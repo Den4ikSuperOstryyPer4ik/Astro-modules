@@ -245,47 +245,62 @@ class PCManagerMod(loader.Module):
 	async def nazad(self, call: InlineCall):
 		bot = self.config['bot_username']
 		await self.client.send_message(f'{bot}', '/key__prev')
+		return await call.answer("Успешно!", show_alert=False)
 	async def pausa(self, call: InlineCall):
 		bot = self.config['bot_username']
 		await self.client.send_message(f'{bot}', '/key__play')
+		return await call.answer("Успешно!", show_alert=False)
 	async def vpered(self, call: InlineCall):
 		bot = self.config['bot_username']
 		await self.client.send_message(f'{bot}', '/key__next')
+		return await call.answer("Успешно!", show_alert=False)
 	async def vol10(self, call: InlineCall):
 		bot = self.config['bot_username']
 		await self.client.send_message(f'{bot}', '/volume 10')
+		return await call.answer("Успешно!", show_alert=False)
 	async def vol20(self, call: InlineCall):
 		bot = self.config['bot_username']
 		await self.client.send_message(f'{bot}', '/volume 20')
+		return await call.answer("Успешно!", show_alert=False)
 	async def vol30(self, call: InlineCall):
 		bot = self.config['bot_username']
 		await self.client.send_message(f'{bot}', '/volume 30')
+		return await call.answer("Успешно!", show_alert=False)
 	async def vol40(self, call: InlineCall):
 		bot = self.config['bot_username']
 		await self.client.send_message(f'{bot}', '/volume 40')
+		return await call.answer("Успешно!", show_alert=False)
 	async def vol50(self, call: InlineCall):
 		bot = self.config['bot_username']
 		await self.client.send_message(f'{bot}', '/volume 50')
+		return await call.answer("Успешно!", show_alert=False)
 	async def vol60(self, call: InlineCall):
 		bot = self.config['bot_username']
 		await self.client.send_message(f'{bot}', '/volume 60')
+		return await call.answer("Успешно!", show_alert=False)
 	async def vol70(self, call: InlineCall):
 		bot = self.config['bot_username']
 		await self.client.send_message(f'{bot}', '/volume 70')
+		return await call.answer("Успешно!", show_alert=False)
 	async def vol80(self, call: InlineCall):
 		bot = self.config['bot_username']
 		await self.client.send_message(f'{bot}', '/volume 80')
+		return await call.answer("Успешно!", show_alert=False)
 	async def vol90(self, call: InlineCall):
 		bot = self.config['bot_username']
 		await self.client.send_message(f'{bot}', '/volume 90')
+		return await call.answer("Успешно!", show_alert=False)
 	async def vol100(self, call: InlineCall):
 		bot = self.config['bot_username']
 		await self.client.send_message(f'{bot}', '/volume 100')
+		return await call.answer("Успешно!", show_alert=False)
 	async def volUp(self, call: InlineCall):
 		bot = self.config['bot_username']
 		await self.client.send_message(f'{bot}', '/volume up')
+		return await call.answer("Успешно!", show_alert=False)
 	async def volDown(self, call: InlineCall):
 		bot = self.config['bot_username']
 		await self.client.send_message(f'{bot}', '/volume down')
+		return await call.answer("Успешно!", show_alert=False)
 
 																			# Tx...
