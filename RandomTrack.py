@@ -1,4 +1,4 @@
-__version__ = (1, 4, 0)
+__version__ = (1, 4, 1)
 #                _             __  __           _       _                
 #      /\       | |           |  \/  |         | |     | |               
 #     /  \   ___| |_ _ __ ___ | \  / | ___   __| |_   _| | ___  ___      
@@ -98,62 +98,62 @@ class RandomTrackMod(loader.Module):
 		if not args:
 			await utils.answer(message, "<emoji document_id=5219806684066618617>🫠</emoji> <b>Подбираем трек...</b>")
 			music = random.choice([msg async for msg in self.client.iter_messages(agroup, limit=1000, filter=InputMessagesFilterMusic)])
-			await message.respond(file=music)
+			await message.respond(file=music, reply_to=utils.get_topic(message))
 			if message.out:
 				await message.delete()
 
 		if args == "f":
 			await utils.answer(message, "<emoji document_id=5219806684066618617>🫠</emoji> <b>Подбираем фонк...</b>")
 			fonk = random.choice([msg async for msg in self.client.iter_messages(afonks, limit=100, filter=InputMessagesFilterMusic)])
-			await message.respond(file=fonk)
+			await message.respond(file=fonk, reply_to=utils.get_topic(message))
 			if message.out:
 				await message.delete()
 
 		if args == "s":
 			await utils.answer(message, "<emoji document_id=5219806684066618617>🫠</emoji> <b>Подбираем грустный трек...</b>")
 			depr = random.choice([msg async for msg in self.client.iter_messages(asad, limit=100, filter=InputMessagesFilterMusic)])
-			await message.respond(file=depr)
+			await message.respond(file=depr, reply_to=utils.get_topic(message))
 			if message.out:
 				await message.delete()
 
 		if args == "h":
 			await utils.answer(message, "<emoji document_id=5219806684066618617>🫠</emoji> <b>Подбираем хайперпоп...</b>")
 			hyper = random.choice([msg async for msg in self.client.iter_messages(ahpop, limit=100, filter=InputMessagesFilterMusic)])
-			await message.respond(file=hyper)
+			await message.respond(file=hyper, reply_to=utils.get_topic(message))
 			if message.out:
 				await message.delete()
 
 		if args == "r":
 			await utils.answer(message, "<emoji document_id=5219806684066618617>🫠</emoji> <b>Подбираем ремикс...</b>")
 			remix = random.choice([msg async for msg in self.client.iter_messages(armx, limit=100, filter=InputMessagesFilterMusic)])
-			await message.respond(file=remix)
+			await message.respond(file=remix, reply_to=utils.get_topic(message))
 			if message.out:
 				await message.delete()
 
 		if args == "m":
 			await utils.answer(message, "<emoji document_id=5219806684066618617>🫠</emoji> <b>Подбираем трек...</b>")
 			mem = random.choice([msg async for msg in self.client.iter_messages(amems, limit=100, filter=InputMessagesFilterMusic)])
-			await message.respond(file=mem)
+			await message.respond(file=mem, reply_to=utils.get_topic(message))
 			if message.out:
 				await message.delete()
 
 		if args == "p":
 			await utils.answer(message, "<emoji document_id=5219806684066618617>🫠</emoji> <b>Подбираем трек...</b>")
 			pop = random.choice([msg async for msg in self.client.iter_messages(apop, limit=100, filter=InputMessagesFilterMusic)])
-			await message.respond(file=pop)
+			await message.respond(file=pop, reply_to=utils.get_topic(message))
 			if message.out:
 				await message.delete()
 				
 		if args == "n":
 			await utils.answer(message, "<emoji document_id=5219806684066618617>🫠</emoji> <b>Подбираем трек...</b>")
 			nst = random.choice([msg async for msg in self.client.iter_messages(nstt, limit=200, filter=InputMessagesFilterMusic)])
-			await message.respond(file=nst)
+			await message.respond(file=nst, reply_to=utils.get_topic(message))
 			if message.out:
 				await message.delete()
 
 		if args == "my":
 			await utils.answer(message, "<emoji document_id=5219806684066618617>🫠</emoji> <b>Подбираем трек с вашего плейлиста...</b>")
 			my = random.choice([msg async for msg in self.client.iter_messages(aplaylist, limit=100, filter=InputMessagesFilterMusic)])
-			await message.respond(file=my)
+			await message.respond(file=my, reply_to=utils.get_topic(message))
 			if message.out:
 				await message.delete()
