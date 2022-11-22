@@ -1,4 +1,4 @@
-__version__ = (1, 4, 0)
+__version__ = (1, 4, 1)
 #                _             __  __           _       _                
 #      /\       | |           |  \/  |         | |     | |               
 #     /  \   ___| |_ _ __ ___ | \  / | ___   __| |_   _| | ___  ___      
@@ -19,7 +19,6 @@ __version__ = (1, 4, 0)
 from .. import loader, utils
 
 import random
-
 from telethon.tl.types import Message, InputMessagesFilterMusic
 
 @loader.tds
