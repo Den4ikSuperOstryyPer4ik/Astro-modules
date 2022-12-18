@@ -74,5 +74,6 @@ class VideoToVoice(loader.Module):
 		
 		path = self.get_audio((await msg_media.download_media()))
 		await self.client.send_file(message.chat.id, path, attributes=[telethon.tl.types.DocumentAttributeAudio(duration=(self.get_duration(msg_media.media.document.attributes)), voice=True, title=None, performer=None, waveform=None)])
+                os.remove(path)
 		if msg.out: await msg.delete()
 		return
