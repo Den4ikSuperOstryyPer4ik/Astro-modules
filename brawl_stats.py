@@ -18,7 +18,7 @@
 # meta pic: None
 # meta banner: None
 # scope: hikka_only
-# requires: brawlstats requests json
+# requires: brawlstats
 
 import brawlstats as bs
 import requests
