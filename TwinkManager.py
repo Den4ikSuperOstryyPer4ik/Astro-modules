@@ -367,7 +367,7 @@ class TwinkManagerMod(loader.Module):
 
 	@loader.command()
 	async def tloadmod(self, message: Message):
-		""" <reply> - заугрзить файл модуля на аккаунты"""
+		""" <reply> - загрузить файл модуля на аккаунты"""
 
 		ld = 'loadmod'
 		p1 = self.config['prefix_1']
