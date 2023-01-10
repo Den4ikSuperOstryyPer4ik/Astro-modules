@@ -96,63 +96,63 @@ class RandomTrackMod(loader.Module):
 
 		if not args:
 			await utils.answer(message, "<emoji document_id=5219806684066618617>🫠</emoji> <b>Подбираем трек...</b>")
-			music = random.choice([msg async for msg in self.client.iter_messages(agroup, limit=1000, filter=InputMessagesFilterMusic)])
+			music = random.choice([msg async for msg in self.client.iter_messages(agroup, limit=1000, filter=InputMessagesFilterMusic, reply_to=utils.get_topic(message))])
 			await message.respond(file=music)
 			if message.out:
 				await message.delete()
 
 		if args == "f":
 			await utils.answer(message, "<emoji document_id=5219806684066618617>🫠</emoji> <b>Подбираем фонк...</b>")
-			fonk = random.choice([msg async for msg in self.client.iter_messages(afonks, limit=100, filter=InputMessagesFilterMusic)])
+			fonk = random.choice([msg async for msg in self.client.iter_messages(afonks, limit=100, filter=InputMessagesFilterMusic, reply_to=utils.get_topic(message))])
 			await message.respond(file=fonk)
 			if message.out:
 				await message.delete()
 
 		if args == "s":
 			await utils.answer(message, "<emoji document_id=5219806684066618617>🫠</emoji> <b>Подбираем грустный трек...</b>")
-			depr = random.choice([msg async for msg in self.client.iter_messages(asad, limit=100, filter=InputMessagesFilterMusic)])
+			depr = random.choice([msg async for msg in self.client.iter_messages(asad, limit=100, filter=InputMessagesFilterMusic, reply_to=utils.get_topic(message))])
 			await message.respond(file=depr)
 			if message.out:
 				await message.delete()
 
 		if args == "h":
 			await utils.answer(message, "<emoji document_id=5219806684066618617>🫠</emoji> <b>Подбираем хайперпоп...</b>")
-			hyper = random.choice([msg async for msg in self.client.iter_messages(ahpop, limit=100, filter=InputMessagesFilterMusic)])
+			hyper = random.choice([msg async for msg in self.client.iter_messages(ahpop, limit=100, filter=InputMessagesFilterMusic, reply_to=utils.get_topic(message))])
 			await message.respond(file=hyper)
 			if message.out:
 				await message.delete()
 
 		if args == "r":
 			await utils.answer(message, "<emoji document_id=5219806684066618617>🫠</emoji> <b>Подбираем ремикс...</b>")
-			remix = random.choice([msg async for msg in self.client.iter_messages(armx, limit=100, filter=InputMessagesFilterMusic)])
+			remix = random.choice([msg async for msg in self.client.iter_messages(armx, limit=100, filter=InputMessagesFilterMusic, reply_to=utils.get_topic(message))])
 			await message.respond(file=remix)
 			if message.out:
 				await message.delete()
 
 		if args == "m":
 			await utils.answer(message, "<emoji document_id=5219806684066618617>🫠</emoji> <b>Подбираем трек...</b>")
-			mem = random.choice(await self.client.get_messages(amems, limit=100))
+			mem = random.choice(await self.client.get_messages(amems, limit=100, reply_to=utils.get_topic(message)))
 			await message.respond(file=mem)
 			if message.out:
 				await message.delete()
 
 		if args == "p":
 			await utils.answer(message, "<emoji document_id=5219806684066618617>🫠</emoji> <b>Подбираем трек...</b>")
-			pop = random.choice([msg async for msg in self.client.iter_messages(apop, limit=100, filter=InputMessagesFilterMusic)])
+			pop = random.choice([msg async for msg in self.client.iter_messages(apop, limit=100, filter=InputMessagesFilterMusic, reply_to=utils.get_topic(message))])
 			await message.respond(file=pop)
 			if message.out:
 				await message.delete()
 				
 		if args == "n":
 			await utils.answer(message, "<emoji document_id=5219806684066618617>🫠</emoji> <b>Подбираем трек...</b>")
-			nst = random.choice([msg async for msg in self.client.iter_messages(nstt, limit=200, filter=InputMessagesFilterMusic)])
+			nst = random.choice([msg async for msg in self.client.iter_messages(nstt, limit=200, filter=InputMessagesFilterMusic, reply_to=utils.get_topic(message))])
 			await message.respond(file=nst)
 			if message.out:
 				await message.delete()
 
 		if args == "my":
 			await utils.answer(message, "<emoji document_id=5219806684066618617>🫠</emoji> <b>Подбираем трек с вашего плейлиста...</b>")
-			my = random.choice([msg async for msg in self.client.iter_messages(aplaylist, limit=100, filter=InputMessagesFilterMusic)])
+			my = random.choice([msg async for msg in self.client.iter_messages(aplaylist, limit=100, filter=InputMessagesFilterMusic, reply_to=utils.get_topic(message))])
 			await message.respond(file=my)
 			if message.out:
 				await message.delete()
