@@ -112,7 +112,7 @@ class AstroAfkMod(loader.Module):
 			loader.ConfigValue(
 				"ignore_chats",
 				[],
-				lambda: "Чаты, в которых TxAFК не будет срабатывать",
+				lambda: "Чаты, в которых AstroAfk не будет срабатывать",
 				validator=loader.validators.Series(
                     validator=loader.validators.Union(
                         loader.validators.TelegramID(),
