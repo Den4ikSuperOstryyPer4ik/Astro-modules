@@ -146,7 +146,7 @@ class AstroAfkMod(loader.Module):
 
 	@loader.command()
 	async def asst(self, message):
-		"""- открыть найстройки модуля"""
+		"""- открыть настройки модуля"""
 		
 		await self.inline.form(message=message, text='<b>⚙️ Открыть настройки</b>', reply_markup=[{'text': '🔴 Открыть', 'callback': self.settings}])
 
