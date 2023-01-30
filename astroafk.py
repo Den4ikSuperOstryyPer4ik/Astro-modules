@@ -42,7 +42,6 @@ class AstroAfkMod(loader.Module):
 		"name": "AstroAFK",
 
 		"lname": "| afk.",
-		"lname0": " ",
 
 		"bt_off_afk": "🚫 <b>АФК</b> режим <b>отключен</b>!",
 
