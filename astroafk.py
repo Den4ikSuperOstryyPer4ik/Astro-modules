@@ -353,7 +353,7 @@ class AstroAfkMod(loader.Module):
 
 		if change_bio == True:
 			try:
-				await self._client(UpdateProfileRequest(about=f'{self.db.get(__name__, "about")}'))
+				await self._client(UpdateProfileRequest(about=self.db.get(__name__, "about")))
 			except:
 				await self._.client(UpdateProfileRequest(about="@AstroOfftop - лучший чат для общения."))
 
