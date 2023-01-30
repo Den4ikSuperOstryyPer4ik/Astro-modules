@@ -69,7 +69,7 @@ class AstroAfkMod(loader.Module):
 			a_change_name = 'Нет'
 		fb = self.config['feedback_bot']
 		text = (
-			f'🥷🏼 <b>AstroAfk</b>\n'
+			f'🎆 <b>AstroAfk</b>\n'
 			f'├<b>{a_active}</b>\n'
 			f'<b>├Смена биографии:</b> <code>{a_change_bio}</code> 📖\n'
 			f'<b>├Смена префикса:</b> <code>{a_change_name}</code> 📝\n'
