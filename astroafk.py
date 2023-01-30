@@ -174,15 +174,10 @@ class AstroAfkMod(loader.Module):
 		self._db.set(__name__, "ratelimit", [])
 		change_bio = self._db.get(__name__, "change_bio")
 		change_name = self._db.get(__name__, "change_name")
-
-		try:
-			ls = user.full_user.last_name
-		except:
-			ls = ''
+		
 		about = user.full_user.about
 
 		self._db.set(__name__, 'about', about)
-		self._db.set(__name__, "ln", ls)
 
 		if change_name == False and change_bio == False:
 			await utils.answer(message, '<emoji document_id=5188391205909569136>✅</emoji> <b>АФК</b> режим был успешно <b>включен</b>!')
@@ -190,8 +185,7 @@ class AstroAfkMod(loader.Module):
 
 		if change_name == True:
 			prefix = self.config['prefix']
-			last_name = f'{ls} {prefix}'
-			await message.client(UpdateProfileRequest(last_name=last_name))
+			await message.client(UpdateProfileRequest(last_name=prefix))
 
 		if change_bio == True:
 			if self.config['feedback_bot'] == None:
@@ -219,8 +213,7 @@ class AstroAfkMod(loader.Module):
 			return
 
 		if change_name == True:
-			ls = self._db.get(__name__, 'ln')
-			await message.client(UpdateProfileRequest(last_name=ls))
+			await message.client(UpdateProfileRequest(last_name=' '))
 
 		if change_bio == True:
 			try:
@@ -350,8 +343,6 @@ class AstroAfkMod(loader.Module):
 		self._db.set(__name__, "ratelimit", [])
 		change_bio = self._db.get(__name__, "change_bio")
 		change_name = self._db.get(__name__, "change_name")
-		self._db.set(__name__, 'about', about)
-		self._db.set(__name__, "ln", ls)
 		await self.allmodules.log("TxAFК now not working.")
 
 		if change_name == False and change_bio == False:
@@ -359,8 +350,7 @@ class AstroAfkMod(loader.Module):
 			return
 
 		if change_name == True:
-			ls = self._db.get(__name__, 'ln')
-			await message.client(UpdateProfileRequest(last_name=ls))
+			await message.client(UpdateProfileRequest(last_name=' '))
 
 		if change_bio == True:
 			try:
