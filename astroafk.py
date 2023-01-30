@@ -44,8 +44,7 @@ class AstroAfkMod(loader.Module):
 		"lname": "| afk.",
 		"lname0": " ",
 
-		"bt_off_afk": "⚠️ АФК режим отключен",
-		"bt_on_afk": "💤 АФК режим снова активен",
+		"bt_off_afk": "🚫 <b>АФК</b> режим <b>отключен</b>!",
 
 		"_cfg_cst_btn": "Ссылка на чат, которая будет находиться под текстом АФК. Чтобы вовсе убрать, напишите None",
 		"feedback_bot__text": "Юзернейм вашего feedback бота. Если нету - не трогайте",
@@ -292,7 +291,7 @@ class AstroAfkMod(loader.Module):
 			else:
 				if self.config["button"] == False:
 					if self.config["custom_text__afk"] == None:
-						await self.inline.form(message=message, text=f"<b>🔅 Я сейчас нахожусь в АФК.</b>\n\nПоследний раз был в сети <code>{time}</code> назад.", reply_markup=[{"text": self.config['custom_button'][0], "url": self.config['custom_button'][1]}])
+						await self.inline.form(message=message, text=f"😴 Сейчас я в <b>АФК</b> режиме\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.", reply_markup=[{"text": self.config['custom_button'][0], "url": self.config['custom_button'][1]}])
 					else:
 						await self.inline.form(message=message, text=self._afk_custom_text(), reply_markup=[{"text": self.config['custom_button'][0], "url": self.config['custom_button'][1]}])
 				
