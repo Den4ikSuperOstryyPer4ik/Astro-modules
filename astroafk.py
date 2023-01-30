@@ -98,7 +98,7 @@ class AstroAfkMod(loader.Module):
 			loader.ConfigValue(
 				"custom_button",
 				[
-					"🦄 AstroModules 🦄",
+					"🎆 Astro Modules ✨",
 					"https://t.me/AstroModulesChat",
 				],
 				lambda: self.strings("_cfg_cst_btn"),
@@ -263,7 +263,7 @@ class AstroAfkMod(loader.Module):
 					if self.config["custom_text__afk"] == None:
 						await self.inline.form(
 							message=message, 
-							text=f"<b>🔅 Я сейчас нахожусь в АФК.</b>\n\nПоследний раз был в сети <code>{time}</code> назад.", 
+							text=f"<b>😴 Сейчас я в АФК режиме</b>\n\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.", 
 							reply_markup=[
 								[
 									{
@@ -308,7 +308,7 @@ class AstroAfkMod(loader.Module):
 								],
 								[
 									{
-										"text": "🚫 Выйти с афк 🚫", 
+										"text": "🥱 Выйти из АФК", 
 										"callback": self.button_cancel,
 									}
 								]
