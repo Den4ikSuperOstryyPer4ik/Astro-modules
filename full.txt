@@ -14,4 +14,4 @@ Emotions
 dialogs_manager
 YandexMusic
 pcmanager
-AstroAfk
+astroafk
