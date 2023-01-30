@@ -255,7 +255,7 @@ class AstroAfkMod(loader.Module):
 			if self.config['custom_button'] == None:
 				if self.config["button"] == False:
 					if self.config["custom_text__afk"] == None:
-						await self.inline.form(message=message, text=f"<b>🔅 Я сейчас нахожусь в АФК.</b>\n\nПоследний раз был в сети <code>{time}</code> назад.")
+						await self.inline.form(message=message, text=f"<b>😴 Сейчас я в АФК режиме</b>\n\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.")
 					else:
 						await self.inline.form(message=message, text=self._afk_custom_text())
 				
@@ -298,7 +298,7 @@ class AstroAfkMod(loader.Module):
 					if self.config["custom_text__afk"] == None:
 						await self.inline.form(
 							message=message, 
-							text=f"<b>🔅 Я сейчас нахожусь в АФК.</b>\n\nПоследний раз был в сети <code>{time}</code> назад.", 
+							text=f"<b>😴 Сейчас я в <b>АФК</b> режиме\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.", 
 							reply_markup=[
 								[
 									{
