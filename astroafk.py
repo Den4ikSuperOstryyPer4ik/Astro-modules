@@ -267,7 +267,7 @@ class AstroAfkMod(loader.Module):
 							reply_markup=[
 								[
 									{
-										"text": "🚫 Выйти с афк 🚫", 
+										"text": "🥱 Выйти из АФК", 
 										"callback": self.button_cancel,
 									}
 								]
@@ -281,7 +281,7 @@ class AstroAfkMod(loader.Module):
 							reply_markup=[
 								[
 									{
-										"text": "🚫 Выйти с афк 🚫", 
+										"text": "🥱 Выйти из АФК", 
 										"callback": self.button_cancel,
 									}
 								]
@@ -328,7 +328,7 @@ class AstroAfkMod(loader.Module):
 								],
 								[
 									{
-										"text": "🚫 Выйти с афк 🚫", 
+										"text": "🥱 Выйти из АФК", 
 										"callback": self.button_cancel,
 									}
 								]
