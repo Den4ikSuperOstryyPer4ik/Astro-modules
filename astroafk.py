@@ -69,7 +69,7 @@ class AstroAfkMod(loader.Module):
 			a_change_name = 'Нет'
 		fb = self.config['feedback_bot']
 		text = (
-			f'🥷🏼 <b>TxAFK</b>\n'
+			f'🥷🏼 <b>AstroAfk</b>\n'
 			f'├<b>{a_active}</b>\n'
 			f'<b>├Смена биографии:</b> <code>{a_change_bio}</code> 📖\n'
 			f'<b>├Смена префикса:</b> <code>{a_change_name}</code> 📝\n'
@@ -219,7 +219,7 @@ class AstroAfkMod(loader.Module):
 			except:
 				await message.client(UpdateProfileRequest(about="@AstroOfftop - лучший чат для общения."))
 		await utils.answer(message, '<emoji document_id=5465665476971471368>❌</emoji> <b>АФК</b> режим был успешно <b>выключен</b>!')
-		await self.allmodules.log("TxAFK now stoped.")
+		await self.allmodules.log("AstroAfk now stoped.")
 
 
 	@loader.watcher()
