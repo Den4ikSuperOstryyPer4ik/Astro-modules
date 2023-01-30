@@ -14,7 +14,8 @@ __version__ = (2, 0, 0)
 #                                                                         
 #                 🔒 Licensed under the GNU AGPLv3                       
 #             https://www.gnu.org/licenses/agpl-3.0.html                 
-#                                                                                                                 
+#                   
+# meta banner: https://0x0.st/oFwG.jpg                                                                                            
 # meta developer: @AstroModules
 # meta designer: @XizurK
 
@@ -144,13 +145,14 @@ class AstroAfkMod(loader.Module):
 		)
 
 	@loader.command()
-	async def txst(self, message):
+	async def asst(self, message):
 		"""- открыть найстройки модуля"""
+		
 		await self.inline.form(message=message, text='<b>⚙️ Открыть настройки</b>', reply_markup=[{'text': '🔴 Открыть', 'callback': self.settings}])
 
 	@loader.command()
 	async def goafk(self, message):
-		"""- войти в AFK режим"""
+		"""- войти в АФК режим"""
 		try:
 			user_id = (
 				(
@@ -204,7 +206,7 @@ class AstroAfkMod(loader.Module):
 
 	@loader.command()
 	async def ungoafk(self, message):
-		"""- выйти из режима AFK"""
+		"""- выйти из режима АФК"""
 
 		self._db.set(__name__, "afk", False)
 		self._db.set(__name__, "gone", None)
