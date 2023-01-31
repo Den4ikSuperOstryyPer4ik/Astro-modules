@@ -263,7 +263,7 @@ class AstroAfkMod(loader.Module):
 					if self.config["custom_text__afk"] == None:
 						await self.inline.form(
 							message=message, 
-							text=f"<b>😴 Сейчас я в АФК режиме</b>\n\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.", 
+							text=f"<b>😴 Сейчас я в АФК режиме</b>\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.", 
 							reply_markup=[
 								[
 									{
@@ -290,15 +290,33 @@ class AstroAfkMod(loader.Module):
 			else:
 				if self.config["button"] == False:
 					if self.config["custom_text__afk"] == None:
-						await self.inline.form(message=message, text=f"😴 Сейчас я в <b>АФК</b> режиме\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.", reply_markup=[{"text": self.config['custom_button'][0], "url": self.config['custom_button'][1]}])
+						await self.inline.form(
+							message=message, 
+							text=f"😴 Сейчас я в <b>АФК</b> режиме\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.", 
+							reply_markup=[
+								{
+									"text": self.config['custom_button'][0], 
+									"url": self.config['custom_button'][1]
+								}
+							]
+						)
 					else:
-						await self.inline.form(message=message, text=self._afk_custom_text(), reply_markup=[{"text": self.config['custom_button'][0], "url": self.config['custom_button'][1]}])
+						await self.inline.form(
+							message=message, 
+							text=self._afk_custom_text(), 
+							reply_markup=[
+								{
+									"text": self.config['custom_button'][0], 
+									"url": self.config['custom_button'][1]
+								}
+							]
+						)
 				
 				elif self.config['button'] == True:
 					if self.config["custom_text__afk"] == None:
 						await self.inline.form(
 							message=message, 
-							text=f"<b>😴 Сейчас я в <b>АФК</b> режиме\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.", 
+							text=f"😴 Сейчас я в <b>АФК</b> режиме\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.", 
 							reply_markup=[
 								[
 									{
@@ -348,7 +366,7 @@ class AstroAfkMod(loader.Module):
 			return
 
 		if change_name == True:
-			await message.client(UpdateProfileRequest(last_name=' '))
+			await self._client(UpdateProfileRequest(last_name=' '))
 
 		if change_bio == True:
 			try:
