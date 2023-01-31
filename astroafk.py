@@ -269,9 +269,9 @@ class AstroAfkMod(loader.Module):
 			if self.config['link_button'] == None:
 				if self.config["button"] == False:
 					if self.config["afk_text"] == None:
-						await self.inline.form(message=message, text=f"<b>😴 Сейчас я в АФК режиме</b>\n\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.")
+						await self.inline.form(message=message, text=f"<b>😴 Сейчас я в АФК режиме</b>\n\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.", reply_to=message)
 					else:
-						await self.inline.form(message=message, text=self._afk_custom_text())
+						await self.inline.form(message=message, text=self._afk_custom_text(), reply_to=message)
 				
 				elif self.config['button'] == True:
 					if self.config["afk_text"] == None:
@@ -285,7 +285,8 @@ class AstroAfkMod(loader.Module):
 										"callback": self.button_cancel,
 									}
 								]
-							]
+							],
+							reply_to=message
 						)
 
 					else:
@@ -299,7 +300,8 @@ class AstroAfkMod(loader.Module):
 										"callback": self.button_cancel,
 									}
 								]
-							]
+							],
+							reply_to=message
 						)
 			else:
 				if self.config["button"] == False:
@@ -312,7 +314,8 @@ class AstroAfkMod(loader.Module):
 									"text": self.config['link_button'][0], 
 									"url": self.config['link_button'][1]
 								}
-							]
+							],
+							reply_to=message
 						)
 					else:
 						await self.inline.form(
@@ -323,7 +326,8 @@ class AstroAfkMod(loader.Module):
 									"text": self.config['link_button'][0], 
 									"url": self.config['link_button'][1]
 								}
-							]
+							],
+							reply_to=message
 						)
 				
 				elif self.config['button'] == True:
@@ -344,7 +348,8 @@ class AstroAfkMod(loader.Module):
 										"callback": self.button_cancel,
 									}
 								]
-							]
+							],
+							reply_to=message
 						)
 
 					else:
@@ -364,7 +369,8 @@ class AstroAfkMod(loader.Module):
 										"callback": self.button_cancel,
 									}
 								]
-							]
+							],
+							reply_to=message
 						)
 
 	async def button_cancel(self, call: InlineCall):
