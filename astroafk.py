@@ -97,10 +97,7 @@ class AstroAfkMod(loader.Module):
 			),
 			loader.ConfigValue(
 				"custom_button",
-				[
-					"🎆 Astro Modules ✨",
-					"https://t.me/AstroModulesChat",
-				],
+				None,
 				lambda: self.strings("_cfg_cst_btn"),
 				validator=loader.validators.Union(
 					loader.validators.Series(fixed_len=2),
