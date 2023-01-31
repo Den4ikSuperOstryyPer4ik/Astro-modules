@@ -69,7 +69,7 @@ class AstroAfkMod(loader.Module):
 			a_change_name = 'Да'
 		else:
 			a_change_name = 'Нет'
-		fb = self.config['feedback_bot']
+		fb = self.config['feedback']
 		text = (
 			f'🎆 <b>AstroAfk</b>\n'
 			f'├<b>{a_active}</b>\n'
@@ -88,17 +88,22 @@ class AstroAfkMod(loader.Module):
 				doc=lambda: 'Префикс, который будет добавляться к вашему имени во время входа в АФК'
 			),
 			loader.ConfigValue(
-				"feedback_bot",
+				"feedback",
 				None,
 				doc=lambda: self.strings("feedback_bot__text"),
 			),
 			loader.ConfigValue(
-				"custom_text__afk",
+				'about_text',
+				None,
+				doc=lambda: 'Текст, который будет выставляться в био при входе в АФК. Используейте {bot} для указания вашего feedback бота для связи'
+			),
+			loader.ConfigValue(
+				"afk_text",
 				"None",
 				doc=lambda: self.strings("custom_text__afk_text"),
 			),
 			loader.ConfigValue(
-				"custom_button",
+				"link_button",
 				None,
 				lambda: self.strings("_cfg_cst_btn"),
 				validator=loader.validators.Union(
@@ -136,8 +141,18 @@ class AstroAfkMod(loader.Module):
 
 		return (
 			"<b> </b>\n"
-			+ self.config["custom_text__afk"].format(
+			+ self.config["afk_text"].format(
 				time=time,
+			)
+		)
+
+	def _afk_about_text(self) -> str:
+		bot = self.config['feedback']
+
+		return (
+			""
+			+ self.config['about_text'].format(
+				bot=bot
 			)
 		)
 
@@ -185,12 +200,12 @@ class AstroAfkMod(loader.Module):
 			await message.client(UpdateProfileRequest(last_name=prefix))
 
 		if change_bio == True:
-			if self.config['feedback_bot'] == None:
-				await message.client(UpdateProfileRequest(about='Нахожусь в афк.', last_name=self.config['prefix']))
+			cfg_bio = self.config['about_text']
+			if cfg_bio == None:
+				await message.client(UpdateProfileRequest(about="Нахожусь в афк."))
 			else:
-				a_afk_bio = 'Нет на месте, нахожусь в афк. Связь только через: '
-				feedback = self.config['feedback_bot']
-				await message.client(UpdateProfileRequest(about=f'{a_afk_bio} {feedback}'))
+				bio = self._afk_about_text()
+				await message.client(UpdateProfileRequest(about=bio))
 
 		await utils.answer(message, '<emoji document_id=5188391205909569136>✅</emoji> <b>АФК</b> режим был успешно <b>включен</b>!')
 		
@@ -251,15 +266,15 @@ class AstroAfkMod(loader.Module):
 				self._db.get(__name__, "gone")
 			).replace(microsecond=0)
 			time = now - gone
-			if self.config['custom_button'] == None:
+			if self.config['link_button'] == None:
 				if self.config["button"] == False:
-					if self.config["custom_text__afk"] == None:
+					if self.config["afk_text"] == None:
 						await self.inline.form(message=message, text=f"<b>😴 Сейчас я в АФК режиме</b>\n\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.")
 					else:
 						await self.inline.form(message=message, text=self._afk_custom_text())
 				
 				elif self.config['button'] == True:
-					if self.config["custom_text__afk"] == None:
+					if self.config["afk_text"] == None:
 						await self.inline.form(
 							message=message, 
 							text=f"<b>😴 Сейчас я в АФК режиме</b>\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.", 
@@ -288,14 +303,14 @@ class AstroAfkMod(loader.Module):
 						)
 			else:
 				if self.config["button"] == False:
-					if self.config["custom_text__afk"] == None:
+					if self.config["afk_text"] == None:
 						await self.inline.form(
 							message=message, 
 							text=f"😴 Сейчас я в <b>АФК</b> режиме\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.", 
 							reply_markup=[
 								{
-									"text": self.config['custom_button'][0], 
-									"url": self.config['custom_button'][1]
+									"text": self.config['link_button'][0], 
+									"url": self.config['link_button'][1]
 								}
 							]
 						)
@@ -305,22 +320,22 @@ class AstroAfkMod(loader.Module):
 							text=self._afk_custom_text(), 
 							reply_markup=[
 								{
-									"text": self.config['custom_button'][0], 
-									"url": self.config['custom_button'][1]
+									"text": self.config['link_button'][0], 
+									"url": self.config['link_button'][1]
 								}
 							]
 						)
 				
 				elif self.config['button'] == True:
-					if self.config["custom_text__afk"] == None:
+					if self.config["afk_text"] == None:
 						await self.inline.form(
 							message=message, 
 							text=f"😴 Сейчас я в <b>АФК</b> режиме\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.", 
 							reply_markup=[
 								[
 									{
-										"text": self.config['custom_button'][0],
-										"url": self.config['custom_button'][1],
+										"text": self.config['link_button'][0],
+										"url": self.config['link_button'][1],
 									}
 								],
 								[
@@ -339,8 +354,8 @@ class AstroAfkMod(loader.Module):
 							reply_markup=[
 								[
 									{
-										"text": self.config['custom_button'][0],
-										"url": self.config['custom_button'][1],
+										"text": self.config['link_button'][0],
+										"url": self.config['link_button'][1],
 									}
 								],
 								[
@@ -471,7 +486,7 @@ class AstroAfkMod(loader.Module):
 			]
 		)
 	async def settings_about(self, call: InlineCall):
-		if self.config['feedback_bot'] == None:
+		if self.config['feedback'] == None:
 			text = (
 				f'📖 <b>Смена биографии</b>'
 				+ '\n\n❔ <b>Хотите</b> ли Вы, чтобы при <b>входе в АФК</b> режим Ваша биография <b>менялась</b>'
@@ -484,7 +499,7 @@ class AstroAfkMod(loader.Module):
 				f'📖 <b>Смена биографии</b>'
 				+ '\n\n❔ <b>Хотите</b> ли Вы, чтобы при <b>входе в АФК</b> режим '
 				+ 'Ваша биография <b>менялась</b> на  "<code>Нет, на месте нахожусь в афк</code><code>.'
-				+ f' Связь только через @{self.config["feedback_bot"]}</code>"?\n🤖 <b>Бот для связи</b>: <code>@{self.config["feedback_bot"]}</code>\n\n'
+				+ f' Связь только через @{self.config["feedback"]}</code>"?\n🤖 <b>Бот для связи</b>: <code>@{self.config["feedback"]}</code>\n\n'
 				+ 'ℹ️ Так же Вы можете <b>изменить биографию</b> в <b>конфиге</b>. '
 				+ 'Можно <b>отменить</b> или <b>сделать</b> действие, нажав на <b>кнопки ниже</b>'
 			)
