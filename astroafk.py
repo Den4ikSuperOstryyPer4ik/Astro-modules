@@ -1,4 +1,4 @@
-__version__ = (2, 0, 2)
+__version__ = (2, 0, 5)
 #                _             __  __           _       _                
 #      /\       | |           |  \/  |         | |     | |               
 #     /  \   ___| |_ _ __ ___ | \  / | ___   __| |_   _| | ___  ___      
@@ -95,7 +95,7 @@ class AstroAfkMod(loader.Module):
 			loader.ConfigValue(
 				'about_text',
 				None,
-				doc=lambda: 'Текст, который будет выставляться в био при входе в АФК. Используейте {bot} для указания вашего feedback бота для связи'
+				doc=lambda: 'Текст, который будет выставляться в био при входе в АФК. Используйте переменные {bot} для указания фидбэк бота, и {reason} для указания причины ухода в афк'
 			),
 			loader.ConfigValue(
 				"afk_text",
@@ -138,11 +138,13 @@ class AstroAfkMod(loader.Module):
 		).replace(microsecond=0)
 
 		time = now - gone
+		reason = self._db.get(__name__, 'reason')
 
 		return (
 			"<b> </b>\n"
 			+ self.config["afk_text"].format(
 				time=time,
+				reason=reason,
 			)
 		)
 
@@ -165,6 +167,11 @@ class AstroAfkMod(loader.Module):
 	@loader.command()
 	async def goafk(self, message):
 		"""- войти в АФК режим"""
+		reason = utils.get_args_raw(message)
+		if not args:
+			self._db.set(__name__, 'reason', '­')
+		else:
+			self._db.set(__name__, 'reason', reason)
 		try:
 			user_id = (
 				(
