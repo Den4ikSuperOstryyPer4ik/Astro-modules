@@ -1,4 +1,4 @@
-__version__ = (2, 0, 5)
+__version__ = (2, 0, 6)
 #                _             __  __           _       _                
 #      /\       | |           |  \/  |         | |     | |               
 #     /  \   ___| |_ _ __ ___ | \  / | ___   __| |_   _| | ___  ___      
@@ -36,8 +36,6 @@ class AstroAfkMod(loader.Module):
 	async def client_ready(self, client, db):
 		self._db = db
 		self._me = await client.get_me()
-		self._db.set(__name__, 'change_bio', True)
-		self._db.set(__name__, "change_name", True)
 
 	strings = {
 		"name": "AstroAFK",
