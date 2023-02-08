@@ -165,7 +165,7 @@ class AstroAfkMod(loader.Module):
 
 	@loader.command()
 	async def goafk(self, message):
-		"""- войти в АФК режим"""
+		""" <reason/empty>- войти в АФК режим"""
 		reason = utils.get_args_raw(message)
 		if not reason:
 			self._db.set(__name__, 'reason', '­')
