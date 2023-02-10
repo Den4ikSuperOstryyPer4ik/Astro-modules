@@ -92,7 +92,7 @@ class AstroAfkMod(loader.Module):
 			loader.ConfigValue(
 				'about_text',
 				None,
-				doc=lambda: 'Текст, который будет выставляться в био при входе в АФК. Используйте {bot} для указания фидбэк бота'
+				doc=lambda: 'Текст, который будет выставляться в био при входе в АФК. Используйте {bot} для указания фидбэк бота и {reason} для причины.'
 			),
 			loader.ConfigValue(
 				"afk_text",
@@ -147,11 +147,12 @@ class AstroAfkMod(loader.Module):
 
 	def _afk_about_text(self) -> str:
 		bot = self.config['feedback']
-
+		reason = self._db.get(__name__, 'reason')
 		return (
 			""
 			+ self.config['about_text'].format(
-				bot=bot
+				bot=bot,
+				reason=reason
 			)
 		)
 
