@@ -1,4 +1,4 @@
-__version__ = (2, 0, 6)
+__version__ = (2, 0, 7)
 #                _             __  __           _       _                
 #      /\       | |           |  \/  |         | |     | |               
 #     /  \   ___| |_ _ __ ___ | \  / | ___   __| |_   _| | ___  ___      
@@ -270,18 +270,27 @@ class AstroAfkMod(loader.Module):
 				self._db.get(__name__, "gone")
 			).replace(microsecond=0)
 			time = now - gone
+			reason = self._db.get(__name__, 'reason')
 			if self.config['link_button'] == None:
 				if self.config["button"] == False:
 					if self.config["afk_text"] == None:
-						await self.inline.form(message=message, text=f"<b>😴 Сейчас я в АФК режиме</b>\n\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.", silent=True)
+						await self.inline.form(
+							message=message, 
+							text=f"<b>😴 Сейчас я в АФК режиме</b>\n\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.\n🥶 Ушел по <b>причине:</b> {reason}", 
+							silent=True
+						)
 					else:
-						await self.inline.form(message=message, text=self._afk_custom_text(), silent=True)
+						await self.inline.form(
+							message=message, 
+							text=self._afk_custom_text(), 
+							silent=True
+						)
 				
 				elif self.config['button'] == True:
 					if self.config["afk_text"] == None:
 						await self.inline.form(
 							message=message, 
-							text=f"<b>😴 Сейчас я в АФК режиме</b>\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.", 
+							text=f"<b>😴 Сейчас я в АФК режиме</b>\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.\n🥶 Ушел по <b>причине:</b> {reason}", 
 							reply_markup=[
 								[
 									{
@@ -312,7 +321,7 @@ class AstroAfkMod(loader.Module):
 					if self.config["afk_text"] == None:
 						await self.inline.form(
 							message=message, 
-							text=f"😴 Сейчас я в <b>АФК</b> режиме\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.", 
+							text=f"😴 Сейчас я в <b>АФК</b> режиме\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.\n🥶 Ушел по <b>причине:</b> {reason}", 
 							reply_markup=[
 								{
 									"text": self.config['link_button'][0], 
@@ -338,7 +347,7 @@ class AstroAfkMod(loader.Module):
 					if self.config["afk_text"] == None:
 						await self.inline.form(
 							message=message, 
-							text=f"😴 Сейчас я в <b>АФК</b> режиме\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.", 
+							text=f"😴 Сейчас я в <b>АФК</b> режиме\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.\n🥶 Ушел по <b>причине:</b> {reason}", 
 							reply_markup=[
 								[
 									{
