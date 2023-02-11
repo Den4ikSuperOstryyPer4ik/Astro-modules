@@ -16,3 +16,4 @@ YandexMusic
 pcmanager
 astroafk
 video_to_voice
+summer
