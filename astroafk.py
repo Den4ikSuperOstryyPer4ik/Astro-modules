@@ -276,180 +276,194 @@ class AstroAfkMod(loader.Module):
 			).replace(microsecond=0)
 			time = now - gone
 			reason = self._db.get(__name__, 'reason')
-			if self.config['link_button'] == None:
-				if self.config["button"] == False:
-					if self.config["afk_text"] == None:
-						await self.inline.form(
-							message=message, 
-							text=f"<b>😴 Сейчас я в АФК режиме</b>\n\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.\n📝 Ушел по <b>причине:</b> {reason}", 
-							reply_markup=[
-								{
-									'text': '🚫 Закрыть', 
-									'callback': self.callback_handler_ok,
-									"args": (message.chat.id,)
-								}
-							],
-							silent=True
-						)
-					else:
-						await self.inline.form(
-							message=message, 
-							text=self._afk_custom_text(), 
-							reply_markup=[
-								{
-									'text': '🚫 Закрыть', 
-									'callback': self.callback_handler_ok,
-									"args": (message.chat.id, )
-								}
-							],
-							silent=True
-						)
-				
-				elif self.config['button'] == True:
-					if self.config["afk_text"] == None:
-						await self.inline.form(
-							message=message, 
-							text=f"<b>😴 Сейчас я в АФК режиме</b>\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.\n📝 Ушел по <b>причине:</b> {reason}", 
-							reply_markup=[
-								[
+			try:
+				if self.config['link_button'] == None:
+					if self.config["button"] == False:
+						if self.config["afk_text"] == None:
+							await self.inline.form(
+								message=message, 
+								text=f"<b>😴 Сейчас я в АФК режиме</b>\n\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.\n📝 Ушел по <b>причине:</b> {reason}", 
+								reply_markup=[
 									{
-										"text": "🥱 Выйти из АФК", 
-										"callback": self.button_cancel,
-									}
-								],
-								[
-            						{
-                      					'text': '🚫 Закрыть', 
+										'text': '🚫 Закрыть', 
 										'callback': self.callback_handler_ok,
 										"args": (message.chat.id,)
-          							}
-                  				]
-							],
-							silent=True
-						)
-
-					else:
-						await self.inline.form(
-							message=message, 
-							text=self._afk_custom_text(), 
-							reply_markup=[
-								[
-									{
-										"text": "🥱 Выйти из АФК", 
-										"callback": self.button_cancel,
 									}
 								],
-								[
-            						{
-                      					'text': '🚫 Закрыть', 
-										'callback': self.callback_handler_ok,
-										"args": (message.chat.id,)
-          							}
-                  				]
-							],
-							silent=True
-						)
-			else:
-				if self.config["button"] == False:
-					if self.config["afk_text"] == None:
-						await self.inline.form(
-							message=message, 
-							text=f"😴 Сейчас я в <b>АФК</b> режиме\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.\n📝 Ушел по <b>причине:</b> {reason}", 
-							reply_markup=[
-								[
+								silent=True
+							)
+						else:
+							await self.inline.form(
+								message=message, 
+								text=self._afk_custom_text(), 
+								reply_markup=[
 									{
-										"text": self.config['link_button'][0], 
-										"url": self.config['link_button'][1]
-									}
-								],
-								[
-            						{
-                      					'text': '🚫 Закрыть', 
+										'text': '🚫 Закрыть', 
 										'callback': self.callback_handler_ok,
 										"args": (message.chat.id, )
-          							}
-                  				]
-							],
-							silent=True
-						)
-					else:
-						await self.inline.form(
-							message=message, 
-							text=self._afk_custom_text(), 
-							reply_markup=[
-								[
-									{
-										"text": self.config['link_button'][0], 
-										"url": self.config['link_button'][1]
 									}
 								],
-								[
-            						{
-                      					'text': '🚫 Закрыть', 
-										'callback': self.callback_handler_ok,
-										"args": (message.chat.id,)
-          							}
-                  				]
-							],
-							silent=True
-						)
-				
-				elif self.config['button'] == True:
-					if self.config["afk_text"] == None:
-						await self.inline.form(
-							message=message, 
-							text=f"😴 Сейчас я в <b>АФК</b> режиме\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.\n📝 Ушел по <b>причине:</b> {reason}", 
-							reply_markup=[
-								[
-									{
-										"text": self.config['link_button'][0],
-										"url": self.config['link_button'][1],
-									}
+								silent=True
+							)
+					
+					elif self.config['button'] == True:
+						if self.config["afk_text"] == None:
+							await self.inline.form(
+								message=message, 
+								text=f"<b>😴 Сейчас я в АФК режиме</b>\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.\n📝 Ушел по <b>причине:</b> {reason}", 
+								reply_markup=[
+									[
+										{
+											"text": "🥱 Выйти из АФК", 
+											"callback": self.button_cancel,
+										}
+									],
+									[
+	            						{
+	                      					'text': '🚫 Закрыть', 
+											'callback': self.callback_handler_ok,
+											"args": (message.chat.id,)
+	          							}
+	                  				]
 								],
-								[
-									{
-										"text": "🥱 Выйти из АФК", 
-										"callback": self.button_cancel,
-									}
-								],
-								[
-            						{
-                      					'text': '🚫 Закрыть', 
-										'callback': self.callback_handler_ok,
-										"args": (message.chat.id,)
-          							}
-                  				]
-							],
-							silent=True
-						)
+								silent=True
+							)
 
-					else:
-						await self.inline.form(
-							message=message, 
-							text=self._afk_custom_text(), 
-							reply_markup=[
-								[
-									{
-										"text": self.config['link_button'][0],
-										"url": self.config['link_button'][1],
-									}
+						else:
+							await self.inline.form(
+								message=message, 
+								text=self._afk_custom_text(), 
+								reply_markup=[
+									[
+										{
+											"text": "🥱 Выйти из АФК", 
+											"callback": self.button_cancel,
+										}
+									],
+									[
+	            						{
+	                      					'text': '🚫 Закрыть', 
+											'callback': self.callback_handler_ok,
+											"args": (message.chat.id,)
+	          							}
+	                  				]
 								],
-								[
-									{
-										"text": "🥱 Выйти из АФК", 
-										"callback": self.button_cancel,
-									}
+								silent=True
+							)
+				else:
+					if self.config["button"] == False:
+						if self.config["afk_text"] == None:
+							await self.inline.form(
+								message=message, 
+								text=f"😴 Сейчас я в <b>АФК</b> режиме\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.\n📝 Ушел по <b>причине:</b> {reason}", 
+								reply_markup=[
+									[
+										{
+											"text": self.config['link_button'][0], 
+											"url": self.config['link_button'][1]
+										}
+									],
+									[
+	            						{
+	                      					'text': '🚫 Закрыть', 
+											'callback': self.callback_handler_ok,
+											"args": (message.chat.id, )
+	          							}
+	                  				]
 								],
-								[
-            						{
-                      					'text': '🚫 Закрыть', 
-										'callback': self.callback_handler_ok,
-										"args": (message.chat.id,)
-          							}
-                  				]
-							],
-							silent=True
+								silent=True
+							)
+						else:
+							await self.inline.form(
+								message=message, 
+								text=self._afk_custom_text(), 
+								reply_markup=[
+									[
+										{
+											"text": self.config['link_button'][0], 
+											"url": self.config['link_button'][1]
+										}
+									],
+									[
+	            						{
+	                      					'text': '🚫 Закрыть', 
+											'callback': self.callback_handler_ok,
+											"args": (message.chat.id,)
+	          							}
+	                  				]
+								],
+								silent=True
+							)
+					
+					elif self.config['button'] == True:
+						if self.config["afk_text"] == None:
+							await self.inline.form(
+								message=message, 
+								text=f"😴 Сейчас я в <b>АФК</b> режиме\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.\n📝 Ушел по <b>причине:</b> {reason}", 
+								reply_markup=[
+									[
+										{
+											"text": self.config['link_button'][0],
+											"url": self.config['link_button'][1],
+										}
+									],
+									[
+										{
+											"text": "🥱 Выйти из АФК", 
+											"callback": self.button_cancel,
+										}
+									],
+									[
+	            						{
+	                      					'text': '🚫 Закрыть', 
+											'callback': self.callback_handler_ok,
+											"args": (message.chat.id,)
+	          							}
+	                  				]
+								],
+								silent=True
+							)
+
+						else:
+							await self.inline.form(
+								message=message, 
+								text=self._afk_custom_text(), 
+								reply_markup=[
+									[
+										{
+											"text": self.config['link_button'][0],
+											"url": self.config['link_button'][1],
+										}
+									],
+									[
+										{
+											"text": "🥱 Выйти из АФК", 
+											"callback": self.button_cancel,
+										}
+									],
+									[
+	            						{
+	                      					'text': '🚫 Закрыть', 
+											'callback': self.callback_handler_ok,
+											"args": (message.chat.id,)
+	          							}
+	                  				]
+								],
+								silent=True
+							)
+			except:
+				if self.config["afk_text"] == None:
+					await utils.answer(
+						message,
+						(
+							"😴 Сейчас я в <b>АФК</b> режиме\n"
+							f"❇️ Был <b>онлайн</b>: <code>{time}"
+							"</code> назад.\n📝 Ушел по <b>причине:"
+							f"</b> {reason}"
 						)
+					)
+				else:
+					await utils.answer(message, self._afk_custom_text())
 
 	async def button_cancel(self, call: InlineCall):
 		self._db.set(__name__, "afk", False)
