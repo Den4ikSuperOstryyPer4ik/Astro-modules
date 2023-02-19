@@ -1,4 +1,4 @@
-__version__ = (2, 0, 8)
+__version__ = (2, 1, 0)
 #                _             __  __           _       _                
 #      /\       | |           |  \/  |         | |     | |               
 #     /  \   ___| |_ _ __ ___ | \  / | ___   __| |_   _| | ___  ___      
@@ -19,6 +19,7 @@ __version__ = (2, 0, 8)
 # meta developer: @AstroModules
 # meta designer: @XizurK
 
+import re
 import time
 import logging
 import datetime
@@ -69,7 +70,7 @@ class AstroAfkMod(loader.Module):
 		fb = self.config['feedback']
 		text = (
 			f'🎆 <b>AstroAfk</b>\n'
-			f'├<b>{a_active}</b>\n'
+			f'<b>├{a_active}</b>\n'
 			f'<b>├Смена биографии:</b> <code>{a_change_bio}</code> 📖\n'
 			f'<b>├Смена префикса:</b> <code>{a_change_name}</code> 📝\n'
 			f'<b>└Бот для связи:</b> <code>@{fb}</code> 🤖'
@@ -159,8 +160,11 @@ class AstroAfkMod(loader.Module):
 	@loader.command()
 	async def asst(self, message):
 		"""- открыть настройки модуля"""
-		
-		await self.inline.form(message=message, text='<b>⚙️ Открыть настройки</b>', reply_markup=[{'text': '🔴 Открыть', 'callback': self.settings}])
+		await self.inline.form(
+			message=message, 
+			text='<b>⚙️ Открыть настройки</b>', 
+			reply_markup=[{'text': '🔴 Открыть', 'callback': self.settings}]
+		)
 
 	@loader.command()
 	async def goafk(self, message):
@@ -251,7 +255,7 @@ class AstroAfkMod(loader.Module):
 			afk_state = self.get_afk()
 			if not afk_state:
 				return
-			logger.debug("tagged!")
+			logger.info(f"You are tagged in chat ({message.chat.id})")
 			ratelimit = self._db.get(__name__, "ratelimit", [])
 			if utils.get_chat_id(message) in ratelimit:
 				return
@@ -262,7 +266,7 @@ class AstroAfkMod(loader.Module):
 				self._db.save()
 			user = await utils.get_user(message)
 			if user.is_self or user.bot or user.verified:
-				logger.debug("User is self, bot or verified.")
+				logger.info("You are tagged by bot")
 				return
 			if self.get_afk() is False:
 				return
@@ -277,13 +281,27 @@ class AstroAfkMod(loader.Module):
 					if self.config["afk_text"] == None:
 						await self.inline.form(
 							message=message, 
-							text=f"<b>😴 Сейчас я в АФК режиме</b>\n\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.\n🥶 Ушел по <b>причине:</b> {reason}", 
+							text=f"<b>😴 Сейчас я в АФК режиме</b>\n\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.\n📝 Ушел по <b>причине:</b> {reason}", 
+							reply_markup=[
+								{
+									'text': '🚫 Закрыть', 
+									'callback': self.callback_handler_ok,
+									"args": (message.chat.id,)
+								}
+							],
 							silent=True
 						)
 					else:
 						await self.inline.form(
 							message=message, 
 							text=self._afk_custom_text(), 
+							reply_markup=[
+								{
+									'text': '🚫 Закрыть', 
+									'callback': self.callback_handler_ok,
+									"args": (message.chat.id, )
+								}
+							],
 							silent=True
 						)
 				
@@ -291,14 +309,21 @@ class AstroAfkMod(loader.Module):
 					if self.config["afk_text"] == None:
 						await self.inline.form(
 							message=message, 
-							text=f"<b>😴 Сейчас я в АФК режиме</b>\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.\n🥶 Ушел по <b>причине:</b> {reason}", 
+							text=f"<b>😴 Сейчас я в АФК режиме</b>\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.\n📝 Ушел по <b>причине:</b> {reason}", 
 							reply_markup=[
 								[
 									{
 										"text": "🥱 Выйти из АФК", 
 										"callback": self.button_cancel,
 									}
-								]
+								],
+								[
+            						{
+                      					'text': '🚫 Закрыть', 
+										'callback': self.callback_handler_ok,
+										"args": (message.chat.id,)
+          							}
+                  				]
 							],
 							silent=True
 						)
@@ -313,7 +338,14 @@ class AstroAfkMod(loader.Module):
 										"text": "🥱 Выйти из АФК", 
 										"callback": self.button_cancel,
 									}
-								]
+								],
+								[
+            						{
+                      					'text': '🚫 Закрыть', 
+										'callback': self.callback_handler_ok,
+										"args": (message.chat.id,)
+          							}
+                  				]
 							],
 							silent=True
 						)
@@ -322,12 +354,21 @@ class AstroAfkMod(loader.Module):
 					if self.config["afk_text"] == None:
 						await self.inline.form(
 							message=message, 
-							text=f"😴 Сейчас я в <b>АФК</b> режиме\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.\n🥶 Ушел по <b>причине:</b> {reason}", 
+							text=f"😴 Сейчас я в <b>АФК</b> режиме\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.\n📝 Ушел по <b>причине:</b> {reason}", 
 							reply_markup=[
-								{
-									"text": self.config['link_button'][0], 
-									"url": self.config['link_button'][1]
-								}
+								[
+									{
+										"text": self.config['link_button'][0], 
+										"url": self.config['link_button'][1]
+									}
+								],
+								[
+            						{
+                      					'text': '🚫 Закрыть', 
+										'callback': self.callback_handler_ok,
+										"args": (message.chat.id, )
+          							}
+                  				]
 							],
 							silent=True
 						)
@@ -336,10 +377,19 @@ class AstroAfkMod(loader.Module):
 							message=message, 
 							text=self._afk_custom_text(), 
 							reply_markup=[
-								{
-									"text": self.config['link_button'][0], 
-									"url": self.config['link_button'][1]
-								}
+								[
+									{
+										"text": self.config['link_button'][0], 
+										"url": self.config['link_button'][1]
+									}
+								],
+								[
+            						{
+                      					'text': '🚫 Закрыть', 
+										'callback': self.callback_handler_ok,
+										"args": (message.chat.id,)
+          							}
+                  				]
 							],
 							silent=True
 						)
@@ -348,7 +398,7 @@ class AstroAfkMod(loader.Module):
 					if self.config["afk_text"] == None:
 						await self.inline.form(
 							message=message, 
-							text=f"😴 Сейчас я в <b>АФК</b> режиме\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.\n🥶 Ушел по <b>причине:</b> {reason}", 
+							text=f"😴 Сейчас я в <b>АФК</b> режиме\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.\n📝 Ушел по <b>причине:</b> {reason}", 
 							reply_markup=[
 								[
 									{
@@ -361,7 +411,14 @@ class AstroAfkMod(loader.Module):
 										"text": "🥱 Выйти из АФК", 
 										"callback": self.button_cancel,
 									}
-								]
+								],
+								[
+            						{
+                      					'text': '🚫 Закрыть', 
+										'callback': self.callback_handler_ok,
+										"args": (message.chat.id,)
+          							}
+                  				]
 							],
 							silent=True
 						)
@@ -382,7 +439,14 @@ class AstroAfkMod(loader.Module):
 										"text": "🥱 Выйти из АФК", 
 										"callback": self.button_cancel,
 									}
-								]
+								],
+								[
+            						{
+                      					'text': '🚫 Закрыть', 
+										'callback': self.callback_handler_ok,
+										"args": (message.chat.id,)
+          							}
+                  				]
 							],
 							silent=True
 						)
@@ -588,5 +652,13 @@ class AstroAfkMod(loader.Module):
 			]
 		)
 
+	# @loader.inline_everyone
+	async def callback_handler_ok(self, call, chat_id: int):
+		await call.delete()
+		logging.info(f'Message in chat ({chat_id}) deleted by {call.from_user.first_name} ({call.from_user.id})')
+		limit: list = self._db.get(__name__, 'ratelimit', [])
+		limit.remove(chat_id)
+		self._db.set(__name__, 'ratelimit', limit)
+	
 	def get_afk(self):
 		return self._db.get(__name__, "afk", False)
