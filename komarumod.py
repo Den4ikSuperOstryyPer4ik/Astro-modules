@@ -56,8 +56,14 @@ class KomaruMod(loader.Module):
         search_type = choice([InputMessagesFilterGif, InputMessagesFilterPhotos, InputMessagesFilterVideo])
         search_type_str = self.strings(self.SEARCH_TYPES[search_type])
         
-        message = await utils.answer(message, self.strings("choosing").format(search_type_str))
+        msg = await utils.answer(message, self.strings("choosing").format(search_type_str))
         
-        chosed_msg = choice([msg async for msg in self.client.iter_messages("komarueveryday", limit=200, filter=search_type)])
+        chosed_msg = choice([message_in_channel async for message_in_channel in self.client.iter_messages("komarueveryday", limit=200, filter=search_type)])
         
-        return await utils.answer_file(message, chosed_msg, chosed_msg.text or "<b>Подобрал " + search_type_str + ".</b>")
+        reply = await message.get_reply_message()
+        if reply:
+            reply = reply.id
+        else:
+            reply = None
+        
+        return await utils.answer_file(msg, chosed_msg, chosed_msg.text or "<b>Подобрал " + search_type_str + ".</b>", reply_to=reply)
