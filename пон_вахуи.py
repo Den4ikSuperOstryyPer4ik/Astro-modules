@@ -19,8 +19,7 @@
 # scope: hikka_min 1.3.0
 
 import random
-from ..inline.types import InlineCall
-from telethon.tl.types import Message
+import typing
 from .. import loader
 
 @loader.tds
@@ -30,111 +29,71 @@ class ПонВахуиMod(loader.Module):
     strings = {"name": "ПОН-ВАХУИ"}
 
     @loader.command()
-    async def понcmd(self, message: Message):
-        """--> инлайн пон"""
-        self.chat_id = message.chat_id
-        self.reply_pon = await message.get_reply_message()
+    async def пон(self, message):
+        """--> инлайн меню со стикерами пон"""
+        reply = await message.get_reply_message()
+        
         await self.inline.form(
             message=message,
             text="👇<b>пон</b>👇",
-            reply_markup=[[{"text": "пон", "callback": self.pon}]],
+            reply_markup=[
+                [
+                    {
+                        "text": "пон",
+                        "callback": self.open_menu_pon,
+                        "kwargs": {"chat_id": message.chat_id, "reply_to": reply.id if reply else None}
+                    }
+                ]
+            ],
+        )
+    
+    @loader.command()
+    async def вахуи(self, message):
+        """--> инлайн меню со стикерами "вахуи" """
+        reply = await message.get_reply_message()
+        
+        await self.inline.form(
+            message=message,
+            text="👇<b>вахуи</b>👇",
+            reply_markup=[
+                [
+                    {
+                        "text": "вахуи",
+                        "callback": self.open_menu_vahui,
+                        "kwargs": {"chat_id": message.chat_id, "reply_to": reply.id if reply else None}
+                    }
+                ]
+            ],
         )
 
-    async def sticker_pon(self, *_):
-        m = random.choice(await self._client.get_messages("@PON_STICKS", limit=100))
-        if self.reply_pon:
-            await self.client.send_message(self.chat_id, file=m, reply_to=self.reply_pon)
-        else:
-            await self.client.send_message(self.chat_id, file=m)
+    async def send_sticker_pon(self, chat_id, reply_to: typing.Optional[int] = None):
+        m = await self.client.get_messages("@PON_STICKS", ids=random.randint(1, 100))
+        await self.client.send_message(chat_id, file=m, reply_to=reply_to)
 
-    async def sticker_vahui(self, *_):
-        m = random.choice(await self._client.get_messages("@VAHUI_STICKS", limit=100))
-        if self.reply_vahui:
-            await self.client.send_message(self.chat_id, file=m, reply_to=self.reply_vahui)
-        else:
-            await self.client.send_message(self.chat_id, file=m)
+    async def send_sticker_vahui(self, chat_id, reply_to: typing.Optional[int] = None):
+        m = await self.client.get_messages("@VAHUI_STICKS", ids=random.randint(1, 100))
+        await self.client.send_message(chat_id, file=m, reply_to=reply_to)
 
-    async def pon(self, call: InlineCall):
+    async def open_menu_pon(self, call, chat_id, reply_to: typing.Optional[int] = None):
         await call.edit(
             text="<b>пон</b>",
             reply_markup=[
                 [
-                    {"text": "пон", "callback": self.sticker_pon},
-                    {"text": "пон", "callback": self.sticker_pon},
-                    {"text": "пон", "callback": self.sticker_pon},
-                    {"text": "пон", "callback": self.sticker_pon},
-                    {"text": "пон", "callback": self.sticker_pon},
-                    {"text": "пон", "callback": self.sticker_pon},
-                    {"text": "пон", "callback": self.sticker_pon},
-                    {"text": "пон", "callback": self.sticker_pon},
-                    {"text": "пон", "callback": self.sticker_pon},
-                    {"text": "пон", "callback": self.sticker_pon},
-                ],
-                [
-                    {"text": "пон", "callback": self.sticker_pon},
-                    {"text": "пон", "callback": self.sticker_pon},
-                    {"text": "пон", "callback": self.sticker_pon},
-                    {"text": "пон", "callback": self.sticker_pon},
-                    {"text": "пон", "callback": self.sticker_pon},
-                    {"text": "пон", "callback": self.sticker_pon},
-                    {"text": "пон", "callback": self.sticker_pon},
-                    {"text": "пон", "callback": self.sticker_pon},
-                    {"text": "пон", "callback": self.sticker_pon},
-                    {"text": "пон", "callback": self.sticker_pon},
-                ],
-                [
-                    {"text": "пон", "callback": self.sticker_pon},
-                    {"text": "пон", "callback": self.sticker_pon},
-                    {"text": "пон", "callback": self.sticker_pon},
-                    {"text": "пон", "callback": self.sticker_pon},
-                    {"text": "пон", "callback": self.sticker_pon},
-                    {"text": "пон", "callback": self.sticker_pon},
-                    {"text": "пон", "callback": self.sticker_pon},
-                    {"text": "пон", "callback": self.sticker_pon},
-                    {"text": "пон", "callback": self.sticker_pon},
-                    {"text": "пон", "callback": self.sticker_pon},
-                ],
+                    {"text": "пон", "callback": self.send_sticker_pon, "kwargs": {"chat_id": chat_id, "reply_to": reply_to}}
+                    for __ in range(7)
+                ]
+                for _ in range(3)
             ],
         )
-
-    @loader.command()
-    async def вахуиcmd(self, message: Message):
-        """--> вахуи"""
-        self.reply_vahui = await message.get_reply_message()
-        self.chat_id = message.chat_id
-        await self.inline.form(
-            message=message,
-            text="👇<b>вахуи</b>👇",
-            reply_markup=[[{"text": "вахуи", "callback": self.vahui}]],
-        )
-
-    async def vahui(self, call: InlineCall):
+    
+    async def open_menu_vahui(self, call):
         await call.edit(
             text="<b>вахуи</b>",
             reply_markup=[
                 [
-                    {"text": "вахуи", "callback": self.sticker_vahui},
-                    {"text": "вахуи", "callback": self.sticker_vahui},
-                    {"text": "вахуи", "callback": self.sticker_vahui},
-                    {"text": "вахуи", "callback": self.sticker_vahui},
-                    {"text": "вахуи", "callback": self.sticker_vahui},
-                    {"text": "вахуи", "callback": self.sticker_vahui},
-                ],
-                [
-                    {"text": "вахуи", "callback": self.sticker_vahui},
-                    {"text": "вахуи", "callback": self.sticker_vahui},
-                    {"text": "вахуи", "callback": self.sticker_vahui},
-                    {"text": "вахуи", "callback": self.sticker_vahui},
-                    {"text": "вахуи", "callback": self.sticker_vahui},
-                    {"text": "вахуи", "callback": self.sticker_vahui},
-                ],
-                [
-                    {"text": "вахуи", "callback": self.sticker_vahui},
-                    {"text": "вахуи", "callback": self.sticker_vahui},
-                    {"text": "вахуи", "callback": self.sticker_vahui},
-                    {"text": "вахуи", "callback": self.sticker_vahui},
-                    {"text": "вахуи", "callback": self.sticker_vahui},
-                    {"text": "вахуи", "callback": self.sticker_vahui},
-                ],
+                    {"text": "вахуи", "callback": self.send_sticker_vahui, "kwargs": {"chat_id": chat_id, "reply_to": reply_to}}
+                    for __ in range(7)
+                ]
+                for _ in range(3)
             ],
         )
