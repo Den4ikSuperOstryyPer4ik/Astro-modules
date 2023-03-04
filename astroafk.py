@@ -1,4 +1,4 @@
-__version__ = (2, 1, 0)
+__version__ = (2, 1, 1)
 #                _             __  __           _       _                
 #      /\       | |           |  \/  |         | |     | |               
 #     /  \   ___| |_ _ __ ___ | \  / | ___   __| |_   _| | ___  ___      
@@ -255,7 +255,7 @@ class AstroAfkMod(loader.Module):
 			afk_state = self.get_afk()
 			if not afk_state:
 				return
-			logger.info(f"You are tagged in chat ({message.chat.id})")
+			logger.info(f"You are tagged. User/chat not in ratelimit. Calling message...")
 			ratelimit = self._db.get(__name__, "ratelimit", [])
 			if utils.get_chat_id(message) in ratelimit:
 				return
