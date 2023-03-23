@@ -1,4 +1,4 @@
-__version__ = (2, 1, 1)
+__version__ = (2, 1, 2)
 #                _             __  __           _       _                
 #      /\       | |           |  \/  |         | |     | |               
 #     /  \   ___| |_ _ __ ___ | \  / | ___   __| |_   _| | ___  ___      
@@ -23,6 +23,7 @@ import re
 import time
 import logging
 import datetime
+import asyncio
 from telethon import types
 from .. import loader, utils
 from ..inline.types import InlineCall
@@ -217,6 +218,8 @@ class AstroAfkMod(loader.Module):
 				await message.client(UpdateProfileRequest(about=bio))
 
 		await utils.answer(message, '<emoji document_id=5188391205909569136>✅</emoji> <b>АФК</b> режим был успешно <b>включен</b>!')
+		await asyncio.sleep(5)
+		await message.delete()
 		
 
 	@loader.command()
@@ -243,6 +246,8 @@ class AstroAfkMod(loader.Module):
 				await message.client(UpdateProfileRequest(about="@AstroOfftop - лучший чат для общения."))
 		await utils.answer(message, '<emoji document_id=5465665476971471368>❌</emoji> <b>АФК</b> режим был успешно <b>выключен</b>!')
 		await self.allmodules.log("AstroAfk now stoped.")
+		await asyncio.sleep(5)
+		await message.delete()
 
 
 	@loader.watcher()
