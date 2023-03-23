@@ -28,10 +28,10 @@ class KomaruMod(loader.Module):
     """Random picture/video/gif from the @komarueveryday"""
     
     strings = {
-		"name": "Komaru",
-		"choosing": "<emoji document_id=5328311576736833844>🔴</emoji> Choosing {}...",
-        "gif": "gif",
-        "video": "video",
+	"name": "Komaru",
+	"choosing": "<emoji document_id=5328311576736833844>🔴</emoji> Choosing {}...",
+       	"gif": "gif",
+       	"video": "video",
         "photo": "photo",
 	}
     
