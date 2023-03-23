@@ -217,9 +217,9 @@ class AstroAfkMod(loader.Module):
 				bio = self._afk_about_text()
 				await message.client(UpdateProfileRequest(about=bio))
 
-		await utils.answer(message, '<emoji document_id=5188391205909569136>✅</emoji> <b>АФК</b> режим был успешно <b>включен</b>!')
+		m = await utils.answer(message, '<emoji document_id=5188391205909569136>✅</emoji> <b>АФК</b> режим был успешно <b>включен</b>!')
 		await asyncio.sleep(5)
-		await message.delete()
+		await m.delete()
 		
 
 	@loader.command()
@@ -244,10 +244,10 @@ class AstroAfkMod(loader.Module):
 				await message.client(UpdateProfileRequest(about=f'{self.db.get(__name__, "about")}'))
 			except:
 				await message.client(UpdateProfileRequest(about="@AstroOfftop - лучший чат для общения."))
-		await utils.answer(message, '<emoji document_id=5465665476971471368>❌</emoji> <b>АФК</b> режим был успешно <b>выключен</b>!')
+		m = await utils.answer(message, '<emoji document_id=5465665476971471368>❌</emoji> <b>АФК</b> режим был успешно <b>выключен</b>!')
 		await self.allmodules.log("AstroAfk now stoped.")
 		await asyncio.sleep(5)
-		await message.delete()
+		await m.delete()
 
 
 	@loader.watcher()
