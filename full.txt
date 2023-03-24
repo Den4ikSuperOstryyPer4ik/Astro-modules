@@ -19,3 +19,4 @@ video_to_voice
 summer
 komarumod
 brawl_stats
+astroweather
