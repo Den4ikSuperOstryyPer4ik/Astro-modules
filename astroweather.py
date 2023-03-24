@@ -26,7 +26,7 @@ import requests
 
 
 class AstroWeatherMod(loader.Module):
-	'''Модуль, для получения информации о погоде в вашем городе, в красивом формате'''
+	'''Модуль для получения информации о погоде в Вашем городе, в красивом формате'''
 
 	strings = {
 		'name': 'AstroWeather',
@@ -126,7 +126,7 @@ class AstroWeatherMod(loader.Module):
 
 	@loader.command()
 	async def aw(self, message):
-		'''<город> - получить погоду'''
+		'''<город> - узнать погоду в указанном городе'''
 		city = utils.get_args_raw(message)
 		getting = await utils.answer(message, self.strings('search').format(city))
 		
