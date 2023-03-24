@@ -72,8 +72,8 @@ class AstroWeatherMod(loader.Module):
 		])
 
 		weather = (
-			f'{r_emoji} <b>Погода в {city}:</b>\n\n'
-			f'<emoji document_id=5447410659077661506>🌐</emoji> <b>Город:</b> <code>{city}</code>\n'
+			f'{r_emoji} <b>Погода в {city.title()}:</b>\n\n'
+			f'<emoji document_id=5447410659077661506>🌐</emoji> <b>Город:</b> <code>{city.title()}</code>\n'
 			f'{t_emoji} <b>Температура:</b> <code>{temperature}°C</code>\n'
 			f'<emoji document_id=5192891734635322759>💦</emoji> <b>Влажность:</b> <code>{hum}%</code>\n'
 			f'{v_emoji} <b>Скорость ветра:</b> <code>{veter}м/с</code>\n'
