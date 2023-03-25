@@ -35,7 +35,7 @@ class AstroWeatherMod(loader.Module):
 			'<emoji document_id=5240241223632954241>🚫</emoji> <b>Вы не указали API ключ</b>!\n'
 			'<emoji document_id=5210956306952758910>👀</emoji> <code>Пожалуйста, укажите его в конфиге ниже</code>'
 		),
-		'search': '<emoji document_id=5452069934089641166>🔎</emoji> <b>Поиск информации о погоде в городе</b> <code>{}</code>..'
+		'search': '{} <b>Поиск информации о погоде в городе</b> <code>{}</code>..'
 	}
 
 	async def text(self, temperature: int, veter: int, sky, hum, city, moji):
@@ -61,7 +61,6 @@ class AstroWeatherMod(loader.Module):
 		if veter >= 15:
 			v_emoji = '<emoji document_id=5449683594425410231>🔼</emoji>'
 
-		s_emoji = moji
 		r_emoji = random.choice([
 			'<emoji document_id=5208554136039073738>🌙</emoji>',
 			'<emoji document_id=5444932797955317203>🐾</emoji>',
@@ -70,14 +69,18 @@ class AstroWeatherMod(loader.Module):
 			'<emoji document_id=5413390588198265552>💤</emoji>',
 			'<emoji document_id=5435981940081566607>🌺</emoji>'
 		])
+		sity_emoji = random.choice([
+			'<emoji document_id=5416117059207572332>➡️</emoji>', 
+			'<emoji document_id=5447410659077661506>🌐</emoji>'
+		])
 
 		weather = (
 			f'{r_emoji} <b>Погода в {city.title()}:</b>\n\n'
-			f'<emoji document_id=5447410659077661506>🌐</emoji> <b>Город:</b> <code>{city.title()}</code>\n'
+			f'{sity_emoji} <b>Город:</b> <code>{city.title()}</code>\n'
 			f'{t_emoji} <b>Температура:</b> <code>{temperature}°C</code>\n'
 			f'<emoji document_id=5192891734635322759>💦</emoji> <b>Влажность:</b> <code>{hum}%</code>\n'
 			f'{v_emoji} <b>Скорость ветра:</b> <code>{veter}м/с</code>\n'
-			f'{s_emoji} <b>Небо:</b> <code>{sky}</code>'
+			f'{moji} <b>Небо:</b> <code>{sky}</code>'
 		)
 		return weather
 
@@ -127,8 +130,12 @@ class AstroWeatherMod(loader.Module):
 	@loader.command()
 	async def aw(self, message):
 		'''<город> - узнать погоду в указанном городе'''
+		search_moji = random.choice([
+			'<emoji document_id=5443038326535759644>💬</emoji>',
+			'<emoji document_id=5452069934089641166>🔎</emoji>'
+		])
 		city = utils.get_args_raw(message)
-		getting = await utils.answer(message, self.strings('search').format(city))
+		getting = await utils.answer(message, self.strings('search').format(search_moji, city))
 		
 		if self.config['api_key'] == None:
 			await utils.answer(getting, self.strings('api_error'))
