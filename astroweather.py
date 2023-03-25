@@ -1,3 +1,4 @@
+__version__ = (1, 0, 5)
 #                _             __  __           _       _                
 #      /\       | |           |  \/  |         | |     | |               
 #     /  \   ___| |_ _ __ ___ | \  / | ___   __| |_   _| | ___  ___      
@@ -70,7 +71,7 @@ class AstroWeatherMod(loader.Module):
 			'<emoji document_id=5435981940081566607>🌺</emoji>'
 		])
 		sity_emoji = random.choice([
-			'<emoji document_id=5416117059207572332>➡️</emoji>', 
+			'<emoji document_id=5416117059207572332>⏩</emoji>', 
 			'<emoji document_id=5447410659077661506>🌐</emoji>'
 		])
 
