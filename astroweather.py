@@ -136,6 +136,7 @@ class AstroWeatherMod(loader.Module):
 			'<emoji document_id=5452069934089641166>🔎</emoji>'
 		])
 		city = utils.get_args_raw(message)
+		city = city.title()
 		getting = await utils.answer(message, self.strings('search').format(search_moji, city))
 		
 		if self.config['api_key'] == None:
