@@ -1,4 +1,4 @@
-__version__ = (2, 1, 2)
+__version__ = (2, 1, 3)
 #                _             __  __           _       _                
 #      /\       | |           |  \/  |         | |     | |               
 #     /  \   ___| |_ _ __ ___ | \  / | ___   __| |_   _| | ___  ___      
@@ -53,6 +53,8 @@ class AstroAfkMod(loader.Module):
 	}
 
 	def render_settings(self):
+		'''Settings message'''
+
 		active = self._db.get(__name__, 'afk')
 		if active == True:
 			a_active = "Включен ✅"
@@ -131,6 +133,8 @@ class AstroAfkMod(loader.Module):
 		)
 
 	def _afk_custom_text(self) -> str:
+		'''Custom text afk'''
+
 		now = datetime.datetime.now().replace(microsecond=0)
 		gone = datetime.datetime.fromtimestamp(
 			self._db.get(__name__, "gone")
@@ -148,6 +152,8 @@ class AstroAfkMod(loader.Module):
 		)
 
 	def _afk_about_text(self) -> str:
+		'''Custom text about'''
+
 		bot = self.config['feedback']
 		reason = self._db.get(__name__, 'reason')
 		return (
@@ -161,16 +167,23 @@ class AstroAfkMod(loader.Module):
 	@loader.command()
 	async def asst(self, message):
 		"""- открыть настройки модуля"""
+
 		await self.inline.form(
 			message=message, 
 			text='<b>⚙️ Открыть настройки</b>', 
-			reply_markup=[{'text': '🔴 Открыть', 'callback': self.settings}]
+			reply_markup=[{'text': '🔴 Открыть', 'callback': self.settings}],
+			silent=True
 		)
 
 	@loader.command()
 	async def goafk(self, message):
 		""" <reason/empty>- войти в АФК режим"""
+
 		reason = utils.get_args_raw(message)
+		if '-n' in reason:
+			reason = reason.replace('-n', '')
+			self._db.set(__name__, 'force', True)
+
 		if not reason:
 			self._db.set(__name__, 'reason', '­')
 		else:
@@ -201,10 +214,6 @@ class AstroAfkMod(loader.Module):
 
 		self._db.set(__name__, 'about', about)
 
-		if change_name == False and change_bio == False:
-			await utils.answer(message, '<emoji document_id=5188391205909569136>✅</emoji> <b>АФК</b> режим был успешно <b>включен</b>!')
-			return
-
 		if change_name == True:
 			prefix = self.config['prefix']
 			await message.client(UpdateProfileRequest(last_name=prefix))
@@ -232,9 +241,8 @@ class AstroAfkMod(loader.Module):
 		change_bio = self._db.get(__name__, "change_bio")
 		change_name = self._db.get(__name__, "change_name")
 
-		if change_name == False and change_bio == False:
-			await utils.answer(message, '<emoji document_id=5465665476971471368>❌</emoji> <b>АФК</b> режим был успешно <b>выключен</b>!')
-			return
+		if self._db.get(__name__, 'force') == True:
+			self._db.set(__name__, 'force', False)
 
 		if change_name == True:
 			await message.client(UpdateProfileRequest(last_name=' '))
@@ -252,15 +260,18 @@ class AstroAfkMod(loader.Module):
 
 	@loader.watcher()
 	async def watcher(self, message):
+
 		if not isinstance(message, types.Message):
 			return
+
 		if utils.get_chat_id(message) in self.config['ignore_chats']: 
 			return
+
 		if message.mentioned or getattr(message.to_id, "user_id", None) == self._me.id:
 			afk_state = self.get_afk()
 			if not afk_state:
 				return
-			logger.info(f"You are tagged. User/chat not in ratelimit. Calling message...")
+
 			ratelimit = self._db.get(__name__, "ratelimit", [])
 			if utils.get_chat_id(message) in ratelimit:
 				return
@@ -270,18 +281,21 @@ class AstroAfkMod(loader.Module):
 				)
 				self._db.save()
 			user = await utils.get_user(message)
+
 			if user.is_self or user.bot or user.verified:
-				logger.info("You are tagged by bot")
 				return
+
 			if self.get_afk() is False:
 				return
+
 			now = datetime.datetime.now().replace(microsecond=0)
 			gone = datetime.datetime.fromtimestamp(
 				self._db.get(__name__, "gone")
 			).replace(microsecond=0)
+
 			time = now - gone
 			reason = self._db.get(__name__, 'reason')
-			try:
+			if self._db.get(__name__, 'force') == False:
 				if self.config['link_button'] == None:
 					if self.config["button"] == False:
 						if self.config["afk_text"] == None:
@@ -456,7 +470,7 @@ class AstroAfkMod(loader.Module):
 								],
 								silent=True
 							)
-			except:
+			else:
 				if self.config["afk_text"] == None:
 					await utils.answer(
 						message,
@@ -471,6 +485,8 @@ class AstroAfkMod(loader.Module):
 					await utils.answer(message, self._afk_custom_text())
 
 	async def button_cancel(self, call: InlineCall):
+		'''Callback button'''
+
 		self._db.set(__name__, "afk", False)
 		self._db.set(__name__, "gone", None)
 		self._db.set(__name__, "ratelimit", [])
@@ -494,6 +510,8 @@ class AstroAfkMod(loader.Module):
 		await call.edit(self.strings["bt_off_afk"])
 
 	async def settings(self, call: InlineCall):
+		'''Callback button'''
+
 		info = self.render_settings()
 		await call.edit(
 			text=info,
@@ -518,6 +536,8 @@ class AstroAfkMod(loader.Module):
 		)
 
 	async def settings_name(self, call: InlineCall):
+		'''Callback button'''
+		
 		await call.edit(
 			text=(
 				f'<b>📖 Установка префикса</b>\n\n'
@@ -541,6 +561,8 @@ class AstroAfkMod(loader.Module):
 			]
 		)
 	async def name_yes(self, call: InlineCall):
+		'''Callback button'''
+
 		self._db.set(__name__, 'change_name', True)
 		info = self.render_settings()
 		await call.edit(
@@ -565,6 +587,8 @@ class AstroAfkMod(loader.Module):
 			]
 		)
 	async def name_no(self, call: InlineCall):
+		'''Callback button'''
+		
 		self._db.set(__name__, 'change_name', False)
 		info = self.render_settings()
 		await call.edit(
@@ -589,6 +613,8 @@ class AstroAfkMod(loader.Module):
 			]
 		)
 	async def settings_about(self, call: InlineCall):
+		'''Callback button'''
+		
 		if self.config['feedback'] == None:
 			text = (
 				f'📖 <b>Смена биографии</b>'
@@ -623,6 +649,8 @@ class AstroAfkMod(loader.Module):
 			]
 		)
 	async def bio(self, call: InlineCall):
+		'''Callback button'''
+		
 		self._db.set(__name__, 'change_bio', True)
 		info = self.render_settings()
 		await call.edit(
@@ -647,6 +675,8 @@ class AstroAfkMod(loader.Module):
 			]
 		)
 	async def bio_n(self, call: InlineCall):
+		'''Callback button'''
+		
 		self._db.set(__name__, 'change_bio', False)
 		info = self.render_settings()
 		await call.edit(
@@ -671,10 +701,10 @@ class AstroAfkMod(loader.Module):
 			]
 		)
 
-	# @loader.inline_everyone
 	async def callback_handler_ok(self, call, chat_id: int):
+		'''Callback button'''
+		
 		await call.delete()
-		logging.info(f'Message in chat ({chat_id}) deleted by {call.from_user.first_name} ({call.from_user.id})')
 		limit: list = self._db.get(__name__, 'ratelimit', [])
 		limit.remove(chat_id)
 		self._db.set(__name__, 'ratelimit', limit)
