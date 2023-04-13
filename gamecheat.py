@@ -29,7 +29,6 @@ from .. import loader, utils
 from telethon.tl.types import Message
 from requests.structures import CaseInsensitiveDict
 
-@loader.tds
 class GameeCheatMod(loader.Module):
 	"""Читы для игр в @gamee"""
 
