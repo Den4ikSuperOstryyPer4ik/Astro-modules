@@ -21,3 +21,4 @@ komarumod
 brawl_stats
 astroweather
 demotivator
+gamecheat
