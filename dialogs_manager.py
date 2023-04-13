@@ -59,7 +59,8 @@ class DialogsManagerMod(loader.Module):
 	}
 	
 	@loader.command(
-		ru_doc="➪  полная информация о ваших диалогах, чатах лс и т.д."
+		ru_doc="➪  полная информация о ваших диалогах, чатах лс и т.д.",
+		alias='dinfo'
 	)
 	async def dialogsinfo(self, message: Message):
 		"""➪  all info for your dialogs, chats, PMs..."""
@@ -123,13 +124,6 @@ class DialogsManagerMod(loader.Module):
 			scam_bots, verified_bots
 		)
 		await answer(msg, textik)
-	
-	@loader.command(
-		ru_doc="➪  алиас для команды 'dialogsinfo'"
-	)
-	async def dinfo(self, message: Message):
-		"""➪  alias for command 'dialogsinfo'"""
-		await self.dialogsinfo(message)
 	
 	@loader.command(
 		ru_doc="<id or @username> ➪  удалить чат(диалог) с юзером"
