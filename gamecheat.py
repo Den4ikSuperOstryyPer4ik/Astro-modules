@@ -64,13 +64,6 @@ class GameeCheatMod(loader.Module):
 		else:
 			return False
 
-	async def get_time(self):
-		a = random.choice(['t', 'n'])
-		if a == 't':
-			return(random.randint(278, 1987))
-		else:
-			return(random.randint(78, 987))
-
 	async def get_checksum(self, score, playTime, url):
 		str2hash = f"{score}:{playTime}:{url}::crmjbjm3lczhlgnek9uaxz2l9svlfjw14npauhen"
 		result = hashlib.md5(str2hash.encode())
@@ -95,7 +88,7 @@ class GameeCheatMod(loader.Module):
 			await utils.answer(message, self.strings('error_link'))
 			return
 
-		time = await self.get_time()
+		time = random.randint(308, 19187)
 		checksum = await self.get_checksum(score, time, game_url)
 
 		token = await self.lib.get_token(game_url)
