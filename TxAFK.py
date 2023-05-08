@@ -117,13 +117,7 @@ class TxAFKMod(loader.Module):
 		"""- войти в AFK режим"""
 		try:
 			user_id = (
-				(
-					(
-						await self._client.get_entity(
-							args if not args.isdigit() else int(args)
-						)
-					).id
-				)
+				(await self._client.get_entity(int(args) if args.isdigit() else args)).id
 				if args
 				else reply.sender_id
 			)
@@ -131,18 +125,17 @@ class TxAFKMod(loader.Module):
 			user_id = self._tg_id
 
 		user = await self._client(GetFullUserRequest(user_id))
-		
+
 		self._db.set(__name__, "afk", True)
 		self._db.set(__name__, "gone", time.time())
 		self._db.set(__name__, "ratelimit", [])
-		a_afk_bio_nofb = "В афк."
 		lastname = self.strings("lname")
-		if self.config['feedback_bot'] == None:
+		if self.config['feedback_bot'] is None:
+			a_afk_bio_nofb = "В афк."
 			await message.client(UpdateProfileRequest(about=a_afk_bio_nofb, last_name=lastname))
 		else:
-			a_afk_bio = 'На данный момент в АФК. Связь только через '
 			feedback = self.config['feedback_bot']
-			aaa = a_afk_bio + feedback
+			aaa = f'На данный момент в АФК. Связь только через {feedback}'
 			await message.client(UpdateProfileRequest(about=aaa))
 		await self.allmodules.log("goafk")
 		await utils.answer(message, '<emoji document_id=5215519585150706301>👍</emoji> <b>АФК режим включен!</b>')
@@ -157,7 +150,7 @@ class TxAFKMod(loader.Module):
 		self._db.set(__name__, "gone", None)
 		self._db.set(__name__, "ratelimit", [])
 		await self.allmodules.log("unafk")
-		if sbio == None:
+		if sbio is None:
 			await message.client(UpdateProfileRequest(about='', last_name=lastname0))
 		else:
 			await message.client(UpdateProfileRequest(about=sbio, last_name=lastname0))
@@ -194,11 +187,10 @@ class TxAFKMod(loader.Module):
 			ratelimit = self._db.get(__name__, "ratelimit", [])
 			if utils.get_chat_id(message) in ratelimit:
 				return
-			else:
-				self._db.setdefault(__name__, {}).setdefault("ratelimit", []).append(
-					utils.get_chat_id(message)
-				)
-				self._db.save()
+			self._db.setdefault(__name__, {}).setdefault("ratelimit", []).append(
+				utils.get_chat_id(message)
+			)
+			self._db.save()
 			user = await utils.get_user(message)
 			if user.is_self or user.bot or user.verified:
 				logger.debug("User is self, bot or verified.")
@@ -210,15 +202,15 @@ class TxAFKMod(loader.Module):
 				self._db.get(__name__, "gone")
 			).replace(microsecond=0)
 			time = now - gone
-			if self.config['custom_button'] == None:
+			if self.config['custom_button'] is None:
 				if self.config["button"] == False:
-					if self.config["custom_text__afk"] == None:
+					if self.config["custom_text__afk"] is None:
 						await self.inline.form(message=message, text=f"<b>🔅 Я сейчас нахожусь в АФК.</b>\n\nПоследний раз был в сети <code>{time}</code> назад.")
 					else:
 						await self.inline.form(message=message, text=self._afk_custom_text())
-				
+
 				elif self.config['button'] == True:
-					if self.config["custom_text__afk"] == None:
+					if self.config["custom_text__afk"] is None:
 						await self.inline.form(
 							message=message, 
 							text=f"<b>🔅 Я сейчас нахожусь в АФК.</b>\n\nПоследний раз был в сети <code>{time}</code> назад.", 
@@ -245,60 +237,59 @@ class TxAFKMod(loader.Module):
 								]
 							]
 						)
-			else:
-				if self.config["button"] == False:
-					if self.config["custom_text__afk"] == None:
-						await self.inline.form(message=message, text=f"<b>🔅 Я сейчас нахожусь в АФК.</b>\n\nПоследний раз был в сети <code>{time}</code> назад.", reply_markup=[{"text": self.config['custom_button'][0], "url": self.config['custom_button'][1]}])
-					else:
-						await self.inline.form(message=message, text=self._afk_custom_text(), reply_markup=[{"text": self.config['custom_button'][0], "url": self.config['custom_button'][1]}])
-				
-				elif self.config['button'] == True:
-					if self.config["custom_text__afk"] == None:
-						await self.inline.form(
-							message=message, 
-							text=f"<b>🔅 Я сейчас нахожусь в АФК.</b>\n\nПоследний раз был в сети <code>{time}</code> назад.", 
-							reply_markup=[
-								[
-									{
-										"text": self.config['custom_button'][0],
-										"url": self.config['custom_button'][1],
-									}
-								],
-								[
-									{
-										"text": "🚫 Выйти с афк 🚫", 
-										"callback": self.button_cancel,
-									}
-								]
-							]
-						)
+			elif self.config["button"] == False:
+				if self.config["custom_text__afk"] is None:
+					await self.inline.form(message=message, text=f"<b>🔅 Я сейчас нахожусь в АФК.</b>\n\nПоследний раз был в сети <code>{time}</code> назад.", reply_markup=[{"text": self.config['custom_button'][0], "url": self.config['custom_button'][1]}])
+				else:
+					await self.inline.form(message=message, text=self._afk_custom_text(), reply_markup=[{"text": self.config['custom_button'][0], "url": self.config['custom_button'][1]}])
 
-					else:
-						await self.inline.form(
-							message=message, 
-							text=self._afk_custom_text(), 
-							reply_markup=[
-								[
-									{
-										"text": self.config['custom_button'][0],
-										"url": self.config['custom_button'][1],
-									}
-								],
-								[
-									{
-										"text": "🚫 Выйти с афк 🚫", 
-										"callback": self.button_cancel,
-									}
-								]
+			elif self.config['button'] == True:
+				if self.config["custom_text__afk"] is None:
+					await self.inline.form(
+						message=message, 
+						text=f"<b>🔅 Я сейчас нахожусь в АФК.</b>\n\nПоследний раз был в сети <code>{time}</code> назад.", 
+						reply_markup=[
+							[
+								{
+									"text": self.config['custom_button'][0],
+									"url": self.config['custom_button'][1],
+								}
+							],
+							[
+								{
+									"text": "🚫 Выйти с афк 🚫", 
+									"callback": self.button_cancel,
+								}
 							]
-						)
+						]
+					)
+
+				else:
+					await self.inline.form(
+						message=message, 
+						text=self._afk_custom_text(), 
+						reply_markup=[
+							[
+								{
+									"text": self.config['custom_button'][0],
+									"url": self.config['custom_button'][1],
+								}
+							],
+							[
+								{
+									"text": "🚫 Выйти с афк 🚫", 
+									"callback": self.button_cancel,
+								}
+							]
+						]
+					)
 
 	async def button_cancel(self, call: InlineCall):
 		self._db.set(__name__, "afk", False)
 		self._db.set(__name__, "gone", None)
 		self._db.set(__name__, "ratelimit", [])
 		await self.allmodules.log("unafk")
-		if self.config['standart_bio'] == None:
+		if self.config['standart_bio'] is None:
 			lastname = self.strings("lname0")
 			about = self.strings("lname0")
 			await self._client(UpdateProfileRequest(about=about, last_name=lastname))
@@ -306,38 +297,37 @@ class TxAFKMod(loader.Module):
 			aboutt = self.config['standart_bio']
 			lastname = self.strings("lname0")
 			await self._client(UpdateProfileRequest(about=aboutt, last_name=lastname))
-		await call.edit(
-		self.strings["bt_off_afk"],
-		reply_markup=[
-			{
-				"text": "🔰 Войти в афк 🔰",
-				"callback": self.button_cancel_on,
-			}
-		]
-	)
+			await call.edit(
+			self.strings["bt_off_afk"],
+			reply_markup=[
+				{
+					"text": "🔰 Войти в афк 🔰",
+					"callback": self.button_cancel_on,
+				}
+			]
+		)
 
 	async def button_cancel_on(self, call: InlineCall):
 		self._db.set(__name__, "afk", True)
 		self._db.set(__name__, "gone", time.time())
 		self._db.set(__name__, "ratelimit", [])
-		a_afk_bio_nofb = "В афк."
 		lastname = self.strings("lname")
-		if self.config['feedback_bot'] == None:
+		if self.config['feedback_bot'] is None:
+			a_afk_bio_nofb = "В афк."
 			await self._client(UpdateProfileRequest(about=a_afk_bio_nofb, last_name=lastname))
 		else:
-			a_afk_bio = 'На данный момент в АФК. Связь только через '
 			feedback = self.config['feedback_bot']
-			aaa = a_afk_bio + feedback
+			aaa = f'На данный момент в АФК. Связь только через {feedback}'
 			await self._client(UpdateProfileRequest(about=aaa))
-		await call.edit(
-		self.strings["bt_on_afk"],
-		reply_markup=[
-			{
-				"text": "🚫 Выйти с афк 🚫",
-				"callback": self.button_cancel,
-			}
-		]
-	)
+			await call.edit(
+			self.strings["bt_on_afk"],
+			reply_markup=[
+				{
+					"text": "🚫 Выйти с афк 🚫",
+					"callback": self.button_cancel,
+				}
+			]
+		)
 
 	def get_afk(self):
 		return self._db.get(__name__, "afk", False)

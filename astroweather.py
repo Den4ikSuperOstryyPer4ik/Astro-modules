@@ -75,15 +75,7 @@ class AstroWeatherMod(loader.Module):
 			'<emoji document_id=5447410659077661506>🌐</emoji>'
 		])
 
-		weather = (
-			f'{r_emoji} <b>Погода в {city.title()}:</b>\n\n'
-			f'{sity_emoji} <b>Город:</b> <code>{city.title()}</code>\n'
-			f'{t_emoji} <b>Температура:</b> <code>{temperature}°C</code>\n'
-			f'<emoji document_id=5192891734635322759>💦</emoji> <b>Влажность:</b> <code>{hum}%</code>\n'
-			f'{v_emoji} <b>Скорость ветра:</b> <code>{veter}м/с</code>\n'
-			f'{moji} <b>Небо:</b> <code>{sky}</code>'
-		)
-		return weather
+		return f'{r_emoji} <b>Погода в {city.title()}:</b>\n\n{sity_emoji} <b>Город:</b> <code>{city.title()}</code>\n{t_emoji} <b>Температура:</b> <code>{temperature}°C</code>\n<emoji document_id=5192891734635322759>💦</emoji> <b>Влажность:</b> <code>{hum}%</code>\n{v_emoji} <b>Скорость ветра:</b> <code>{veter}м/с</code>\n{moji} <b>Небо:</b> <code>{sky}</code>'
 
 
 	async def client_ready(self, client, db):
@@ -108,11 +100,12 @@ class AstroWeatherMod(loader.Module):
 			if result_json["cod"] != 200:
 				return
 
-			weather = {}
-			weather["temp"] = round(result_json["main"]["temp"])
-			weather["hum"] = result_json["main"]["humidity"]
-			weather["wind_speed"] = result_json["wind"]["speed"]
-			weather["sky"] = result_json["weather"][0]["main"]
+			weather = {
+				"temp": round(result_json["main"]["temp"]),
+				"hum": result_json["main"]["humidity"],
+				"wind_speed": result_json["wind"]["speed"],
+				"sky": result_json["weather"][0]["main"],
+			}
 			if weather["sky"] == 'Clouds':
 				weather["sky_emoji"] = '<emoji document_id=5391322797123314747>☁️</emoji>'
 			if weather["sky"] == 'Rain':
@@ -138,14 +131,14 @@ class AstroWeatherMod(loader.Module):
 		city = utils.get_args_raw(message)
 		city = city.title()
 		getting = await utils.answer(message, self.strings('search').format(search_moji, city))
-		
-		if self.config['api_key'] == None:
+
+		if self.config['api_key'] is None:
 			await utils.answer(getting, self.strings('api_error'))
 			await self.allmodules.commands["config"](
 				await utils.answer(message, f"{self.get_prefix()}config AstroWeather")
 			)
 			return
-		
+
 		try:
 			dict_wea = await self.get_weather(city)
 			temp = dict_wea["temp"]

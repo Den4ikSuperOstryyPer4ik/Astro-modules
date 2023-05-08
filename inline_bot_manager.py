@@ -172,11 +172,7 @@ class InlineBotManagerMod(loader.Module):
     @loader.command(ru_doc="<имя> --> изменить имя для вашего Инлайн-Бота")
     async def ibsetnamecmd(self, message):
         """<name> --> change Name for your Inline-Bot"""
-        args = u.get_args_raw(message)
-        if not args:
-            command = f"{self.get_prefix()}inlinebothelp"
-            await u.answer(message, self.strings("no_args").format(command))
-        else:
+        if args := u.get_args_raw(message):
             async with self.client.conversation(self.botfather) as conv:
                 await conv.send_message("/setname")
                 await conv.send_message(f"@{self.inline.bot_username}")
@@ -189,17 +185,16 @@ class InlineBotManagerMod(loader.Module):
                     self.strings("namea"), self.inline.bot_username, args
                 ),
             )
+        else:
+            command = f"{self.get_prefix()}inlinebothelp"
+            await u.answer(message, self.strings("no_args").format(command))
 
     @loader.command(
         ru_doc="<текст> --> изменить текст в InlineQuery для вашего Инлайн-Бота"
     )
     async def ibsetqtextcmd(self, message):
         """<text> --> change text in InlineQuery for your Inline-Bot"""
-        args = u.get_args_raw(message)
-        if not args:
-            command = f"{self.get_prefix()}inlinebothelp"
-            await u.answer(message, self.strings("no_args").format(command))
-        else:
+        if args := u.get_args_raw(message):
             async with self.client.conversation(self.botfather) as conv:
                 await conv.send_message("/setinline")
                 await conv.send_message(f"@{self.inline.bot_username}")
@@ -212,15 +207,14 @@ class InlineBotManagerMod(loader.Module):
                     self.strings("inline-text"), self.inline.bot_username, args
                 ),
             )
+        else:
+            command = f"{self.get_prefix()}inlinebothelp"
+            await u.answer(message, self.strings("no_args").format(command))
 
     @loader.command(ru_doc="<текст> --> изменить информацию о инлайн-боте")
     async def ibsetdescriptioncmd(self, message):
         """<description> --> change inline-bot description"""
-        args = u.get_args_raw(message)
-        if not args:
-            command = f"{self.get_prefix()}inlinebothelp"
-            await u.answer(message, self.strings("no_args").format(command))
-        else:
+        if args := u.get_args_raw(message):
             async with self.client.conversation(self.botfather) as conv:
                 await conv.send_message("/setdescription")
                 await conv.mark_read()
@@ -233,15 +227,14 @@ class InlineBotManagerMod(loader.Module):
                     self.strings("description-text"), self.inline.bot_username, args
                 ),
             )
+        else:
+            command = f"{self.get_prefix()}inlinebothelp"
+            await u.answer(message, self.strings("no_args").format(command))
 
     @loader.command(ru_doc="<текст> --> изменить текст об информации о инлайн-боте")
     async def ibsetaboutcmd(self, message):
         """<about> --> change inline-bot about text"""
-        args = u.get_args_raw(message)
-        if not args:
-            command = f"{self.get_prefix()}inlinebothelp"
-            await u.answer(message, self.strings("no_args").format(command))
-        else:
+        if args := u.get_args_raw(message):
             async with self.client.conversation(self.botfather) as conv:
                 await conv.send_message("/setabouttext")
                 await conv.send_message(f"@{self.inline.bot_username}")
@@ -254,6 +247,9 @@ class InlineBotManagerMod(loader.Module):
                     self.strings("about-text"), self.inline.bot_username, args
                 ),
             )
+        else:
+            command = f"{self.get_prefix()}inlinebothelp"
+            await u.answer(message, self.strings("no_args").format(command))
 
     @loader.command(
         ru_doc="""-->проверить имя бота, чтобы оно было: "🌘 Hikka Userbot of {ваш ник}" """

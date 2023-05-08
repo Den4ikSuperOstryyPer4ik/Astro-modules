@@ -83,19 +83,17 @@ class RandomTrackMod(loader.Module):
 
 		🤫 По желанию, в конфиге, можно указать свои каналы откуда будет отбираться музыка"""
 
-		args = utils.get_args_raw(message)                  
-		afonks = self.config['fonks']           
-		asad = self.config['sad']               
-		ahpop = self.config['hyperpop']         
-		armx = self.config['remixes']            
+		args = utils.get_args_raw(message)
+		afonks = self.config['fonks']
+		asad = self.config['sad']
+		ahpop = self.config['hyperpop']
+		armx = self.config['remixes']
 		apop = self.config['popular']
-		amems = self.config['mems']             
+		amems = self.config['mems']
 		aplaylist = self.config['playlist']
-		agroup = "shyshomuz"
-		nstt = 'AM_NSTL'
-
 		if not args:
 			await utils.answer(message, "<emoji document_id=5219806684066618617>🫠</emoji> <b>Подбираем трек...</b>")
+			agroup = "shyshomuz"
 			music = random.choice([msg async for msg in self.client.iter_messages(agroup, limit=1000, filter=InputMessagesFilterMusic, reply_to=utils.get_topic(message))])
 			await message.respond(file=music)
 			if message.out:
@@ -142,9 +140,11 @@ class RandomTrackMod(loader.Module):
 			await message.respond(file=pop)
 			if message.out:
 				await message.delete()
-				
+
 		if args == "n":
 			await utils.answer(message, "<emoji document_id=5219806684066618617>🫠</emoji> <b>Подбираем трек...</b>")
+			nstt = 'AM_NSTL'
+
 			nst = random.choice([msg async for msg in self.client.iter_messages(nstt, limit=200, filter=InputMessagesFilterMusic, reply_to=utils.get_topic(message))])
 			await message.respond(file=nst)
 			if message.out:

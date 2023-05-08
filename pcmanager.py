@@ -59,32 +59,22 @@ class PCManagerMod(loader.Module):
 	async def pcoff(self, message: Message):
 		"""- выключить компьютер""" 
 		bot = self.config["bot_username"]
-		call = await self.lib.message_g(f'🛑 Shutdown',
-			bot,
-			mark_read=True,
-			delete=True
-		)
+		call = await self.lib.message_g('🛑 Shutdown', bot, mark_read=True, delete=True)
 		await utils.answer(message, f'<emoji document_id=5787544344906959608>ℹ️</emoji> <b>[PC_Manager]</b> <emoji document_id=5787544344906959608>ℹ️</emoji>\n\n{call.text}')
 
 	@loader.command()
 	async def pcreboot(self, message: Message):
 		"""- перезагрузить компьютер"""
 		bot = self.config["bot_username"]
-		call = await self.lib.message_g(f'🔄 Reboot',
-			bot,
-			mark_read=True,
-			delete=True
-		)
+		call = await self.lib.message_g('🔄 Reboot', bot, mark_read=True, delete=True)
 		await utils.answer(message, f'<emoji document_id=5787544344906959608>ℹ️</emoji> <b>[PC_Manager]</b> <emoji document_id=5787544344906959608>ℹ️</emoji>\n\n{call.text}')
 
 	@loader.command()
 	async def pcinfo(self, message: Message):
 		"""- просмотреть характеристики системы"""
 		bot = self.config["bot_username"]
-		call = await self.lib.message_q(f'💻 System Info',
-			bot,
-			mark_read=True,
-			delete=True
+		call = await self.lib.message_q(
+			'💻 System Info', bot, mark_read=True, delete=True
 		)
 		await utils.answer(message, f'<emoji document_id=5787544344906959608>ℹ️</emoji> <b>[PC_Manager]</b> <emoji document_id=5787544344906959608>ℹ️</emoji>\n\n{call.text}')
 
@@ -92,21 +82,15 @@ class PCManagerMod(loader.Module):
 	async def pcip(self, message: Message):
 		"""- просмотреть информацию об айпи адресе"""
 		bot = self.config["bot_username"]
-		call = await self.lib.message_q(f'🌐 IP Info',
-			bot,
-			mark_read=True,
-			delete=True
-		)
+		call = await self.lib.message_q('🌐 IP Info', bot, mark_read=True, delete=True)
 		await utils.answer(message, f'<emoji document_id=5787544344906959608>ℹ️</emoji> <b>[PC_Manager]</b> <emoji document_id=5787544344906959608>ℹ️</emoji>\n\n{call.text}')
 
 	@loader.command()
 	async def pcscrin(self, message: Message):
 		"""- сделать скриншот экрана"""
 		bot = self.config['bot_username']
-		call = await self.lib.message_g(f'/screenshot',
-			bot,
-			mark_read=True,
-			delete=True
+		call = await self.lib.message_g(
+			'/screenshot', bot, mark_read=True, delete=True
 		)
 		await utils.answer(message, f'<emoji document_id=5787544344906959608>ℹ️</emoji> <b>[PC_Manager]</b> <emoji document_id=5787544344906959608>ℹ️</emoji>\n\nОтправка скриншота...')
 		await message.respond(call)
@@ -129,11 +113,7 @@ class PCManagerMod(loader.Module):
 
 🔑 Дополнительно:"""
 		bot = self.config['bot_username']
-		call = await self.lib.message_g(f'/photo',
-			bot,
-			mark_read=True,
-			delete=True
-		)
+		call = await self.lib.message_g('/photo', bot, mark_read=True, delete=True)
 		await utils.answer(message, f'<emoji document_id=5787544344906959608>ℹ️</emoji> <b>[PC_Manager]</b> <emoji document_id=5787544344906959608>ℹ️</emoji>\n\nОтправка снимка...')
 		await message.respond(call)
 

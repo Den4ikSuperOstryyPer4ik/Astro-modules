@@ -161,11 +161,8 @@ class EmotionsMod(loader.Module):
 		else:
 			emoji = "<emoji document_id=5373230475022179039>🥺</emoji>"
 
-		if self.config['delete'] == True:
-			if message.out:
-				pass
-			else:
-				await message.delete()
+		if self.config['delete'] == True and not message.out:
+			await message.delete()
 		await utils.answer(
 			message, 
 			f'{emoji} <a href="tg://user?id={sender.id}">{utils.escape_html(sender.first_name)}</a> <b>{utils.escape_html(msg)}</b> {emoji}')

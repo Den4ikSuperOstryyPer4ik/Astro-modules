@@ -172,7 +172,7 @@ class DemotivatorMod(loader.Module):
 
     def parse_args(self, text: str):
         args = text.replace("\n", " ").split(" ")
-        text = " " + text
+        text = f" {text}"
         parsed = {}
 
         for arg in args:
@@ -215,10 +215,17 @@ class DemotivatorMod(loader.Module):
         elif (reply := await message.get_reply_message()) and reply.media:
             media, msg = reply.media, reply
 
-        if not (media and msg) or not isinstance(media, (MessageMediaDocument, MessageMediaPhoto)):
+        if (
+            not media
+            or not msg
+            or not isinstance(media, (MessageMediaDocument, MessageMediaPhoto))
+        ):
             return False
 
-        if (isinstance(media, MessageMediaDocument) and media.document) and (not (image := re.match(r"image/(.*)", media.document.mime_type)) or image.group(1) not in MIME_TYPES):
+        if (isinstance(media, MessageMediaDocument) and media.document) and (
+            not (image := re.match(r"image/(.*)", media.document.mime_type))
+            or image[1] not in MIME_TYPES
+        ):
             return False
 
         return await msg.download_media()
@@ -250,19 +257,15 @@ class DemotivatorMod(loader.Module):
             img = Image.new('RGB', (width + 250, height + 260), color=fill_color)
             img_border = Image.new('RGB', (width + 10, height + 10), color='#000000')
             border = ImageOps.expand(img_border, border=2, fill='#ffffff')
-            img.paste(border, (111, 96))
-            img.paste(user_img, (118, 103))
-            drawer = ImageDraw.Draw(img)
         else:
             img = Image.new('RGB', (1280, 1024), color=fill_color)
             img_border = Image.new('RGB', (1060, 720), color='#000000')
             border = ImageOps.expand(img_border, border=2, fill='#ffffff')
             user_img = Image.open(file).convert("RGBA").resize((1050, 710))
             (width, height) = user_img.size
-            img.paste(border, (111, 96))
-            img.paste(user_img, (118, 103))
-            drawer = ImageDraw.Draw(img)
-
+        img.paste(border, (111, 96))
+        img.paste(user_img, (118, 103))
+        drawer = ImageDraw.Draw(img)
         font_1 = ImageFont.truetype(font=font_name(), size=top_size, encoding='UTF-8')
         text_width = font_1.getsize(top_text)[0]
 
@@ -308,20 +311,22 @@ class DemotivatorMod(loader.Module):
     
     async def demotivate_pic(self, args: dict):
         result_path = "/tmp/_demoted_" + args["file"]
-        
+
         font_name = args.get("font_name", self.config["font_name_link"])
         font_resp = await utils.run_sync(requests.get, font_name)
-        
+
         def _get_font():
             font = io.BytesIO(font_resp.content)
             font.name = font_name.split("/")[-1]
             return font
-        
+
         result = self.create_demot(
             top_text=args["top_text"],
             bottom_text=args.get("bottom_text", ''),
             file=args["file"],
-            watermark=args.get("watermark", self.config["watermark"]) if not args.get("arrange", self.config["arrange"]) else None,
+            watermark=None
+            if args.get("arrange", self.config["arrange"])
+            else args.get("watermark", self.config["watermark"]),
             result_filename=result_path,
             font_color=args.get("font_color", self.config["font_color"]),
             font_name=_get_font,

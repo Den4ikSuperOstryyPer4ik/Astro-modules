@@ -77,7 +77,7 @@ class DialogsManagerMod(loader.Module):
 						verified_bots += 1
 					elif ent.fake:
 						fake_bots += 1
-				elif not ent.bot:
+				else:
 					users += 1
 					if ent.deleted:
 						deleted += 1
@@ -95,7 +95,7 @@ class DialogsManagerMod(loader.Module):
 				if ent.megagroup or ent.gigagroup:
 					if ent.megagroup:
 						megagroups += 1
-					elif ent.gigagroup:
+					else:
 						gigagroups += 1
 
 					if ent.fake:
@@ -104,7 +104,7 @@ class DialogsManagerMod(loader.Module):
 						scam_chats += 1
 					elif ent.verified:
 						verified_chats += 1
-				elif not ent.megagroup and not ent.gigagroup:
+				else:
 					channels += 1
 
 					if ent.fake:

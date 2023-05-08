@@ -58,17 +58,12 @@ class GameeCheatMod(loader.Module):
 
 	async def game_link(self, url):
 		pattern = r"https:\/\/prizes\.gamee\.com(\/game-bot\/.*)#tg"
-		result = re.match(pattern, url)
-		if result:
-			return result.groups(0)[0]
-		else:
-			return False
+		return result.groups(0)[0] if (result := re.match(pattern, url)) else False
 
 	async def get_checksum(self, score, playTime, url):
 		str2hash = f"{score}:{playTime}:{url}::crmjbjm3lczhlgnek9uaxz2l9svlfjw14npauhen"
 		result = hashlib.md5(str2hash.encode())
-		checksum = result.hexdigest()
-		return checksum
+		return result.hexdigest()
 
 	@loader.command()
 	async def chg(self, message: Message):

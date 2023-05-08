@@ -47,12 +47,14 @@ class VideoToVoice(loader.Module):
 		return f"{video_file.stem}.ogg"
 	
 	def get_duration(self, attributes):
-		duration = 0
-		for i in attributes:
-			if isinstance(i, telethon.tl.types.DocumentAttributeVideo):
-				duration = i.duration
-				break
-		return duration
+		return next(
+			(
+				i.duration
+				for i in attributes
+				if isinstance(i, telethon.tl.types.DocumentAttributeVideo)
+			),
+			0,
+		)
 	
 	@loader.command()
 	async def convert_to_voice(self, message):

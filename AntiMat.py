@@ -85,24 +85,23 @@ class AntiMatMod(loader.Module):
 	@loader.watcher()
 	async def watcher(self, message: Message):
 		cid = str(utils.get_chat_id(message))
-	
+
 		txt = message.text
 		antimat = self.db.get(
 			"am_status",
 			"antimat",
 		)
-		mats = self.config['list']
-
 		if antimat == False:
 			return
 		if antimat == True:
-			if cid not in self.chats:
-				for mat in mats:
+			mats = self.config['list']
+
+			for mat in mats:
+				if cid not in self.chats:
 					m = txt.lower().find(mat)
 					if m != -1:
 						await message.edit("<emoji document_id=5213285132709929474>🤬</emoji> <b>Не матерись!</b>")
-			else:
-				for mat in mats:
+				else:
 					m = txt.lower().find(mat)
 					if m != -1:
 						await utils.answer(message, "<emoji document_id=5213285132709929474>🤬</emoji> <b>Не матерись!</b>")

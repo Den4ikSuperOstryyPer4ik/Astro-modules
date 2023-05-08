@@ -418,12 +418,12 @@ class TwinkManagerMod(loader.Module):
 	
 	@loader.watcher()
 	async def watcher(self, message: Message):
-		if self.config['prefix_2'] == None:
+		if self.config['prefix_2'] is None:
 			self.db.set(__name__, "prefixN2", False)
 		else:
 			self.db.set(__name__, "prefixN2", True)
 
-		if self.config['prefix_3'] == None:
+		if self.config['prefix_3'] is None:
 			self.db.set(__name__, "prefixN3", False)
 		else:
 			self.db.set(__name__, "prefixN3", True)

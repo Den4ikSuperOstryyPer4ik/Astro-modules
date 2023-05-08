@@ -56,29 +56,13 @@ class AstroAfkMod(loader.Module):
 		'''Settings message'''
 
 		active = self._db.get(__name__, 'afk')
-		if active == True:
-			a_active = "Включен ✅"
-		else:
-			a_active = 'Выключен 🚫'
+		a_active = "Включен ✅" if active == True else 'Выключен 🚫'
 		change_bio = self._db.get(__name__, 'change_bio')
-		if change_bio == True:
-			a_change_bio = 'Да'
-		else:
-			a_change_bio = 'Нет'
+		a_change_bio = 'Да' if change_bio == True else 'Нет'
 		change_name = self._db.get(__name__, 'change_name')
-		if change_name == True:
-			a_change_name = 'Да'
-		else:
-			a_change_name = 'Нет'
+		a_change_name = 'Да' if change_name == True else 'Нет'
 		fb = self.config['feedback']
-		text = (
-			f'🎆 <b>AstroAfk</b>\n'
-			f'<b>├{a_active}</b>\n'
-			f'<b>├Смена биографии:</b> <code>{a_change_bio}</code> 📖\n'
-			f'<b>├Смена префикса:</b> <code>{a_change_name}</code> 📝\n'
-			f'<b>└Бот для связи:</b> <code>@{fb}</code> 🤖'
-		)
-		return text
+		return f'🎆 <b>AstroAfk</b>\n<b>├{a_active}</b>\n<b>├Смена биографии:</b> <code>{a_change_bio}</code> 📖\n<b>├Смена префикса:</b> <code>{a_change_name}</code> 📝\n<b>└Бот для связи:</b> <code>@{fb}</code> 🤖'
 
 
 	def __init__(self):
@@ -190,26 +174,20 @@ class AstroAfkMod(loader.Module):
 			self._db.set(__name__, 'reason', reason)
 		try:
 			user_id = (
-				(
-					(
-						await self._client.get_entity(
-							args if not args.isdigit() else int(args)
-						)
-					).id
-				)
+				(await self._client.get_entity(int(args) if args.isdigit() else args)).id
 				if args
 				else reply.sender_id
 			)
 		except Exception:
 			user_id = self._tg_id
 		user = await self._client(GetFullUserRequest(user_id))
-		
+
 		self._db.set(__name__, "afk", True)
 		self._db.set(__name__, "gone", time.time())
 		self._db.set(__name__, "ratelimit", [])
 		change_bio = self._db.get(__name__, "change_bio")
 		change_name = self._db.get(__name__, "change_name")
-		
+
 		about = user.full_user.about
 
 		self._db.set(__name__, 'about', about)
@@ -220,7 +198,7 @@ class AstroAfkMod(loader.Module):
 
 		if change_bio == True:
 			cfg_bio = self.config['about_text']
-			if cfg_bio == None:
+			if cfg_bio is None:
 				await message.client(UpdateProfileRequest(about="Нахожусь в афк."))
 			else:
 				bio = self._afk_about_text()
@@ -275,11 +253,10 @@ class AstroAfkMod(loader.Module):
 			ratelimit = self._db.get(__name__, "ratelimit", [])
 			if utils.get_chat_id(message) in ratelimit:
 				return
-			else:
-				self._db.setdefault(__name__, {}).setdefault("ratelimit", []).append(
-					utils.get_chat_id(message)
-				)
-				self._db.save()
+			self._db.setdefault(__name__, {}).setdefault("ratelimit", []).append(
+				utils.get_chat_id(message)
+			)
+			self._db.save()
 			user = await utils.get_user(message)
 
 			if user.is_self or user.bot or user.verified:
@@ -296,9 +273,9 @@ class AstroAfkMod(loader.Module):
 			time = now - gone
 			reason = self._db.get(__name__, 'reason')
 			if self._db.get(__name__, 'force') == False:
-				if self.config['link_button'] == None:
+				if self.config['link_button'] is None:
 					if self.config["button"] == False:
-						if self.config["afk_text"] == None:
+						if self.config["afk_text"] is None:
 							await self.inline.form(
 								message=message, 
 								text=f"<b>😴 Сейчас я в АФК режиме</b>\n\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.\n📝 Ушел по <b>причине:</b> {reason}", 
@@ -324,9 +301,9 @@ class AstroAfkMod(loader.Module):
 								],
 								silent=True
 							)
-					
+
 					elif self.config['button'] == True:
-						if self.config["afk_text"] == None:
+						if self.config["afk_text"] is None:
 							await self.inline.form(
 								message=message, 
 								text=f"<b>😴 Сейчас я в АФК режиме</b>\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.\n📝 Ушел по <b>причине:</b> {reason}", 
@@ -338,12 +315,12 @@ class AstroAfkMod(loader.Module):
 										}
 									],
 									[
-	            						{
-	                      					'text': '🚫 Закрыть', 
+							{
+							'text': '🚫 Закрыть', 
 											'callback': self.callback_handler_ok,
 											"args": (message.chat.id,)
-	          							}
-	                  				]
+							}
+							]
 								],
 								silent=True
 							)
@@ -360,129 +337,127 @@ class AstroAfkMod(loader.Module):
 										}
 									],
 									[
-	            						{
-	                      					'text': '🚫 Закрыть', 
+							{
+							'text': '🚫 Закрыть', 
 											'callback': self.callback_handler_ok,
 											"args": (message.chat.id,)
-	          							}
-	                  				]
+							}
+							]
 								],
 								silent=True
 							)
-				else:
-					if self.config["button"] == False:
-						if self.config["afk_text"] == None:
-							await self.inline.form(
-								message=message, 
-								text=f"😴 Сейчас я в <b>АФК</b> режиме\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.\n📝 Ушел по <b>причине:</b> {reason}", 
-								reply_markup=[
-									[
-										{
-											"text": self.config['link_button'][0], 
-											"url": self.config['link_button'][1]
-										}
-									],
-									[
-	            						{
-	                      					'text': '🚫 Закрыть', 
-											'callback': self.callback_handler_ok,
-											"args": (message.chat.id, )
-	          							}
-	                  				]
+				elif self.config["button"] == False:
+					if self.config["afk_text"] is None:
+						await self.inline.form(
+							message=message, 
+							text=f"😴 Сейчас я в <b>АФК</b> режиме\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.\n📝 Ушел по <b>причине:</b> {reason}", 
+							reply_markup=[
+								[
+									{
+										"text": self.config['link_button'][0], 
+										"url": self.config['link_button'][1]
+									}
 								],
-								silent=True
-							)
-						else:
-							await self.inline.form(
-								message=message, 
-								text=self._afk_custom_text(), 
-								reply_markup=[
-									[
-										{
-											"text": self.config['link_button'][0], 
-											"url": self.config['link_button'][1]
-										}
-									],
-									[
-	            						{
-	                      					'text': '🚫 Закрыть', 
-											'callback': self.callback_handler_ok,
-											"args": (message.chat.id,)
-	          							}
-	                  				]
-								],
-								silent=True
-							)
-					
-					elif self.config['button'] == True:
-						if self.config["afk_text"] == None:
-							await self.inline.form(
-								message=message, 
-								text=f"😴 Сейчас я в <b>АФК</b> режиме\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.\n📝 Ушел по <b>причине:</b> {reason}", 
-								reply_markup=[
-									[
-										{
-											"text": self.config['link_button'][0],
-											"url": self.config['link_button'][1],
-										}
-									],
-									[
-										{
-											"text": "🥱 Выйти из АФК", 
-											"callback": self.button_cancel,
-										}
-									],
-									[
-	            						{
-	                      					'text': '🚫 Закрыть', 
-											'callback': self.callback_handler_ok,
-											"args": (message.chat.id,)
-	          							}
-	                  				]
-								],
-								silent=True
-							)
-
-						else:
-							await self.inline.form(
-								message=message, 
-								text=self._afk_custom_text(), 
-								reply_markup=[
-									[
-										{
-											"text": self.config['link_button'][0],
-											"url": self.config['link_button'][1],
-										}
-									],
-									[
-										{
-											"text": "🥱 Выйти из АФК", 
-											"callback": self.button_cancel,
-										}
-									],
-									[
-	            						{
-	                      					'text': '🚫 Закрыть', 
-											'callback': self.callback_handler_ok,
-											"args": (message.chat.id,)
-	          							}
-	                  				]
-								],
-								silent=True
-							)
-			else:
-				if self.config["afk_text"] == None:
-					await utils.answer(
-						message,
-						(
-							"😴 Сейчас я в <b>АФК</b> режиме\n"
-							f"❇️ Был <b>онлайн</b>: <code>{time}"
-							"</code> назад.\n📝 Ушел по <b>причине:"
-							f"</b> {reason}"
+								[
+						{
+						'text': '🚫 Закрыть', 
+										'callback': self.callback_handler_ok,
+										"args": (message.chat.id, )
+						}
+						]
+							],
+							silent=True
 						)
+					else:
+						await self.inline.form(
+							message=message, 
+							text=self._afk_custom_text(), 
+							reply_markup=[
+								[
+									{
+										"text": self.config['link_button'][0], 
+										"url": self.config['link_button'][1]
+									}
+								],
+								[
+						{
+						'text': '🚫 Закрыть', 
+										'callback': self.callback_handler_ok,
+										"args": (message.chat.id,)
+						}
+						]
+							],
+							silent=True
+						)
+
+				elif self.config['button'] == True:
+					if self.config["afk_text"] is None:
+						await self.inline.form(
+							message=message, 
+							text=f"😴 Сейчас я в <b>АФК</b> режиме\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.\n📝 Ушел по <b>причине:</b> {reason}", 
+							reply_markup=[
+								[
+									{
+										"text": self.config['link_button'][0],
+										"url": self.config['link_button'][1],
+									}
+								],
+								[
+									{
+										"text": "🥱 Выйти из АФК", 
+										"callback": self.button_cancel,
+									}
+								],
+								[
+						{
+						'text': '🚫 Закрыть', 
+										'callback': self.callback_handler_ok,
+										"args": (message.chat.id,)
+						}
+						]
+							],
+							silent=True
+						)
+
+					else:
+						await self.inline.form(
+							message=message, 
+							text=self._afk_custom_text(), 
+							reply_markup=[
+								[
+									{
+										"text": self.config['link_button'][0],
+										"url": self.config['link_button'][1],
+									}
+								],
+								[
+									{
+										"text": "🥱 Выйти из АФК", 
+										"callback": self.button_cancel,
+									}
+								],
+								[
+						{
+						'text': '🚫 Закрыть', 
+										'callback': self.callback_handler_ok,
+										"args": (message.chat.id,)
+						}
+						]
+							],
+							silent=True
+						)
+			elif self.config["afk_text"] is None:
+				await utils.answer(
+					message,
+					(
+						"😴 Сейчас я в <b>АФК</b> режиме\n"
+						f"❇️ Был <b>онлайн</b>: <code>{time}"
+						"</code> назад.\n📝 Ушел по <b>причине:"
+						f"</b> {reason}"
 					)
-				else:
-					await utils.answer(message, self._afk_custom_text())
+				)
+			else:
+				await utils.answer(message, self._afk_custom_text())
 
 	async def button_cancel(self, call: InlineCall):
 		'''Callback button'''
@@ -615,21 +590,35 @@ class AstroAfkMod(loader.Module):
 	async def settings_about(self, call: InlineCall):
 		'''Callback button'''
 		
-		if self.config['feedback'] == None:
+		if self.config['feedback'] is None:
 			text = (
-				f'📖 <b>Смена биографии</b>'
-				+ '\n\n❔ <b>Хотите</b> ли Вы, чтобы при <b>входе в АФК</b> режим Ваша биография <b>менялась</b>'
-				+ '  на "<code>Нахожусь в афк</code>"?\n\n'
-				+ 'ℹ️ Так же Вы можете <b>изменить биографию</b> в <b>конфиге</b>. '
+				(
+					(
+						(
+							'📖 <b>Смена биографии</b>'
+							+ '\n\n❔ <b>Хотите</b> ли Вы, чтобы при <b>входе в АФК</b> режим Ваша биография <b>менялась</b>'
+						)
+						+ '  на "<code>Нахожусь в афк</code>"?\n\n'
+					)
+					+ 'ℹ️ Так же Вы можете <b>изменить биографию</b> в <b>конфиге</b>. '
+				)
 				+ 'Можно <b>отменить</b> или <b>сделать</b> действие, нажав на <b>кнопки ниже</b>'
 			)
 		else:
 			text = (
-				f'📖 <b>Смена биографии</b>'
-				+ '\n\n❔ <b>Хотите</b> ли Вы, чтобы при <b>входе в АФК</b> режим '
-				+ 'Ваша биография <b>менялась</b> на  "<code>Нет, на месте нахожусь в афк</code><code>.'
-				+ f' Связь только через @{self.config["feedback"]}</code>"?\n🤖 <b>Бот для связи</b>: <code>@{self.config["feedback"]}</code>\n\n'
-				+ 'ℹ️ Так же Вы можете <b>изменить биографию</b> в <b>конфиге</b>. '
+				(
+					(
+						(
+							(
+								'📖 <b>Смена биографии</b>'
+								+ '\n\n❔ <b>Хотите</b> ли Вы, чтобы при <b>входе в АФК</b> режим '
+							)
+							+ 'Ваша биография <b>менялась</b> на  "<code>Нет, на месте нахожусь в афк</code><code>.'
+						)
+						+ f' Связь только через @{self.config["feedback"]}</code>"?\n🤖 <b>Бот для связи</b>: <code>@{self.config["feedback"]}</code>\n\n'
+					)
+					+ 'ℹ️ Так же Вы можете <b>изменить биографию</b> в <b>конфиге</b>. '
+				)
 				+ 'Можно <b>отменить</b> или <b>сделать</b> действие, нажав на <b>кнопки ниже</b>'
 			)
 		await call.edit(

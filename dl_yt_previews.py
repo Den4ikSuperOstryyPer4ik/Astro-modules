@@ -85,90 +85,75 @@ class YTPreviewMod(loader.Module):
     #callback_handler for button `maxresdefault`:
     async def maxresdefault(self, call: InlineCall):
         try:
-            count1 = "http://i1.ytimg.com/vi/"
-            count2 = f"/maxresdefault.jpg"
+            count2 = "/maxresdefault.jpg"
             count = "maxresdefault"
             nm = self.args.split("=")
             if len(nm) == 2:
                 preview = nm[1]
-                yt = count1 + preview + count2
             else:
                 x = self.args.split("/")
                 preview = x[3]
-                yt = count1 + preview + count2
-
+            yt = f"http://i1.ytimg.com/vi/{preview}{count2}"
             await self._client.send_file(self.chat_id, file=yt, caption=self.strings("caption").format(count))
         except:
             await call.answer(self.strings("error"))
 
     async def sddefault(self, call: InlineCall):
         try:
-            count1 = "http://i1.ytimg.com/vi/"
-            count2 = f"/sddefault.jpg"
+            count2 = "/sddefault.jpg"
             count = "sddefault"
             nm = self.args.split("=")
             if len(nm) == 2:
                 preview = nm[1]
-                yt = count1 + preview + count2
             else:
                 x = self.args.split("/")
                 preview = x[3]
-                yt = count1 + preview + count2
-
+            yt = f"http://i1.ytimg.com/vi/{preview}{count2}"
             await self._client.send_file(self.chat_id, file=yt, caption=self.strings("caption").format(count))
         except:
             await call.answer(self.strings("error"))
 
     async def hqdefault(self, call: InlineCall):
         try:
-            count1 = "http://i1.ytimg.com/vi/"
-            count2 = f"/hqdefault.jpg"
+            count2 = "/hqdefault.jpg"
             count = "hqdefault"
             nm = self.args.split("=")
             if len(nm) == 2:
                 preview = nm[1]
-                yt = count1 + preview + count2
             else:
                 x = self.args.split("/")
                 preview = x[3]
-                yt = count1 + preview + count2
-
+            yt = f"http://i1.ytimg.com/vi/{preview}{count2}"
             await self._client.send_file(self.chat_id, file=yt, caption=self.strings("caption").format(count))
         except:
             await call.answer(self.strings("error"))
 
     async def mqdefault(self, call: InlineCall):
         try:
-            count1 = "http://i1.ytimg.com/vi/"
-            count2 = f"/mqdefault.jpg"
+            count2 = "/mqdefault.jpg"
             count = "mqdefault"
             nm = self.args.split("=")
             if len(nm) == 2:
                 preview = nm[1]
-                yt = count1 + preview + count2
             else:
                 x = self.args.split("/")
                 preview = x[3]
-                yt = count1 + preview + count2
-
+            yt = f"http://i1.ytimg.com/vi/{preview}{count2}"
             await self._client.send_file(self.chat_id, file=yt, caption=self.strings("caption").format(count))
         except:
             await call.answer(self.strings("error"))
 
     async def default(self, call: InlineCall):
         try:
-            count1 = "http://i1.ytimg.com/vi/"
-            count2 = f"/default.jpg"
+            count2 = "/default.jpg"
             count = "default"
             nm = self.args.split("=")
             if len(nm) == 2:
                 preview = nm[1]
-                yt = count1 + preview + count2
             else:
                 x = self.args.split("/")
                 preview = x[3]
-                yt = count1 + preview + count2
-
+            yt = f"http://i1.ytimg.com/vi/{preview}{count2}"
             await self._client.send_file(self.chat_id, file=yt, caption=self.strings("caption").format(count))
         except:
             await call.answer(self.strings("error"))
