@@ -22,9 +22,7 @@ from telethon.tl.types import Message
 
 @loader.tds
 class TwinkManagerMod(loader.Module):
-	"""Управление твинками через основной аккаунт. 
-
-	Не забудь в конфиге выставить префиксы!!!"""
+	'''Управление твинками через основной аккаунт.'''
 
 	strings = {
 		"name": "Twink-Manager",

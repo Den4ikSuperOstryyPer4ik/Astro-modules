@@ -23,8 +23,8 @@ from telethon.tl.types import Message, InputMessagesFilterMusic
 
 @loader.tds
 class RandomTrackMod(loader.Module):
-	"""Получить рандомный трек. 
-	Используйте категории чтобы сгенерировать трек на свой вкус."""
+	'''Получить рандомный трек. 
+	Используйте категории чтобы сгенерировать трек на свой вкус'''
 
 	strings = {"name": "RandomTrack"}
   

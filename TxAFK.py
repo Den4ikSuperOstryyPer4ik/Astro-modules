@@ -35,8 +35,7 @@ logger = logging.getLogger(__name__)
 
 @loader.tds
 class TxAFKMod(loader.Module):
-	"""Афк модуль от AstroModules с изменением био и имени"""
-
+	'''Афк модуль от AstroModules с изменением био и имени'''
 	async def client_ready(self, client, db):
 		self._db = db
 		self._me = await client.get_me()

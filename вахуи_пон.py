@@ -25,7 +25,7 @@ from .. import loader
 
 @loader.tds
 class ВахуиПонMod(loader.Module):
-    """пон и вахуи"""
+    '''пон и вахуи'''
 
     strings = {"name": "ВАХУИ-ПОН", "pon": "пон", "vahui": "вахуи"}
 

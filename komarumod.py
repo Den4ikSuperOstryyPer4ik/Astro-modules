@@ -25,7 +25,7 @@ from telethon.tl.types import InputMessagesFilterGif, InputMessagesFilterPhotos,
 
 
 class KomaruMod(loader.Module):
-    """Random picture/video/gif from the @komarueveryday"""
+    '''Random picture/video/gif from the @komarueveryday'''
     
     strings = {
 	"name": "Komaru",

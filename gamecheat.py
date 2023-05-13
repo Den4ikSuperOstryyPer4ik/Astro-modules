@@ -30,7 +30,7 @@ from telethon.tl.types import Message
 from requests.structures import CaseInsensitiveDict
 
 class GameeCheatMod(loader.Module):
-	"""Читы для игр в @gamee"""
+	'''Читы для игр в @gamee'''
 
 	strings = {
 		"name": "GameeCheats",

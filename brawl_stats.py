@@ -29,7 +29,7 @@ from .. import loader, utils
 
 @loader.tds
 class BrawlStatsInfo(loader.Module):
-	"""Brawl Stars Players/Clubs information :)"""
+	'''Brawl Stars Players/Clubs information :)'''
 	
 	strings = {
 		"name": "BrawlStatsInfo"

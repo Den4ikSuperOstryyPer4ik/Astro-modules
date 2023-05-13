@@ -31,7 +31,7 @@ import telethon
 
 @loader.tds
 class VideoToVoice(loader.Module):
-	"""Convert Video to voice"""
+	'''Convert Video to voice'''
 	
 	strings = {
 		"name": "VideoToVoice"

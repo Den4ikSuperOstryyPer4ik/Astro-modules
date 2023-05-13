@@ -21,7 +21,7 @@ from datetime import datetime
 from datetime import timedelta
 
 class SummerMod(loader.Module):
-    """Сколько осталось дней до лета?)"""
+    '''Сколько осталось дней до лета?)'''
 
     strings = {'name': 'SummerTimer'}
 

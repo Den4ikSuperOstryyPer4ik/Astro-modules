@@ -31,10 +31,7 @@ logger = logging.getLogger(__name__)
 
 
 class ComplimentsMod(loader.Module):
-    """
-    Покажи девушке какая она прекрасная
-    (ну или им, какие они прекрасные)
-    """
+    '''Покажи девушке какая она прекрасная (ну или им, какие они прекрасные)'''
 
     strings = {
         "name": "Compliments",

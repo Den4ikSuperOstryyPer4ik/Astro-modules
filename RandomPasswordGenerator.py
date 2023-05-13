@@ -33,10 +33,7 @@ logger = logging.getLogger(__name__)
 
 @loader.tds
 class PasswordGeneratorMod(loader.Module):
-    """
-    Random password/pincode generator
-    You can configure the generator through the config
-    """
+    '''Random password/pincode generator'''
 
     strings = {
         "name": "RandomPasswordGenerator",

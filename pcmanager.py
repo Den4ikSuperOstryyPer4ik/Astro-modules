@@ -23,7 +23,7 @@ from telethon.tl.types import Message
 from ..inline.types import InlineCall
 
 class PCManagerMod(loader.Module):
-	"""Управление вашим компьютером через юзербота"""
+	'''Управление вашим компьютером через юзербота'''
 	strings = {"name": "PC-Manager"}
 
 	def __init__(self):

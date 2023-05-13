@@ -26,7 +26,7 @@ from ..inline.types import InlineCall
 
 #module class:
 class YTPreviewMod(loader.Module):
-    """скачивает превью с ютуба"""
+    '''Скачивает превью с ютуба'''
     
     #strings en:
     strings = {

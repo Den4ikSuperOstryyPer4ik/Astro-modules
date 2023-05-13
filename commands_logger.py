@@ -29,7 +29,7 @@ logger = logging.getLogger(__name__)
 
 @loader.tds
 class HikkaCommandsLoggerMod(loader.Module):
-    """Hikka Commands Logger"""
+    '''Hikka Commands Logger'''
 
     strings = {
         "name": "HikkaCommandsLogger",

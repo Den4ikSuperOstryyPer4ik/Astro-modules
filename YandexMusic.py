@@ -20,7 +20,7 @@ __version__ = (1, 1, 1)
 from .. import loader, utils
 
 class YaMusicMod(loader.Module):
-	"""Поиск музыки через музыкального бота от Яндекса."""
+	'''Поиск музыки через музыкального бота от Яндекса'''
 
 	strings = {
 		"name": "YandexMusic",

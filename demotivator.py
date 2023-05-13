@@ -87,7 +87,7 @@ class ColorValidator(loader.validators.Validator):
 
 @loader.tds
 class DemotivatorMod(loader.Module):
-    """Demotivate picture with text, arguments and config."""
+    '''Demotivate picture with text, arguments and config.'''
 
     strings = {
         "name": "Demotivator",

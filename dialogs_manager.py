@@ -40,13 +40,13 @@ premium_emojies = [
 
 @loader.tds
 class DialogsManagerMod(loader.Module):
-	"""
+	'''
 	Check your all info for dialogs, chats, PMs
 	Delete definite dialog,
 	delete all dialogs by arguments,
 	leave the chats, ids/usernames which you specify
 	Dialogs Manager!
-	"""
+	'''
 	
 	strings = {
 		'name': 'DialogsManager',

@@ -33,7 +33,7 @@ from telethon.tl.functions.account import UpdateProfileRequest
 logger = logging.getLogger(__name__)
 
 class AstroAfkMod(loader.Module):
-	"""Полностью настраиваемый модуль для ухода в АФК режим! Обновление TxAFK!"""
+	'''Полностью настраиваемый модуль для ухода в АФК режим! Обновление TxAFK!'''
 
 	async def client_ready(self, client, db):
 		self._db = db

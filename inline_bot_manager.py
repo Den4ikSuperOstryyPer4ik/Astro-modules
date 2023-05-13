@@ -28,7 +28,7 @@ logger = logging.getLogger(__name__)
 
 @loader.tds
 class InlineBotManagerMod(loader.Module):
-    """Control over your Inline bot!"""
+    '''Control over your Inline bot!'''
 
     strings = {
         "name": "InlineBotManager",

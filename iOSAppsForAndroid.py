@@ -24,9 +24,7 @@ from .. import loader
 
 @loader.tds
 class iOSAppsForAndroid(loader.Module):
-    """
-    iOS Applications for Android, or more simply, Android applications with an interface like on iOS
-    """
+    '''iOS Applications for Android, or more simply, Android applications with an interface like on iOS'''
 
     strings = {
         "name": "iOSappsForAndroid",

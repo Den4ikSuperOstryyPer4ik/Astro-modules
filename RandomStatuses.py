@@ -38,7 +38,7 @@ logger = logging.getLogger(__name__)
 
 @loader.tds
 class RandomStatusesMod(loader.Module):
-    """Рандомные статусы для описания аккаунта в ТГ/Вацап/ВК и т.д."""
+    '''Рандомные статусы для описания аккаунта в ТГ/Вацап/ВК и т.д.'''
 
     strings = {
         "name": "RandomStatuses",
