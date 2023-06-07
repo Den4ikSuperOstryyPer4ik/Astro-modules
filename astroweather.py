@@ -1,4 +1,4 @@
-__version__ = (1, 0, 5)
+__version__ = (1, 0, 6)
 #                _             __  __           _       _                
 #      /\       | |           |  \/  |         | |     | |               
 #     /  \   ___| |_ _ __ ___ | \  / | ___   __| |_   _| | ___  ___      
@@ -15,16 +15,14 @@ __version__ = (1, 0, 5)
 #                 🔒 Licensed under the GNU AGPLv3                       
 #             https://www.gnu.org/licenses/agpl-3.0.html                 
 #     
-# meta developer: @AstroModules | @XizurK
+# meta developer: @AstroModules
 # meta banner: https://0x0.st/Hom5.png
-# Amore, come back...
 
 from .. import loader, utils
 from telethon.tl.types import Message
 
 import random
 import requests
-
 
 class AstroWeatherMod(loader.Module):
 	'''Модуль для получения информации о погоде в Вашем городе, в красивом формате'''
@@ -141,8 +139,9 @@ class AstroWeatherMod(loader.Module):
 		
 		if self.config['api_key'] == None:
 			await utils.answer(getting, self.strings('api_error'))
+			msg = await self.client.send_message(message.chat.id, '<b>Открываю конфиг...</b>')
 			await self.allmodules.commands["config"](
-				await utils.answer(message, f"{self.get_prefix()}config AstroWeather")
+				await utils.answer(msg, f"{self.get_prefix()}config AstroWeather")
 			)
 			return
 		
