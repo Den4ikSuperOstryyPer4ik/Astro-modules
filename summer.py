@@ -18,7 +18,6 @@
 
 from .. import loader, utils
 from datetime import datetime
-from datetime import timedelta
 
 class SummerMod(loader.Module):
     '''Сколько осталось дней до лета?)'''
