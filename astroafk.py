@@ -1,4 +1,4 @@
-__version__ = (2, 1, 3)
+__version__ = (2, 1, 4)
 #                _             __  __           _       _                
 #      /\       | |           |  \/  |         | |     | |               
 #     /  \   ___| |_ _ __ ___ | \  / | ___   __| |_   _| | ___  ___      
@@ -17,11 +17,8 @@ __version__ = (2, 1, 3)
 #                   
 # meta banner: https://0x0.st/oFwG.jpg                                                                                            
 # meta developer: @AstroModules
-# meta designer: @XizurK
 
-import re
 import time
-import logging
 import datetime
 import asyncio
 from telethon import types
@@ -29,8 +26,6 @@ from .. import loader, utils
 from ..inline.types import InlineCall
 from telethon.tl.functions.users import GetFullUserRequest
 from telethon.tl.functions.account import UpdateProfileRequest
-
-logger = logging.getLogger(__name__)
 
 class AstroAfkMod(loader.Module):
 	'''Полностью настраиваемый модуль для ухода в АФК режим! Обновление TxAFK!'''
