@@ -133,4 +133,4 @@ class AkinatorGame(loader.Module):
 					]
 				)
 		except akinator.exceptions.AkinatorQuestionOutOfRangeException:
-			await call.edit('text': '<b>К сожалению, я не смог угадать данного героя(</b>', photo=aki_failed)
+			await call.edit(text='<b>К сожалению, я не смог угадать данного героя(</b>', photo=aki_failed)
