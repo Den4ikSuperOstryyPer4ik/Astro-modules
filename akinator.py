@@ -1,4 +1,4 @@
-__version__ = (1, 0, 0)
+__version__ = (1, 0, 2)
 #                _             __  __           _       _
 #      /\       | |           |  \/  |         | |     | |
 #     /  \   ___| |_ _ __ ___ | \  / | ___   __| |_   _| | ___  ___
@@ -64,7 +64,7 @@ class AkinatorGame(loader.Module):
 	async def doai(self, call: InlineCall, message):
 		chat_id = int(message.chat_id)
 		mid = int(message.id)
-		if self.config[child_mode]:
+		if self.config['child_mode']:
 			qu = self.games[chat_id][mid].start_game(child_mode=True)
 		else:
 			qu = self.games[chat_id][mid].start_game(child_mode=False)
