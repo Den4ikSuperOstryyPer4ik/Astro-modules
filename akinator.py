@@ -1,4 +1,4 @@
-__version__ = (1, 0, 0)
+__version__ = (1, 0, 1)
 #                _             __  __           _       _
 #      /\       | |           |  \/  |         | |     | |
 #     /  \   ___| |_ _ __ ___ | \  / | ___   __| |_   _| | ___  ___
@@ -75,22 +75,6 @@ class AkinatorGame(loader.Module):
 			]
 		)
 
-	async def try_now(self, message, call):
-		sta = akinator.Akinator()
-		self.games.update({message.chat_id: {message.id: sta}})
-		await call.edit(
-			message=message,
-			photo=aki_photo,
-			text='Нажмите чтобы начать',
-			reply_markup=[
-				{
-					'text': 'Начать',
-					'callback': self.doai,
-					'args': (message,),
-				}
-			]
-		)
-
 	async def cont(
 		self, 
 		call: InlineCall, 
@@ -109,8 +93,7 @@ class AkinatorGame(loader.Module):
 				text, 
 				photo=gs["absolute_picture_path"],
 				reply_markup=[
-					{'text': 'Начать заново', 'callback': self.try_now(message, call)},
-					{'text': 'Не угадал', 'callback': self.cont, args: ('No', message),}
+					{'text': 'Это не он', 'callback': self.cont, 'args': ('No', message,),},
 				]
 			)
 		else:
