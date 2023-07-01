@@ -1,4 +1,4 @@
-__version__ = (1, 0, 2)
+__version__ = (1, 0, 5)
 #                _             __  __           _       _
 #      /\       | |           |  \/  |         | |     | |
 #     /  \   ___| |_ _ __ ___ | \  / | ___   __| |_   _| | ___  ___
@@ -25,6 +25,7 @@ from .. import loader, utils
 from ..inline.types import InlineCall
 
 aki_photo = "https://graph.org/file/3cc8825c029fd0cab9edc.jpg"
+aki_failed = 'https://0x0.st/H1rk.jpg'
 emojies = ['😏', '🫢', '🤔', '🫣', '🫤', '😉', '😒']
 
 @loader.tds
@@ -98,35 +99,38 @@ class AkinatorGame(loader.Module):
 		mid = message.id
 		gm = self.games[chat_id][mid]
 		text = gm.answer(args)
-		if gm.progression >= 85:
-			gm.win()
-			gs = gm.first_guess
-			text = f"<b>Это {gs['name']}\n{gs['description']}</b>"
-			await call.edit(
-				text, 
-				photo=gs["absolute_picture_path"],
-				reply_markup=[
-					{'text': 'Это не он', 'callback': self.cont, 'args': ('No', message,),},
-				]
-			)
-		else:
-			text = deep_translator.GoogleTranslator(
-				source="auto", 
-				target='ru'
-			).translate(text)
-			emo = random.choice(emojies)
-			await call.edit(
-				text=f'{emo} <b>{text}</b>',
-				photo=aki_photo,
-				reply_markup=[
-					[
-						{'text': 'Да', 'callback': self.cont, 'args': ('Yes', message),},
-						{'text': 'Нет', 'callback': self.cont, 'args': ('No', message),},
-						{'text': 'Не знаю', 'callback': self.cont, 'args': ('Idk', message),},
-					],
-					[
-						{'text': 'Возможно', 'callback': self.cont, 'args': ('Probably', message),},
-						{'text': 'Скорее нет', 'callback': self.cont, 'args': ('Probably Not', message),},
+		try:
+			if gm.progression >= 85:
+				gm.win()
+				gs = gm.first_guess
+				text = f"<b>Это {gs['name']}\n{gs['description']}</b>"
+				await call.edit(
+					text, 
+					photo=gs["absolute_picture_path"],
+					reply_markup=[
+						{'text': 'Это не он', 'callback': self.cont, 'args': ('No', message,),},
 					]
-				]
-			)
+				)
+			else:
+				text = deep_translator.GoogleTranslator(
+					source="auto", 
+					target='ru'
+				).translate(text)
+				emo = random.choice(emojies)
+				await call.edit(
+					text=f'{emo} <b>{text}</b>',
+					photo=aki_photo,
+					reply_markup=[
+						[
+							{'text': 'Да', 'callback': self.cont, 'args': ('Yes', message),},
+							{'text': 'Нет', 'callback': self.cont, 'args': ('No', message),},
+							{'text': 'Не знаю', 'callback': self.cont, 'args': ('Idk', message),},
+						],
+						[
+							{'text': 'Возможно', 'callback': self.cont, 'args': ('Probably', message),},
+							{'text': 'Скорее нет', 'callback': self.cont, 'args': ('Probably Not', message),},
+						]
+					]
+				)
+		except akinator.exceptions.AkinatorQuestionOutOfRangeException:
+			await call.edit('text': '<b>К сожалению, я не смог угадать данного героя(</b>', photo=aki_failed)
