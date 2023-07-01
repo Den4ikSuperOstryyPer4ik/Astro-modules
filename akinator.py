@@ -1,4 +1,4 @@
-__version__ = (1, 0, 1)
+__version__ = (1, 0, 0)
 #                _             __  __           _       _
 #      /\       | |           |  \/  |         | |     | |
 #     /  \   ___| |_ _ __ ___ | \  / | ___   __| |_   _| | ___  ___
@@ -51,10 +51,23 @@ class AkinatorGame(loader.Module):
 			reply_markup={'text': 'Начать','callback': self.doai,'args': (message,),}
 		)
 
+	def __init__(self):
+		self.config = loader.ModuleConfig(
+			loader.ConfigValue(
+				'child_mode',
+				True,
+				lambda: 'Детский режим. Если включен, то будет сложнее отгадать 18+ героев',
+				validator=loader.validators.Boolean()
+			)
+		)
+
 	async def doai(self, call: InlineCall, message):
 		chat_id = int(message.chat_id)
 		mid = int(message.id)
-		qu = self.games[chat_id][mid].start_game(child_mode=True)
+		if self.config[child_mode]:
+			qu = self.games[chat_id][mid].start_game(child_mode=True)
+		else:
+			qu = self.games[chat_id][mid].start_game(child_mode=False)
 		text = deep_translator.GoogleTranslator(
 			source="auto", 
 			target='ru'
@@ -85,7 +98,7 @@ class AkinatorGame(loader.Module):
 		mid = message.id
 		gm = self.games[chat_id][mid]
 		text = gm.answer(args)
-		if gm.progression >= 80:
+		if gm.progression >= 85:
 			gm.win()
 			gs = gm.first_guess
 			text = f"<b>Это {gs['name']}\n{gs['description']}</b>"
