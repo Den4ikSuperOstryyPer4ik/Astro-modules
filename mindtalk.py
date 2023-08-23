@@ -25,7 +25,7 @@ import requests
 
 @loader.tds
 class MindTalk(loader.Module):
-	'''Your little psychologist Based on MindTalk by hikamoru'''
+	'''Your little psychologist Based on MindTalk by Hikamoru'''
 
 	strings = {
 		'name': 'MindTalk',
