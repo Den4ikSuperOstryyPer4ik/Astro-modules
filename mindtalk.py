@@ -41,7 +41,7 @@ class MindTalk(loader.Module):
 		'answer': (
 			'<emoji document_id=5818995853544656277>👩‍💻</emoji> '
 			'<b>Your question:</b> {}\n\n'
-			'<emoji document_id=5854973145315806460>👮‍♂️</emoji> '
+			'<emoji document_id=5431602426354344379>👩‍⚕️</emoji> '
 			'<b>Answer from psychologist:</b> {}'
 		),
 		'history_cleared': '<emoji document_id=5818967120213445821>🛡</emoji> <b>Your history has been successfully cleared</b>'
