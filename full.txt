@@ -24,3 +24,4 @@ demotivator
 gamecheat
 wordly
 akinator
+mindtalk
