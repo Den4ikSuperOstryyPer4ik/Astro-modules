@@ -23,8 +23,7 @@
 from .. import loader, utils
 import requests
 
-@loader.tds
-class MindTalk(loader.Module):
+class MindTalkMod(loader.Module):
 	'''Your little psychologist Based on MindTalk by Hikamoru'''
 
 	strings = {
