@@ -52,7 +52,7 @@ class GameeCheatMod(loader.Module):
 			"<emoji document_id=6334638004920911460>ℹ️</emoji> <code>Вы не можете ставить новые рекорды в течении 24 часов</code>"
 		),
 		"banned_perm": (
-			"<emoji document_id=6334363088359262569>⛔️</emoji> <b>Вы были заблокированы в боте навсегда!</b>!\n"
+			"<emoji document_id=6334363088359262569>⛔️</emoji> <b>Вы были заблокированы в боте навсегда</b>!\n"
 			"<emoji document_id=6334638004920911460>ℹ️</emoji> <code>Вы не можете ставить новые рекорды в @gamee</code>"
 		),
 		"error_link": (
