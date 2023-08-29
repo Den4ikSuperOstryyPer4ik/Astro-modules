@@ -51,6 +51,10 @@ class GameeCheatMod(loader.Module):
 			"<emoji document_id=6334363088359262569>⛔️</emoji> <b>Вы были заблокированы в боте</b>!\n"
 			"<emoji document_id=6334638004920911460>ℹ️</emoji> <code>Вы не можете ставить новые рекорды в течении 24 часов</code>"
 		),
+		"banned_perm": (
+			"<emoji document_id=6334363088359262569>⛔️</emoji> <b>Вы были заблокированы в боте навсегда!</b>!\n"
+			"<emoji document_id=6334638004920911460>ℹ️</emoji> <code>Вы не можете ставить новые рекорды в @gamee</code>"
+		)
 		"error_link": (
 			"<emoji document_id=6334664779747034990>🚫</emoji> <b>Вы ввели неправильную ссылку</b>!\n"
 			"<emoji document_id=6334638004920911460>ℹ️</emoji> <code>Введите правильную ссылку или же"
@@ -103,5 +107,7 @@ class GameeCheatMod(loader.Module):
 		if result == 'ban':
 			await utils.answer(message, self.strings('banned'))
 			return
+		if result == 'ban_permanent':
+			return await utils.answer(message, self.strings('banned_perm'))
 
 		await utils.answer(message, self.strings("result").format(score))
