@@ -114,8 +114,8 @@ class AstroAfkMod(loader.Module):
 			),
 			loader.ConfigValue(
 				"ignore_chats",
-				[],
-				lambda: "Чаты, в которых AstroAfk не будет срабатывать",
+				[1554874075],
+				lambda: "Чаты, в которых AstroAfk не будет срабатывать (По умолчанию выставлен Support chat хикки, лучше не убирать его)",
 				validator=loader.validators.Series(
                     validator=loader.validators.Union(
                         loader.validators.TelegramID(),
