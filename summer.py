@@ -20,6 +20,7 @@
 #                                 https://www.gnu.org/licenses/agpl-3.0.html
 #
 # meta developer: @AstroModules
+# meta banner: https://raw.githubusercontent.com/Den4ikSuperOstryyPer4ik/Astro-modules/main/Banners/Summer.jpg
 
 from .. import loader, utils
 from datetime import datetime

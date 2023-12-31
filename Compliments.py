@@ -22,8 +22,7 @@ __version__ = (2, 0, 0)
 #                                 https://www.gnu.org/licenses/agpl-3.0.html
 #
 # meta developer: @AstroModules
-# meta pic: https://img.icons8.com/external-smashingstocks-glyph-smashing-stocks/66/000000/external-love-message-network-and-communication-smashingstocks-glyph-smashing-stocks.png
-# meta banner: https://imgur.com/aD9wZrv
+# meta banner: https://raw.githubusercontent.com/Den4ikSuperOstryyPer4ik/Astro-modules/main/Banners/Compliments.jpg
 # scope: hikka_only
 
 from .. import loader, utils, main

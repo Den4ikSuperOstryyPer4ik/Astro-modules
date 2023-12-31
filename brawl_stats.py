@@ -20,8 +20,7 @@
 #                                 https://www.gnu.org/licenses/agpl-3.0.html
 #
 # meta developer: @AstroModules
-# meta pic: None
-# meta banner: None
+# meta banner: https://raw.githubusercontent.com/Den4ikSuperOstryyPer4ik/Astro-modules/main/Banners/BrawlStats.jpg
 # scope: hikka_only
 # requires: brawlstats
 

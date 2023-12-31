@@ -20,7 +20,7 @@
 #                                 https://www.gnu.org/licenses/agpl-3.0.html
 #
 # meta developer: @AstroModules
-# meta banner: https://raw.githubusercontent.com/Den4ikSuperOstryyPer4ik/Astro-modules/main/Banners/Demotivator.png
+# meta banner: https://raw.githubusercontent.com/Den4ikSuperOstryyPer4ik/Astro-modules/main/Banners/Demotivator.jpg
 # requires: pillow
 # Amore, come back please...
 

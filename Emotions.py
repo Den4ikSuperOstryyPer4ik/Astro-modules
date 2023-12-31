@@ -21,6 +21,7 @@ __version__ = (1, 0, 1)
 #                                 https://www.gnu.org/licenses/agpl-3.0.html
 #
 # meta developer: @AstroModules, @HikariMods
+# meta banner: https://raw.githubusercontent.com/Den4ikSuperOstryyPer4ik/Astro-modules/main/Banners/Emotions.jpg
 
 from .. import loader, utils
 import grapheme

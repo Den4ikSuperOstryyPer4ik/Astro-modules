@@ -20,8 +20,7 @@
 #                                 https://www.gnu.org/licenses/agpl-3.0.html
 #
 # meta developer: @AstroModules
-# meta pic: https://img.icons8.com/plasticine/200/000000/bot.png
-# meta banner: еще нету :(
+# meta banner: https://raw.githubusercontent.com/Den4ikSuperOstryyPer4ik/Astro-modules/main/Banners/InlineBotManager.jpg
 # scope: hikka_only
 # scope: hikka_min 1.3.0
 

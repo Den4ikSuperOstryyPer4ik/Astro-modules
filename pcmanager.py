@@ -21,6 +21,7 @@ __version__ = (1, 0, 0)
 #                                 https://www.gnu.org/licenses/agpl-3.0.html
 #
 # meta developer: @AstroModules
+# meta banner: https://raw.githubusercontent.com/Den4ikSuperOstryyPer4ik/Astro-modules/main/Banners/PCManager.jpg
 
 from .. import loader, utils
 

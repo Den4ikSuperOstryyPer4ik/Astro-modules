@@ -21,8 +21,7 @@ __version__ = (2, 0, 0)
 #                                 https://www.gnu.org/licenses/agpl-3.0.html
 #
 # meta developer: @AstroModules
-# meta pic: https://img.icons8.com/clouds/500/000000/lock-2.png
-# meta banner: https://i.imgur.com/rJScJY9.jpeg
+# meta banner: https://raw.githubusercontent.com/Den4ikSuperOstryyPer4ik/Astro-modules/main/Banners/PasswordGenerator.jpg
 # scope: inline
 # scope: hikka_only
 # scope: hikka_min 1.3.0

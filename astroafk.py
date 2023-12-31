@@ -20,7 +20,7 @@ __version__ = (2, 1, 4)
 #                                    🔒 Licensed under the GNU AGPLv3
 #                                 https://www.gnu.org/licenses/agpl-3.0.html
 #
-# meta banner: https://0x0.st/oFwG.jpg                                                                                            
+# meta banner: https://raw.githubusercontent.com/Den4ikSuperOstryyPer4ik/Astro-modules/main/Banners/AstroAFK.jpg
 # meta developer: @AstroModules
 
 import time

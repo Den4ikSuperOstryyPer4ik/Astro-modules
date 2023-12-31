@@ -21,7 +21,7 @@ __version__ = (1, 0, 6)
 #                                 https://www.gnu.org/licenses/agpl-3.0.html
 #
 # meta developer: @AstroModules
-# meta banner: https://0x0.st/Hom5.png
+# meta banner: https://raw.githubusercontent.com/Den4ikSuperOstryyPer4ik/Astro-modules/main/Banners/AstroWeather.jpg
 
 from .. import loader, utils
 from telethon.tl.types import Message

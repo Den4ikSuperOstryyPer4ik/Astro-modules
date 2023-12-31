@@ -22,6 +22,7 @@ __version__ = (1, 0, 5)
 #
 # old source: https://github.com/norouzy/Gamee-Cheat
 # meta developer: @astromodules
+# meta banner: https://raw.githubusercontent.com/Den4ikSuperOstryyPer4ik/Astro-modules/main/Banners/GameeCheat.jpg
 # meta designer: @XizurK
 # support: @visionavtr
 # requirements: certifi==2022.6.15, charset-normalizer==2.1.0, idna==3.3, requests==2.28.1, urllib3==1.26.10

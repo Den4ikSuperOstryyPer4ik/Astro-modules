@@ -20,8 +20,7 @@
 #                                 https://www.gnu.org/licenses/agpl-3.0.html
 #
 # meta developer: @AstroModules
-# meta pic: https://0x0.st/oeWa.jpg
-# meta banner: https://0x0.st/oe4B.png
+# meta banner: https://raw.githubusercontent.com/Den4ikSuperOstryyPer4ik/Astro-modules/main/Banners/HikkaCommandsLogger.jpg
 # scope: hikka_only
 # scope: hikka_min 1.3.0
 
@@ -58,7 +57,7 @@ class HikkaCommandsLoggerMod(loader.Module):
         self.chat_logs = f"-100{self.chat_l.id}"
         logger.info("Привет от t.me/AstroModules :)")
 
-    @loader.watcher(only_commands=True)
+    @loader.watcher(only_commands=True, only_groups=True)
     async def watcher_chats(self, message):
         sender = await message.get_sender()
 

@@ -20,6 +20,7 @@ __version__ = (1, 3, 0)
 #                                    🔒 Licensed under the GNU AGPLv3
 #                                 https://www.gnu.org/licenses/agpl-3.0.html
 #
+# meta banner: https://raw.githubusercontent.com/Den4ikSuperOstryyPer4ik/Astro-modules/main/Banners/AntiMat.jpg
 # meta developer: @AstroModules
 from .. import loader, utils
 from telethon.tl.types import Message
