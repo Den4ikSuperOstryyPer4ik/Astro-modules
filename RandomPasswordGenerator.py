@@ -11,7 +11,7 @@ __version__ = (2, 0, 0)
 # 	::   :::  :::: ::      ::    ::   :::  ::::: ::  :::     ::   ::::: ::   :::: ::  ::::: ::   :: ::::   :: ::::  :::: ::
 # 	 :   : :  :: : :       :      :   : :   : :  :    :      :     : :  :   :: :  :    : :  :   : :: : :  : :: ::   :: : :
 # 	
-#                                             © Copyright 2023
+#                                             © Copyright 2024
 #
 #                                    https://t.me/Den4ikSuperOstryyPer4ik
 #                                                  and
@@ -22,13 +22,13 @@ __version__ = (2, 0, 0)
 #
 # meta developer: @AstroModules
 # meta banner: https://raw.githubusercontent.com/Den4ikSuperOstryyPer4ik/Astro-modules/main/Banners/PasswordGenerator.jpg
-# scope: inline
-# scope: hikka_only
-# scope: hikka_min 1.3.0
+
+import logging
+import random
+
+from telethon.tl.types import Message
 
 from .. import loader, utils
-from telethon.tl.types import Message
-import logging, random
 from ..inline.types import InlineCall
 
 logger = logging.getLogger(__name__)
@@ -98,7 +98,7 @@ class PasswordGeneratorMod(loader.Module):
                 validator=loader.validators.Integer(minimum=4),
             ),
             loader.ConfigValue(
-                "symbols_in_pass",
+                "symbols",
                 "+-*!&$?=@<>abcdefghijklnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
                 doc=lambda: self.strings("_cfg_doc_simbols_in_pass"),
             ),
@@ -148,17 +148,27 @@ class PasswordGeneratorMod(loader.Module):
         )
 
     async def new_random_pass(self, call: InlineCall):
-        symbols_in_pass = self.config["symbols_in_pass"]
+        symbols = self.config["symbols"]
         password_length = self.config["password_length"]
         length = int(password_length)
         password = ""
         for _ in range(length):
-            password += random.choice(symbols_in_pass)
+            password += random.choice(symbols)
             await call.edit(
                 self.strings["pass"].format(password_length, password),
                 reply_markup=[
-                    [{"text": self.strings("menu"), "callback": self.igenerator}],
-                    [{"text": self.strings("close"), "action": "close"}],
+                    [
+                        {
+                            "text": self.strings("menu"),
+                            "callback": self.igenerator
+                        }
+                    ],
+                    [
+                        {
+                            "text": self.strings("close"),
+                            "action": "close"
+                        }
+                    ],
                 ],
             )
 
@@ -172,7 +182,17 @@ class PasswordGeneratorMod(loader.Module):
             await call.edit(
                 self.strings["pincode"].format(pincode_length, pincode),
                 reply_markup=[
-                    [{"text": self.strings("menu"), "callback": self.igenerator}],
-                    [{"text": self.strings("close"), "action": "close"}],
+                    [
+                        {
+                            "text": self.strings("menu"),
+                            "callback": self.igenerator
+                        }
+                    ],
+                    [
+                        {
+                            "text": self.strings("close"),
+                            "action": "close"
+                        }
+                    ],
                 ],
             )

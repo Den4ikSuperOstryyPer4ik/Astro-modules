@@ -11,7 +11,7 @@ __version__ = (1, 0, 0)
 # 	::   :::  :::: ::      ::    ::   :::  ::::: ::  :::     ::   ::::: ::   :::: ::  ::::: ::   :: ::::   :: ::::  :::: ::
 # 	 :   : :  :: : :       :      :   : :   : :  :    :      :     : :  :   :: :  :    : :  :   : :: : :  : :: ::   :: : :
 # 	
-#                                             © Copyright 2023
+#                                             © Copyright 2024
 #
 #                                    https://t.me/Den4ikSuperOstryyPer4ik
 #                                                  and
@@ -240,11 +240,11 @@ class AchievementsMod(loader.Module):
 
 
     @loader.command(
-        ru_doc="[Заголовок] \"<текст>\" [-icon <ID-иконки>] [-title-color #<цвет-заголовка>] [-text-color #<цвет-текста>]",
-        aliases=["ach", "create_achievements"],
+        ru_doc="[Заголовок] \"<текст>\" [-icon <id>] [-title-color #<цвет>] [-text-color #<цвет>]",
+        alias="ach",
     )
     async def achievement(self, message):
-        """[title] \"<text>\" [-icon <icon-id>] [-title-color #<title-hex-color>] [-text-color #<text-hex-color>]"""
+        """[title] \"<text>\" [-icon <id>] [-title-color #<color>] [-text-color #<color>]"""
         try:
             sticker_file = await self.create_achievement(message)
         except ValueError as e:

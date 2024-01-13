@@ -10,7 +10,7 @@
 # 	::   :::  :::: ::      ::    ::   :::  ::::: ::  :::     ::   ::::: ::   :::: ::  ::::: ::   :: ::::   :: ::::  :::: ::
 # 	 :   : :  :: : :       :      :   : :   : :  :    :      :     : :  :   :: :  :    : :  :   : :: : :  : :: ::   :: : :
 # 	
-#                                             © Copyright 2023
+#                                             © Copyright 2024
 #
 #                                    https://t.me/Den4ikSuperOstryyPer4ik
 #                                                  and
@@ -22,8 +22,10 @@
 # meta developer: @AstroModules
 # meta banner: https://raw.githubusercontent.com/Den4ikSuperOstryyPer4ik/Astro-modules/main/Banners/Summer.jpg
 
-from .. import loader, utils
 from datetime import datetime
+
+from .. import loader, utils
+
 
 class SummerMod(loader.Module):
     '''Сколько осталось дней до лета?)'''

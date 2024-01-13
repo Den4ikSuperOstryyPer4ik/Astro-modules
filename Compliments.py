@@ -12,7 +12,7 @@ __version__ = (2, 0, 0)
 # 	::   :::  :::: ::      ::    ::   :::  ::::: ::  :::     ::   ::::: ::   :::: ::  ::::: ::   :: ::::   :: ::::  :::: ::
 # 	 :   : :  :: : :       :      :   : :   : :  :    :      :     : :  :   :: :  :    : :  :   : :: : :  : :: ::   :: : :
 # 	
-#                                             © Copyright 2023
+#                                             © Copyright 2024
 #
 #                                    https://t.me/Den4ikSuperOstryyPer4ik
 #                                                  and
@@ -23,13 +23,13 @@ __version__ = (2, 0, 0)
 #
 # meta developer: @AstroModules
 # meta banner: https://raw.githubusercontent.com/Den4ikSuperOstryyPer4ik/Astro-modules/main/Banners/Compliments.jpg
-# scope: hikka_only
 
-from .. import loader, utils, main
 import asyncio
 import logging
-import random as r
+
 from telethon.tl.types import Message
+
+from .. import loader, main, utils
 
 logger = logging.getLogger(__name__)
 
@@ -41,7 +41,7 @@ class ComplimentsMod(loader.Module):
         "name": "Compliments",
         "_cfg_doc_for_one_or_more": (
             "Выберите пожалуйста, комплименты будут для 1 человека женского пола, или"
-            " для всех людей женского пола в чате \nЕсли для 1 человека--> one \nЕсли"
+            " для всех людей женского пола в чате \nЕсли для 1 человека--> one\nЕсли"
             " для всех людей женского пола в чате--> more"
         ),
         "_cfg_doc_command_mode": (
@@ -51,6 +51,8 @@ class ComplimentsMod(loader.Module):
             " полный список --> 2"
         ),
     }
+
+
     def __init__(self):
         self._ratelimit = []
         self.config = loader.ModuleConfig(
@@ -68,19 +70,6 @@ class ComplimentsMod(loader.Module):
             ),
         )
 
-    async def client_ready(self, db, client):
-        self.db = db
-        if main.__version__ < (1, 3, 0):
-            try:
-                post = (await client.get_messages("AstroModules", ids=[78]))[0]
-                post_two = (await client.get_messages("AstroModules", ids=[93]))[0]
-                reactions = ["❤️‍🔥", "🤩", "🌚", "🔥"]
-                reaction = r.choice(reactions)
-                reaction_two = r.choice(reactions)
-                await post.react(reaction)
-                await post_two.react(reaction_two)
-            except Exception:
-                logger.debug("Can't react to t.me/AstroModules :(")
 
     async def inline_compliments(self, message: Message):
         om = self.config["for_one_or_more"]
@@ -323,9 +312,9 @@ class ComplimentsMod(loader.Module):
 
                 await utils.answer(
                     message,
-                    f"<b><i>Каждая девушка/девочка/женщина в этом чате прекрасна... еще"
-                    f" каждая из них: \n{{all_}}\nИ САМАЯ ЛУЧШАЯ НА"
-                    f" СВЕТЕ❤️❤️❤️❤️❤️❤️❤️❤️</i></b>",
+                    "<b><i>Каждая девушка/девочка/женщина в этом чате прекрасна... еще"
+                    f" каждая из них: \n{all_}\nИ САМАЯ ЛУЧШАЯ НА"
+                    " СВЕТЕ❤️❤️❤️❤️❤️❤️❤️❤️</i></b>",
                 )
             else:
                 await utils.answer(

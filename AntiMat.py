@@ -11,7 +11,7 @@ __version__ = (1, 3, 0)
 # 	::   :::  :::: ::      ::    ::   :::  ::::: ::  :::     ::   ::::: ::   :::: ::  ::::: ::   :: ::::   :: ::::  :::: ::
 # 	 :   : :  :: : :       :      :   : :   : :  :    :      :     : :  :   :: :  :    : :  :   : :: : :  : :: ::   :: : :
 # 	
-#                                             © Copyright 2023
+#                                             © Copyright 2024
 #
 #                                    https://t.me/Den4ikSuperOstryyPer4ik
 #                                                  and
@@ -22,8 +22,10 @@ __version__ = (1, 3, 0)
 #
 # meta banner: https://raw.githubusercontent.com/Den4ikSuperOstryyPer4ik/Astro-modules/main/Banners/AntiMat.jpg
 # meta developer: @AstroModules
-from .. import loader, utils
+
 from telethon.tl.types import Message
+
+from .. import loader, utils
 
 
 class AntiMatMod(loader.Module):
@@ -41,6 +43,7 @@ class AntiMatMod(loader.Module):
 
     async def client_ready(self):
         self.chats = self.get("active", [])
+    
 
     def __init__(self):
         self.config = loader.ModuleConfig(
@@ -100,9 +103,7 @@ class AntiMatMod(loader.Module):
         )
         mats = self.config['list']
 
-        if antimat == False:
-            return
-        if antimat == True:
+        if antimat:
             if cid not in self.chats:
                 for mat in mats:
                     m = txt.lower().find(mat)

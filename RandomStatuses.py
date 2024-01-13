@@ -10,7 +10,7 @@
 # 	::   :::  :::: ::      ::    ::   :::  ::::: ::  :::     ::   ::::: ::   :::: ::  ::::: ::   :: ::::   :: ::::  :::: ::
 # 	 :   : :  :: : :       :      :   : :   : :  :    :      :     : :  :   :: :  :    : :  :   : :: : :  : :: ::   :: : :
 # 	
-#                                             © Copyright 2023
+#                                             © Copyright 2024
 #
 #                                    https://t.me/Den4ikSuperOstryyPer4ik
 #                                                  and
@@ -21,21 +21,18 @@
 #
 # meta developer: @AstroModules
 # meta banner: https://raw.githubusercontent.com/Den4ikSuperOstryyPer4ik/Astro-modules/main/Banners/RandomStatuses.jpg
-# scope: hikka_only
-# scope: inline
-# scope: hikka_min 1.3.0
+
+import logging
+import random
+
+import grapheme
+import requests
+from bs4 import BeautifulSoup
+from telethon.tl.functions.account import UpdateProfileRequest
+from telethon.tl.types import Message
 
 from .. import loader
 from ..inline.types import InlineCall
-
-import random
-import requests
-import logging
-from bs4 import BeautifulSoup
-import grapheme
-
-from telethon.tl.types import Message
-from telethon.tl.functions.account import UpdateProfileRequest
 
 logger = logging.getLogger(__name__)
 
@@ -62,7 +59,7 @@ class RandomStatusesMod(loader.Module):
                 [
                     {
                         "text": self.strings("support_chat_btn"),
-                        "url": "https://t.me/AstroModulesChat",
+                        "url": "https://t.me/AstroModsChat",
                     }
                 ],
                 [
@@ -246,14 +243,24 @@ class RandomStatusesMod(loader.Module):
             f' сегодня:</b>\n"<code>{self.mn}</code>"'
         )
         await call.edit(
-            f"{rst}",
+            rst,
             reply_markup=[
-                [{"text": self.strings("generate_st"), "callback": self.random_status}],
-                [{"text": self.strings("set_status"), "callback": self.set_status}],
+                [
+                    {
+                        "text": self.strings("generate_st"),
+                        "callback": self.random_status
+                    }
+                ],
+                [
+                    {
+                        "text": self.strings("set_status"),
+                        "callback": self.set_status
+                    }
+                ],
                 [
                     {
                         "text": self.strings("support_chat_btn"),
-                        "url": "https://t.me/AstroModulesChat",
+                        "url": "https://t.me/AstroModsChat",
                     }
                 ],
                 [
@@ -262,7 +269,12 @@ class RandomStatusesMod(loader.Module):
                         "url": "https://t.me/AstroModules",
                     }
                 ],
-                [{"text": "🚫 Закрыть ", "action": "close"}],
+                [
+                    {
+                        "text": "🚫 Закрыть ",
+                        "action": "close"
+                    }
+                ],
             ],
         )
 
@@ -271,11 +283,16 @@ class RandomStatusesMod(loader.Module):
         await call.edit(
             f"Био(Обо мне в профиле) изменено успешно на:\n«<code>{self.mn}</code>»",
             reply_markup=[
-                [{"text": self.strings("generate_st"), "callback": self.random_status}],
+                [
+                    {
+                        "text": self.strings("generate_st"),
+                        "callback": self.random_status
+                    }
+                ],
                 [
                     {
                         "text": self.strings("support_chat_btn"),
-                        "url": "https://t.me/AstroModulesChat",
+                        "url": "https://t.me/AstroModsChat",
                     }
                 ],
                 [
@@ -284,6 +301,11 @@ class RandomStatusesMod(loader.Module):
                         "url": "https://t.me/AstroModules",
                     }
                 ],
-                [{"text": "🚫 Закрыть ", "action": "close"}],
+                [
+                    {
+                        "text": "🚫 Закрыть ",
+                        "action": "close"
+                    }
+                ],
             ],
         )

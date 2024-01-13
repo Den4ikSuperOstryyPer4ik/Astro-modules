@@ -11,7 +11,7 @@ __version__ = (1, 4, 2)
 # 	::   :::  :::: ::      ::    ::   :::  ::::: ::  :::     ::   ::::: ::   :::: ::  ::::: ::   :: ::::   :: ::::  :::: ::
 # 	 :   : :  :: : :       :      :   : :   : :  :    :      :     : :  :   :: :  :    : :  :   : :: : :  : :: ::   :: : :
 # 	
-#                                             © Copyright 2023
+#                                             © Copyright 2024
 #
 #                                    https://t.me/Den4ikSuperOstryyPer4ik
 #                                                  and
@@ -23,10 +23,12 @@ __version__ = (1, 4, 2)
 # meta developer: @AstroModules
 # meta banner: https://raw.githubusercontent.com/Den4ikSuperOstryyPer4ik/Astro-modules/main/Banners/RandomTrack.jpg
 
+import random
+
+from telethon.tl.types import InputMessagesFilterMusic, Message
+
 from .. import loader, utils
 
-import random
-from telethon.tl.types import Message, InputMessagesFilterMusic
 
 @loader.tds
 class RandomTrackMod(loader.Module):
@@ -40,37 +42,37 @@ class RandomTrackMod(loader.Module):
 			loader.ConfigValue(
 				"playlist",
 				None,
-				doc=lambda: "Введите юзер своего канала с музыкой",
+				doc=lambda: "Юзер нужного канала с музыкой",
 			),
 			loader.ConfigValue(
 				"fonks",
 				"AM_fonks",
-				doc=lambda: "Введите юзер своего канала с фонками",
+				doc=lambda: "Юзер нужного канала с фонками",
 			),
 			loader.ConfigValue(
 				"remixes",
 				"AM_rmx",
-				doc=lambda: "Введите юзер своего канала с ремиксами",
+				doc=lambda: "Юзер нужного канала с ремиксами",
 			),
 			loader.ConfigValue(
 				"sad",
 				"AM_depressive",
-				doc=lambda: "Введите юзер своего канала с грустной музыкой",
+				doc=lambda: "Юзер нужного канала с грустной музыкой",
 			),
 			loader.ConfigValue(
 				"popular",
 				"AM_popular",
-				doc=lambda: "Введите юзер своего канала с поп музыкой",
+				doc=lambda: "Юзер нужного канала с поп музыкой",
 			),
 			loader.ConfigValue(
 				"hyperpop",
 				"hyperpopmusicx_x",
-				doc=lambda: "Введите юзер своего канала с хайперпоп музыкой",
+				doc=lambda: "Юзер нужного канала с хайперпоп музыкой",
 			),
 			loader.ConfigValue(
 				"mems",
 				"AM_memss",
-				doc=lambda: "Введите юзер своего канала с мемами",
+				doc=lambda: "Юзер нужного канала с мемами",
 			)
 		)
 
@@ -79,88 +81,66 @@ class RandomTrackMod(loader.Module):
 		"""- сгенерировать трек.
 
 		🫠 Категории:
-		  <f> - фонки
-		  <r> - ремиксы
-		  <m> - мемные звуки
-		  <s> - грустная музыка
-		  <h> - хайперпоп музыка
-		  <p> - популярная музыка
-		  <n> - ностальгические треки
-		  <my> - треки из вашего плейлиста
+          <f> - фонки
+          <r> - ремиксы
+          <m> - мемные звуки
+          <s> - грустная музыка
+          <h> - хайперпоп музыка
+          <p> - популярная музыка
+          <n> - ностальгические треки
+          <my> - треки из вашего плейлиста
 
-		🤫 По желанию, в конфиге, можно указать свои каналы откуда будет отбираться музыка"""
+		🤫 По желанию, в конфиге, можно указать свои каналы откуда будет отбираться музыка
+		"""
 
-		args = utils.get_args_raw(message)                  
-		afonks = self.config['fonks']           
-		asad = self.config['sad']               
-		ahpop = self.config['hyperpop']         
-		armx = self.config['remixes']            
-		apop = self.config['popular']
-		amems = self.config['mems']             
-		aplaylist = self.config['playlist']
-		agroup = "shyshomuz"
-		nstt = 'AM_NSTL'
-
+		args = utils.get_args_raw(message)
+	
+		limit = 100
 		if not args:
-			await utils.answer(message, "<emoji document_id=5219806684066618617>🫠</emoji> <b>Подбираем трек...</b>")
-			music = random.choice([msg async for msg in self.client.iter_messages(agroup, limit=1000, filter=InputMessagesFilterMusic, reply_to=utils.get_topic(message))])
-			await message.respond(file=music)
-			if message.out:
-				await message.delete()
-
-		if args == "f":
-			await utils.answer(message, "<emoji document_id=5219806684066618617>🫠</emoji> <b>Подбираем фонк...</b>")
-			fonk = random.choice([msg async for msg in self.client.iter_messages(afonks, limit=100, filter=InputMessagesFilterMusic, reply_to=utils.get_topic(message))])
-			await message.respond(file=fonk)
-			if message.out:
-				await message.delete()
-
+			search_type = "трек"
+			search_channel = "shyshomuz"
+			limit = 1000
+		elif args == "f":
+			search_type = "фонк"
+			search_channel = self.config['fonks']
 		if args == "s":
-			await utils.answer(message, "<emoji document_id=5219806684066618617>🫠</emoji> <b>Подбираем грустный трек...</b>")
-			depr = random.choice([msg async for msg in self.client.iter_messages(asad, limit=100, filter=InputMessagesFilterMusic, reply_to=utils.get_topic(message))])
-			await message.respond(file=depr)
-			if message.out:
-				await message.delete()
-
+			search_type = "грустный трек"
+			search_channel = self.config['sad']
 		if args == "h":
-			await utils.answer(message, "<emoji document_id=5219806684066618617>🫠</emoji> <b>Подбираем хайперпоп...</b>")
-			hyper = random.choice([msg async for msg in self.client.iter_messages(ahpop, limit=100, filter=InputMessagesFilterMusic, reply_to=utils.get_topic(message))])
-			await message.respond(file=hyper)
-			if message.out:
-				await message.delete()
-
+			search_type = "хайпер-поп"
+			search_channel = self.config['hyperpop']
 		if args == "r":
-			await utils.answer(message, "<emoji document_id=5219806684066618617>🫠</emoji> <b>Подбираем ремикс...</b>")
-			remix = random.choice([msg async for msg in self.client.iter_messages(armx, limit=100, filter=InputMessagesFilterMusic, reply_to=utils.get_topic(message))])
-			await message.respond(file=remix)
-			if message.out:
-				await message.delete()
-
+			search_type = "ремикс"
+			search_channel = self.config['remixes']
 		if args == "m":
-			await utils.answer(message, "<emoji document_id=5219806684066618617>🫠</emoji> <b>Подбираем трек...</b>")
-			mem = random.choice(await self.client.get_messages(amems, limit=100, reply_to=utils.get_topic(message)))
-			await message.respond(file=mem)
-			if message.out:
-				await message.delete()
-
+			search_type = "мем"
+			search_channel = self.config['mems']
 		if args == "p":
-			await utils.answer(message, "<emoji document_id=5219806684066618617>🫠</emoji> <b>Подбираем трек...</b>")
-			pop = random.choice([msg async for msg in self.client.iter_messages(apop, limit=100, filter=InputMessagesFilterMusic, reply_to=utils.get_topic(message))])
-			await message.respond(file=pop)
-			if message.out:
-				await message.delete()
-				
+			search_type = "трек"
+			search_channel = self.config['popular']
 		if args == "n":
-			await utils.answer(message, "<emoji document_id=5219806684066618617>🫠</emoji> <b>Подбираем трек...</b>")
-			nst = random.choice([msg async for msg in self.client.iter_messages(nstt, limit=200, filter=InputMessagesFilterMusic, reply_to=utils.get_topic(message))])
-			await message.respond(file=nst)
-			if message.out:
-				await message.delete()
-
+			search_type = "трек"
+			search_channel = "AM_NSTL"
+			limit = 200
 		if args == "my":
-			await utils.answer(message, "<emoji document_id=5219806684066618617>🫠</emoji> <b>Подбираем трек с вашего плейлиста...</b>")
-			my = random.choice([msg async for msg in self.client.iter_messages(aplaylist, limit=100, filter=InputMessagesFilterMusic, reply_to=utils.get_topic(message))])
-			await message.respond(file=my)
-			if message.out:
-				await message.delete()
-				
+			search_type = "трек с вашего плейлиста"
+			search_channel = self.config['playlist']
+		
+		await utils.answer(message, f"<emoji document_id=5219806684066618617>🫠</emoji> <b>Подбираем {search_type}...</b>")
+
+		media = random.choice([
+			msg
+			async for msg in self.client.iter_messages(
+				search_channel,
+				limit=limit,
+				filter=InputMessagesFilterMusic if search_type != "мем" else None
+			)
+		])
+
+		await message.respond(
+			file=media,
+			reply_to=utils.get_topic(message),
+		)
+
+		if message.out:
+			await message.delete()

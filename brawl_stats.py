@@ -10,7 +10,7 @@
 # 	::   :::  :::: ::      ::    ::   :::  ::::: ::  :::     ::   ::::: ::   :::: ::  ::::: ::   :: ::::   :: ::::  :::: ::
 # 	 :   : :  :: : :       :      :   : :   : :  :    :      :     : :  :   :: :  :    : :  :   : :: : :  : :: ::   :: : :
 # 	
-#                                             © Copyright 2023
+#                                             © Copyright 2024
 #
 #                                    https://t.me/Den4ikSuperOstryyPer4ik
 #                                                  and
@@ -21,12 +21,10 @@
 #
 # meta developer: @AstroModules
 # meta banner: https://raw.githubusercontent.com/Den4ikSuperOstryyPer4ik/Astro-modules/main/Banners/BrawlStats.jpg
-# scope: hikka_only
 # requires: brawlstats
 
 import brawlstats as bs
 import requests
-
 
 from .. import loader, utils
 
@@ -44,18 +42,17 @@ class BrawlStatsInfo(loader.Module):
 			loader.ConfigValue(
 				"bs_api_token",
 				None,
-				doc="Представьте сюда API-Токен BrawlStarsAPI"
+				doc="Сохраните здесь свой API-Токен BrawlStarsAPI",
+				validator=loader.validators.Hidden()
 			)
 		)
 	
 	def getip(self):
-		import json
-		ip = requests.get('https://api.myip.com/').text
-		r = json.loads(ip)
-		return (r['ip'])
+		ip = requests.get('https://api.myip.com/').json()["ip"]
+		return ip
 	
 	async def client_ready(self, client, db):
-		await client.send_message("me", "<b>Модуль был загружен/перезагружен.\nВаш IP-Адрес для получения API-Токена BrawlStars: <code>{}</code></b>".format(self.getip()))
+		await client.send_message("me", "<b>Модуль был инициализирован.\nВаш IP-Адрес для получения API-Токена BrawlStars: <code>{}</code></b>".format(self.getip()))
 		
 		try:
 			self.bsc = bs.Client(self.config["bs_api_token"]) if self.config["bs_api_token"] else None
@@ -145,7 +142,7 @@ class BrawlStatsInfo(loader.Module):
 			'BUSTER': 'БАСТЕР',
 			'CHESTER': 'ЧЕСТЕР',
 			'GRAY': 'ГРЕЙ',
-			#'MANDY': '...'
+			'MANDY': 'МЭНДИ',
 		}
 		text_replaced = text
 		for i, o in names.items():

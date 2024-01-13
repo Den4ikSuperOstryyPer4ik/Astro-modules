@@ -10,7 +10,7 @@
 # 	::   :::  :::: ::      ::    ::   :::  ::::: ::  :::     ::   ::::: ::   :::: ::  ::::: ::   :: ::::   :: ::::  :::: ::
 # 	 :   : :  :: : :       :      :   : :   : :  :    :      :     : :  :   :: :  :    : :  :   : :: : :  : :: ::   :: : :
 # 	
-#                                             © Copyright 2023
+#                                             © Copyright 2024
 #
 #                                    https://t.me/Den4ikSuperOstryyPer4ik
 #                                                  and
@@ -22,8 +22,10 @@
 # meta developer: @AstroModules
 # meta banner: https://raw.githubusercontent.com/Den4ikSuperOstryyPer4ik/Astro-modules/main/Banners/MindTalk.jpg
 
-from .. import loader, utils
 import requests
+
+from .. import loader, utils
+
 
 class MindTalkMod(loader.Module):
 	'''Your little psychologist Based on MindTalk by Hikamoru'''
@@ -64,8 +66,20 @@ class MindTalkMod(loader.Module):
 			'username': login,
 			'password': password
 		}
-		if (requests.post(self.url + '/api/authenticate', params=params)).json()['result'] == True:
-			token = (requests.post(self.url + '/api/createUserToken', params=params)).json()['result']
+		if (
+			await utils.run_sync(
+				requests.post,
+				self.url + '/api/authenticate',
+				params=params
+			)
+		).json()['result']:
+			token = (
+				await utils.run_sync(
+					requests.post,
+					self.url + '/api/createUserToken',
+					params=params
+				)
+			).json()['result']
 			self.config['token'] = token
 			return True
 		else:
@@ -81,10 +95,15 @@ class MindTalkMod(loader.Module):
 
 		login, password = args.split()
 		gen = await self.get_token(login, password)
-		if gen == True:
-			return await utils.answer(message, self.strings('successful_login'))
-		else:
-			return await utils.answer(message, self.strings('login_error'))
+
+		return await utils.answer(
+			message,
+			self.strings(
+				'login_error'
+				if not gen
+				else 'successful_login'
+			)
+		)
 
 	@loader.command()
 	async def ask(self, message):
@@ -95,7 +114,10 @@ class MindTalkMod(loader.Module):
 			return await utils.answer(message, self.strings('args_error'))
 
 		if not self.config['token']:
-			return await utils.answer(message, self.strings('not_token').format(self.get_prefix()))
+			return await utils.answer(
+				message,
+				self.strings('not_token').format(self.get_prefix())
+			)
 
 		params = {
 			'userMessage': args,
@@ -105,15 +127,23 @@ class MindTalkMod(loader.Module):
 		response = (requests.post(self.url + '/api/chat', params=params)).json()
 		text = response['result']
 
-		await utils.answer(message, self.strings('answer').format(args, text))
+		await utils.answer(msg, self.strings('answer').format(args, text))
 
 	@loader.command()
 	async def mtclear(self, message):
 		'''- clear MindTalk history'''
 
 		if not self.config['token']:
-			return await utils.answer(message, self.strings('not_token').format(self.get_prefix()))
+			return await utils.answer(
+				message,
+				self.strings('not_token').format(self.get_prefix())
+			)
 
 		params = {'TOKEN': self.config['token']}
-		response = (requests.post(self.url + '/api/clear_chat_history', params=params)).json()
+		await utils.run_sync(
+			requests.post,
+			self.url + '/api/clear_chat_history',
+			params=params
+		)
+		
 		await utils.answer(message, self.strings('history_cleared'))

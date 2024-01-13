@@ -11,7 +11,7 @@ __version__ = (1, 0, 2)
 # 	::   :::  :::: ::      ::    ::   :::  ::::: ::  :::     ::   ::::: ::   :::: ::  ::::: ::   :: ::::   :: ::::  :::: ::
 # 	 :   : :  :: : :       :      :   : :   : :  :    :      :     : :  :   :: :  :    : :  :   : :: : :  : :: ::   :: : :
 # 	
-#                                             © Copyright 2023
+#                                             © Copyright 2024
 #
 #                                    https://t.me/Den4ikSuperOstryyPer4ik
 #                                                  and
@@ -23,10 +23,16 @@ __version__ = (1, 0, 2)
 # meta banner: https://raw.githubusercontent.com/Den4ikSuperOstryyPer4ik/Astro-modules/main/Banners/Komaru.jpg
 # meta developer: @AstroModules
 
-from .. import loader, utils
-
 from random import choice
-from telethon.tl.types import InputMessagesFilterGif, InputMessagesFilterPhotos, InputMessagesFilterVideo, Message
+
+from telethon.tl.types import (
+    InputMessagesFilterGif,
+    InputMessagesFilterPhotos,
+    InputMessagesFilterVideo,
+    Message,
+)
+
+from .. import loader, utils
 
 
 class KomaruMod(loader.Module):
@@ -35,8 +41,8 @@ class KomaruMod(loader.Module):
     strings = {
 	"name": "Komaru",
 	"choosing": "<emoji document_id=5328311576736833844>🔴</emoji> Choosing {}...",
-       	"gif": "gif",
-       	"video": "video",
+        "gif": "gif",
+        "video": "video",
         "photo": "photo",
 	}
     
@@ -58,17 +64,29 @@ class KomaruMod(loader.Module):
 	)
     async def komaru(self, message: Message):
         """- choose a random picture/gif/video"""
-        search_type = choice([InputMessagesFilterGif, InputMessagesFilterPhotos, InputMessagesFilterVideo])
+        search_type = choice([
+            InputMessagesFilterGif,
+            InputMessagesFilterPhotos,
+            InputMessagesFilterVideo
+        ])
         search_type_str = self.strings(self.SEARCH_TYPES[search_type])
         
         msg = await utils.answer(message, self.strings("choosing").format(search_type_str))
         
-        chosed_msg = choice([message_in_channel async for message_in_channel in self.client.iter_messages("komarueveryday", limit=200, filter=search_type)])
+        chosed_msg = choice([
+            message_in_channel
+            async for message_in_channel in self.client.iter_messages(
+                "komarueveryday",
+                limit=200,
+                filter=search_type
+            )
+        ])
         
-        reply = await message.get_reply_message()
-        if reply:
-            reply = reply.id
-        else:
-            reply = None
+        reply = None if not (reply := await message.get_reply_message()) else reply.id
         
-        return await utils.answer_file(msg, chosed_msg, chosed_msg.text or "<b>Подобрал " + search_type_str + ".</b>", reply_to=reply)
+        return await utils.answer_file(
+            msg,
+            chosed_msg,
+            chosed_msg.text or "<b>Подобрал " + search_type_str + ".</b>",
+            reply_to=reply
+        )

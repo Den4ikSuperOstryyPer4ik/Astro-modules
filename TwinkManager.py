@@ -11,7 +11,7 @@ __version__ = (1, 3, 1)
 # 	::   :::  :::: ::      ::    ::   :::  ::::: ::  :::     ::   ::::: ::   :::: ::  ::::: ::   :: ::::   :: ::::  :::: ::
 # 	 :   : :  :: : :       :      :   : :   : :  :    :      :     : :  :   :: :  :    : :  :   : :: : :  : :: ::   :: : :
 # 	
-#                                             © Copyright 2023
+#                                             © Copyright 2024
 #
 #                                    https://t.me/Den4ikSuperOstryyPer4ik
 #                                                  and
@@ -23,9 +23,10 @@ __version__ = (1, 3, 1)
 # meta developer: @AstroModules
 # meta banner: https://raw.githubusercontent.com/Den4ikSuperOstryyPer4ik/Astro-modules/main/Banners/TwinkManager.jpg
 
+from telethon.tl.types import Message
+
 from .. import loader, utils
 
-from telethon.tl.types import Message
 
 @loader.tds
 class TwinkManagerMod(loader.Module):
@@ -77,12 +78,12 @@ class TwinkManagerMod(loader.Module):
 		p3 = self.config['prefix_3']
 		full = self.db.get(__name__, "allAcc")
 
-		if full == True:
+		if full:
 			tp2 = self.db.get(__name__, "prefixN2")
 			tp3 = self.db.get(__name__, "prefixN3")
 
-			if tp3 == False:
-				if tp2 == False:
+			if not tp3:
+				if not tp2:
 					m = await utils.answer(message, f'{p1}{restart}')
 					await self.allmodules.commands["restart"](
 						await utils.answer(m, f"{self.get_prefix()}{restart}")
@@ -103,8 +104,8 @@ class TwinkManagerMod(loader.Module):
 		else:
 			tp2 = self.db.get(__name__, "prefixN2")
 			tp3 = self.db.get(__name__, "prefixN3")
-			if tp3 == False:
-				if tp2 == False:
+			if not tp3:
+				if not tp2:
 					m = await utils.answer(message, f'{p1}{restart}')
 					await utils.answer(m, '<emoji document_id=5213442551851262055>✔️</emoji> <b>Готово</b>')
 				else:
@@ -127,12 +128,12 @@ class TwinkManagerMod(loader.Module):
 		p3 = self.config['prefix_3']
 		full = self.db.get(__name__, "allAcc")
 
-		if full == True:
+		if full:
 			tp2 = self.db.get(__name__, "prefixN2")
 			tp3 = self.db.get(__name__, "prefixN3")
 
-			if tp3 == False:
-				if tp2 == False:
+			if not tp3:
+				if not tp2:
 					m = await utils.answer(message, f'{p1}{ping}')
 					await self.allmodules.commands["ping"](
 						await utils.answer(m, f"{self.get_prefix()}{ping}")
@@ -153,8 +154,8 @@ class TwinkManagerMod(loader.Module):
 		else:
 			tp2 = self.db.get(__name__, "prefixN2")
 			tp3 = self.db.get(__name__, "prefixN3")
-			if tp3 == False:
-				if tp2 == False:
+			if not tp3:
+				if not tp2:
 					m = await utils.answer(message, f'{p1}{ping}')
 					await utils.answer(m, '<emoji document_id=5213442551851262055>✔️</emoji> <b>Готово</b>')
 				else:
@@ -178,12 +179,12 @@ class TwinkManagerMod(loader.Module):
 		p3 = self.config['prefix_3']
 		full = self.db.get(__name__, "allAcc")
 
-		if full == True:
+		if full:
 			tp2 = self.db.get(__name__, "prefixN2")
 			tp3 = self.db.get(__name__, "prefixN3")
 
-			if tp3 == False:
-				if tp2 == False:
+			if not tp3:
+				if not tp2:
 					m = await utils.answer(message, f'{p1}{dlmod} {args}')
 					await self.allmodules.commands["dlmod"](
 						await utils.answer(m, f"{self.get_prefix()}{dlmod} {args}")
@@ -204,8 +205,8 @@ class TwinkManagerMod(loader.Module):
 		else:
 			tp2 = self.db.get(__name__, "prefixN2")
 			tp3 = self.db.get(__name__, "prefixN3")
-			if tp3 == False:
-				if tp2 == False:
+			if not tp3:
+				if not tp2:
 					m = await utils.answer(message, f'{p1}{dlmod} {args}')
 					await utils.answer(m, '<emoji document_id=5213442551851262055>✔️</emoji> <b>Готово</b>')
 				else:
@@ -229,12 +230,12 @@ class TwinkManagerMod(loader.Module):
 		p3 = self.config['prefix_3']
 		full = self.db.get(__name__, "allAcc")
 
-		if full == True:
+		if full:
 			tp2 = self.db.get(__name__, "prefixN2")
 			tp3 = self.db.get(__name__, "prefixN3")
 
-			if tp3 == False:
-				if tp2 == False:
+			if not tp3:
+				if not tp2:
 					m = await utils.answer(message, f'{p1}{terminal} {args}')
 					await self.allmodules.commands["terminal"](
 						await utils.answer(m, f"{self.get_prefix()}{terminal} {args}")
@@ -255,8 +256,8 @@ class TwinkManagerMod(loader.Module):
 		else:
 			tp2 = self.db.get(__name__, "prefixN2")
 			tp3 = self.db.get(__name__, "prefixN3")
-			if tp3 == False:
-				if tp2 == False:
+			if not tp3:
+				if not tp2:
 					m = await utils.answer(message, f'{p1}{terminal} {args}')
 					await utils.answer(m, '<emoji document_id=5213442551851262055>✔️</emoji> <b>Готово</b>')
 				else:
@@ -279,12 +280,12 @@ class TwinkManagerMod(loader.Module):
 		p3 = self.config['prefix_3']
 		full = self.db.get(__name__, "allAcc")
 
-		if full == True:
+		if full:
 			tp2 = self.db.get(__name__, "prefixN2")
 			tp3 = self.db.get(__name__, "prefixN3")
 
-			if tp3 == False:
-				if tp2 == False:
+			if not tp3:
+				if not tp2:
 					m = await utils.answer(message, f'{p1}{update}')
 					await self.allmodules.commands["update"](
 						await utils.answer(m, f"{self.get_prefix()}{update}")
@@ -305,8 +306,8 @@ class TwinkManagerMod(loader.Module):
 		else:
 			tp2 = self.db.get(__name__, "prefixN2")
 			tp3 = self.db.get(__name__, "prefixN3")
-			if tp3 == False:
-				if tp2 == False:
+			if not tp3:
+				if not tp2:
 					m = await utils.answer(message, f'{p1}{update}')
 					await utils.answer(m, '<emoji document_id=5213442551851262055>✔️</emoji> <b>Готово</b>')
 				else:
@@ -330,12 +331,12 @@ class TwinkManagerMod(loader.Module):
 		p3 = self.config['prefix_3']
 		full = self.db.get(__name__, "allAcc")
 
-		if full == True:
+		if full:
 			tp2 = self.db.get(__name__, "prefixN2")
 			tp3 = self.db.get(__name__, "prefixN3")
 
-			if tp3 == False:
-				if tp2 == False:
+			if not tp3:
+				if not tp2:
 					m = await utils.answer(message, f'{p1}{helpp} {args}')
 					await self.allmodules.commands["helpp"](
 						await utils.answer(m, f"{self.get_prefix()}{helpp} {args}")
@@ -356,8 +357,8 @@ class TwinkManagerMod(loader.Module):
 		else:
 			tp2 = self.db.get(__name__, "prefixN2")
 			tp3 = self.db.get(__name__, "prefixN3")
-			if tp3 == False:
-				if tp2 == False:
+			if not tp3:
+				if not tp2:
 					m = await utils.answer(message, f'{p1}{helpp} {args}')
 					await utils.answer(m, '<emoji document_id=5213442551851262055>✔️</emoji> <b>Готово</b>')
 				else:
@@ -380,12 +381,12 @@ class TwinkManagerMod(loader.Module):
 		p3 = self.config['prefix_3']
 		full = self.db.get(__name__, "allAcc")
 
-		if full == True:
+		if full:
 			tp2 = self.db.get(__name__, "prefixN2")
 			tp3 = self.db.get(__name__, "prefixN3")
 
-			if tp3 == False:
-				if tp2 == False:
+			if not tp3:
+				if not tp2:
 					m = await utils.answer(message, f'{p1}{ld}')
 					await self.allmodules.commands["loadmod"](
 						await utils.answer(m, f"{self.get_prefix()}{ld}")
@@ -406,8 +407,8 @@ class TwinkManagerMod(loader.Module):
 		else:
 			tp2 = self.db.get(__name__, "prefixN2")
 			tp3 = self.db.get(__name__, "prefixN3")
-			if tp3 == False:
-				if tp2 == False:
+			if not tp3:
+				if not tp2:
 					m = await utils.answer(message, f'{p1}{ld}')
 					await utils.answer(m, '<emoji document_id=5213442551851262055>✔️</emoji> <b>Готово</b>')
 				else:
@@ -423,17 +424,18 @@ class TwinkManagerMod(loader.Module):
 	
 	@loader.watcher()
 	async def watcher(self, message: Message):
-		if self.config['prefix_2'] == None:
+		if not self.config['prefix_2']:
 			self.db.set(__name__, "prefixN2", False)
 		else:
 			self.db.set(__name__, "prefixN2", True)
 
-		if self.config['prefix_3'] == None:
+		if not self.config['prefix_3']:
 			self.db.set(__name__, "prefixN3", False)
 		else:
 			self.db.set(__name__, "prefixN3", True)
 
-		if self.config['all'] == True:
+		if self.config['all']:
 			self.db.set(__name__, 'allAcc', True)
 		else:
 			self.db.set(__name__, 'allAcc', False)
+		

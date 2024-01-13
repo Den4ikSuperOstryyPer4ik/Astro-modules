@@ -11,7 +11,7 @@ __version__ = (2, 1, 4)
 # 	::   :::  :::: ::      ::    ::   :::  ::::: ::  :::     ::   ::::: ::   :::: ::  ::::: ::   :: ::::   :: ::::  :::: ::
 # 	 :   : :  :: : :       :      :   : :   : :  :    :      :     : :  :   :: :  :    : :  :   : :: : :  : :: ::   :: : :
 # 	
-#                                             © Copyright 2023
+#                                             © Copyright 2024
 #
 #                                    https://t.me/Den4ikSuperOstryyPer4ik
 #                                                  and
@@ -23,29 +23,28 @@ __version__ = (2, 1, 4)
 # meta banner: https://raw.githubusercontent.com/Den4ikSuperOstryyPer4ik/Astro-modules/main/Banners/AstroAFK.jpg
 # meta developer: @AstroModules
 
-import time
-import datetime
 import asyncio
+import datetime
+import time
+
 from telethon import types
+from telethon.tl.functions.account import UpdateProfileRequest
+from telethon.tl.functions.users import GetFullUserRequest
+
 from .. import loader, utils
 from ..inline.types import InlineCall
-from telethon.tl.functions.users import GetFullUserRequest
-from telethon.tl.functions.account import UpdateProfileRequest
+
 
 class AstroAfkMod(loader.Module):
-	'''Полностью настраиваемый модуль для ухода в АФК режим! Обновление TxAFK!'''
+	"""Полностью настраиваемый модуль для ухода в АФК режим! Обновление TxAFK!"""
 
 	async def client_ready(self, client, db):
-		self._db = db
 		self._me = await client.get_me()
 
 	strings = {
 		"name": "AstroAFK",
-
 		"lname": "| afk.",
-
 		"bt_off_afk": "🚫 <b>АФК</b> режим <b>отключен</b>!",
-
 		"_cfg_cst_btn": "Ссылка на чат, которая будет находиться под текстом АФК. Чтобы вовсе убрать, напишите None",
 		"feedback_bot__text": "Юзернейм вашего feedback бота. Если нету - не трогайте",
 		"button__text": "Добавить инлайн кнопку отключения АФК режима?",
@@ -53,30 +52,24 @@ class AstroAfkMod(loader.Module):
 	}
 
 	def render_settings(self):
-		'''Settings message'''
+		"""Settings message"""
 
-		active = self._db.get(__name__, 'afk')
-		if active == True:
-			a_active = "Включен ✅"
-		else:
-			a_active = 'Выключен 🚫'
-		change_bio = self._db.get(__name__, 'change_bio')
-		if change_bio == True:
-			a_change_bio = 'Да'
-		else:
-			a_change_bio = 'Нет'
-		change_name = self._db.get(__name__, 'change_name')
-		if change_name == True:
-			a_change_name = 'Да'
-		else:
-			a_change_name = 'Нет'
-		fb = self.config['feedback']
+		active = self._db.get(__name__, "afk")
+		a_active = "Включен ✅" if active else "Выключен 🚫"
+
+		change_bio = self._db.get(__name__, "change_bio")
+		a_change_bio = "Да" if change_bio else "Нет"
+		
+		change_name = self._db.get(__name__, "change_name")
+		a_change_name = "Да" if change_name else "Нет"
+
+		fb = self.config["feedback"]
 		text = (
-			f'🎆 <b>AstroAfk</b>\n'
-			f'<b>├{a_active}</b>\n'
-			f'<b>├Смена биографии:</b> <code>{a_change_bio}</code> 📖\n'
-			f'<b>├Смена префикса:</b> <code>{a_change_name}</code> 📝\n'
-			f'<b>└Бот для связи:</b> <code>@{fb}</code> 🤖'
+			f"🎆 <b>AstroAfk</b>\n"
+			f"<b>├{a_active}</b>\n"
+			f"<b>├Смена биографии:</b> <code>{a_change_bio}</code> 📖\n"
+			f"<b>├Смена префикса:</b> <code>{a_change_name}</code> 📝\n"
+			f"<b>└Бот для связи:</b> <code>@{fb}</code> 🤖"
 		)
 		return text
 
@@ -85,8 +78,8 @@ class AstroAfkMod(loader.Module):
 		self.config = loader.ModuleConfig(
 			loader.ConfigValue(
 				"prefix",
-				'| afk.',
-				doc=lambda: 'Префикс, который будет добавляться к вашему имени во время входа в АФК'
+				"| afk.",
+				doc=lambda: "Префикс, который будет добавляться к вашему имени во время входа в АФК"
 			),
 			loader.ConfigValue(
 				"feedback",
@@ -94,9 +87,9 @@ class AstroAfkMod(loader.Module):
 				doc=lambda: self.strings("feedback_bot__text"),
 			),
 			loader.ConfigValue(
-				'about_text',
+				"about_text",
 				None,
-				doc=lambda: 'Текст, который будет выставляться в био при входе в АФК. Используйте {bot} для указания фидбэк бота и {reason} для причины.'
+				doc=lambda: "Текст, который будет выставляться в био при входе в АФК. Используйте {bot} для указания фидбэк бота и {reason} для причины."
 			),
 			loader.ConfigValue(
 				"afk_text",
@@ -133,7 +126,7 @@ class AstroAfkMod(loader.Module):
 		)
 
 	def _afk_custom_text(self) -> str:
-		'''Custom text afk'''
+		"""Custom text afk"""
 
 		now = datetime.datetime.now().replace(microsecond=0)
 		gone = datetime.datetime.fromtimestamp(
@@ -141,7 +134,7 @@ class AstroAfkMod(loader.Module):
 		).replace(microsecond=0)
 
 		time = now - gone
-		reason = self._db.get(__name__, 'reason')
+		reason = self._db.get(__name__, "reason")
 
 		return (
 			"<b> </b>\n"
@@ -152,13 +145,13 @@ class AstroAfkMod(loader.Module):
 		)
 
 	def _afk_about_text(self) -> str:
-		'''Custom text about'''
+		"""Custom text about"""
 
-		bot = self.config['feedback']
-		reason = self._db.get(__name__, 'reason')
+		bot = self.config["feedback"]
+		reason = self._db.get(__name__, "reason")
 		return (
 			""
-			+ self.config['about_text'].format(
+			+ self.config["about_text"].format(
 				bot=bot,
 				reason=reason
 			)
@@ -170,8 +163,8 @@ class AstroAfkMod(loader.Module):
 
 		await self.inline.form(
 			message=message, 
-			text='<b>⚙️ Открыть настройки</b>', 
-			reply_markup=[{'text': '🔴 Открыть', 'callback': self.settings}],
+			text="<b>⚙️ Открыть настройки</b>", 
+			reply_markup=[{"text": "🔴 Открыть", "callback": self.settings}],
 			silent=True
 		)
 
@@ -180,28 +173,17 @@ class AstroAfkMod(loader.Module):
 		""" <reason/empty>- войти в АФК режим"""
 
 		reason = utils.get_args_raw(message)
-		if '-n' in reason:
-			reason = reason.replace('-n', '')
-			self._db.set(__name__, 'force', True)
+		if "-n" in reason:
+			reason = reason.replace("-n", "")
+			self._db.set(__name__, "force", True)
 
 		if not reason:
-			self._db.set(__name__, 'reason', '­')
+			self._db.set(__name__, "reason", "­")
 		else:
-			self._db.set(__name__, 'reason', reason)
-		try:
-			user_id = (
-				(
-					(
-						await self._client.get_entity(
-							args if not args.isdigit() else int(args)
-						)
-					).id
-				)
-				if args
-				else reply.sender_id
-			)
-		except Exception:
-			user_id = self._tg_id
+			self._db.set(__name__, "reason", reason)
+
+		user_id = self._tg_id
+
 		user = await self._client(GetFullUserRequest(user_id))
 		
 		self._db.set(__name__, "afk", True)
@@ -212,21 +194,21 @@ class AstroAfkMod(loader.Module):
 		
 		about = user.full_user.about
 
-		self._db.set(__name__, 'about', about)
+		self._db.set(__name__, "about", about)
 
-		if change_name == True:
-			prefix = self.config['prefix']
+		if change_name:
+			prefix = self.config["prefix"]
 			await message.client(UpdateProfileRequest(last_name=prefix))
 
-		if change_bio == True:
-			cfg_bio = self.config['about_text']
-			if cfg_bio == None:
+		if change_bio:
+			cfg_bio = self.config["about_text"]
+			if not cfg_bio:
 				await message.client(UpdateProfileRequest(about="Нахожусь в афк."))
 			else:
 				bio = self._afk_about_text()
 				await message.client(UpdateProfileRequest(about=bio))
 
-		m = await utils.answer(message, '<emoji document_id=5188391205909569136>✅</emoji> <b>АФК</b> режим был успешно <b>включен</b>!')
+		m = await utils.answer(message, "<emoji document_id=5188391205909569136>✅</emoji> <b>АФК</b> режим был успешно <b>включен</b>!")
 		await asyncio.sleep(5)
 		await m.delete()
 		
@@ -241,18 +223,18 @@ class AstroAfkMod(loader.Module):
 		change_bio = self._db.get(__name__, "change_bio")
 		change_name = self._db.get(__name__, "change_name")
 
-		if self._db.get(__name__, 'force') == True:
-			self._db.set(__name__, 'force', False)
+		if self._db.get(__name__, "force"):
+			self._db.set(__name__, "force", False)
 
-		if change_name == True:
-			await message.client(UpdateProfileRequest(last_name=' '))
+		if change_name:
+			await message.client(UpdateProfileRequest(last_name=" "))
 
-		if change_bio == True:
+		if change_bio:
 			try:
-				await message.client(UpdateProfileRequest(about=f'{self.db.get(__name__, "about")}'))
+				await message.client(UpdateProfileRequest(about=f"{self.db.get(__name__, 'about')}"))
 			except:
 				await message.client(UpdateProfileRequest(about="@AstroOfftop - лучший чат для общения."))
-		m = await utils.answer(message, '<emoji document_id=5465665476971471368>❌</emoji> <b>АФК</b> режим был успешно <b>выключен</b>!')
+		m = await utils.answer(message, "<emoji document_id=5465665476971471368>❌</emoji> <b>АФК</b> режим был успешно <b>выключен</b>!")
 		await self.allmodules.log("AstroAfk now stoped.")
 		await asyncio.sleep(5)
 		await m.delete()
@@ -260,11 +242,10 @@ class AstroAfkMod(loader.Module):
 
 	@loader.watcher()
 	async def watcher(self, message):
-
 		if not isinstance(message, types.Message):
 			return
 
-		if utils.get_chat_id(message) in self.config['ignore_chats']: 
+		if utils.get_chat_id(message) in self.config["ignore_chats"]: 
 			return
 
 		if message.mentioned or getattr(message.to_id, "user_id", None) == self._me.id:
@@ -294,18 +275,18 @@ class AstroAfkMod(loader.Module):
 			).replace(microsecond=0)
 
 			time = now - gone
-			reason = self._db.get(__name__, 'reason')
-			if self._db.get(__name__, 'force') == False:
-				if self.config['link_button'] == None:
-					if self.config["button"] == False:
-						if self.config["afk_text"] == None:
+			reason = self._db.get(__name__, "reason")
+			if self._db.get(__name__, "forcenot "):
+				if not self.config["link_button"]:
+					if self.config["buttonnot "]:
+						if not self.config["afk_text"]:
 							await self.inline.form(
 								message=message, 
 								text=f"<b>😴 Сейчас я в АФК режиме</b>\n\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.\n📝 Ушел по <b>причине:</b> {reason}", 
 								reply_markup=[
 									{
-										'text': '🚫 Закрыть', 
-										'callback': self.callback_handler_ok,
+										"text": "🚫 Закрыть", 
+										"callback": self.callback_handler_ok,
 										"args": (message.chat.id,)
 									}
 								],
@@ -317,16 +298,16 @@ class AstroAfkMod(loader.Module):
 								text=self._afk_custom_text(), 
 								reply_markup=[
 									{
-										'text': '🚫 Закрыть', 
-										'callback': self.callback_handler_ok,
+										"text": "🚫 Закрыть", 
+										"callback": self.callback_handler_ok,
 										"args": (message.chat.id, )
 									}
 								],
 								silent=True
 							)
 					
-					elif self.config['button'] == True:
-						if self.config["afk_text"] == None:
+					elif self.config["button"]:
+						if not self.config["afk_text"]:
 							await self.inline.form(
 								message=message, 
 								text=f"<b>😴 Сейчас я в АФК режиме</b>\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.\n📝 Ушел по <b>причине:</b> {reason}", 
@@ -338,12 +319,12 @@ class AstroAfkMod(loader.Module):
 										}
 									],
 									[
-	            						{
-	                      					'text': '🚫 Закрыть', 
-											'callback': self.callback_handler_ok,
+										{
+											"text": "🚫 Закрыть", 
+											"callback": self.callback_handler_ok,
 											"args": (message.chat.id,)
-	          							}
-	                  				]
+										}
+									]
 								],
 								silent=True
 							)
@@ -360,35 +341,35 @@ class AstroAfkMod(loader.Module):
 										}
 									],
 									[
-	            						{
-	                      					'text': '🚫 Закрыть', 
-											'callback': self.callback_handler_ok,
+										{
+										"text": "🚫 Закрыть", 
+											"callback": self.callback_handler_ok,
 											"args": (message.chat.id,)
-	          							}
-	                  				]
+										}
+									]
 								],
 								silent=True
 							)
 				else:
-					if self.config["button"] == False:
-						if self.config["afk_text"] == None:
+					if not self.config["button"]:
+						if not self.config["afk_text"]:
 							await self.inline.form(
 								message=message, 
 								text=f"😴 Сейчас я в <b>АФК</b> режиме\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.\n📝 Ушел по <b>причине:</b> {reason}", 
 								reply_markup=[
 									[
 										{
-											"text": self.config['link_button'][0], 
-											"url": self.config['link_button'][1]
+											"text": self.config["link_button"][0], 
+											"url": self.config["link_button"][1]
 										}
 									],
 									[
-	            						{
-	                      					'text': '🚫 Закрыть', 
-											'callback': self.callback_handler_ok,
+										{
+											"text": "🚫 Закрыть", 
+											"callback": self.callback_handler_ok,
 											"args": (message.chat.id, )
-	          							}
-	                  				]
+										}
+									]
 								],
 								silent=True
 							)
@@ -399,31 +380,31 @@ class AstroAfkMod(loader.Module):
 								reply_markup=[
 									[
 										{
-											"text": self.config['link_button'][0], 
-											"url": self.config['link_button'][1]
+											"text": self.config["link_button"][0], 
+											"url": self.config["link_button"][1]
 										}
 									],
 									[
-	            						{
-	                      					'text': '🚫 Закрыть', 
-											'callback': self.callback_handler_ok,
+										{
+											"text": "🚫 Закрыть", 
+											"callback": self.callback_handler_ok,
 											"args": (message.chat.id,)
-	          							}
-	                  				]
+										}
+									]
 								],
 								silent=True
 							)
 					
-					elif self.config['button'] == True:
-						if self.config["afk_text"] == None:
+					elif self.config["button"]:
+						if not self.config["afk_text"]:
 							await self.inline.form(
 								message=message, 
 								text=f"😴 Сейчас я в <b>АФК</b> режиме\n❇️ Был <b>онлайн</b>: <code>{time}</code> назад.\n📝 Ушел по <b>причине:</b> {reason}", 
 								reply_markup=[
 									[
 										{
-											"text": self.config['link_button'][0],
-											"url": self.config['link_button'][1],
+											"text": self.config["link_button"][0],
+											"url": self.config["link_button"][1],
 										}
 									],
 									[
@@ -433,12 +414,12 @@ class AstroAfkMod(loader.Module):
 										}
 									],
 									[
-	            						{
-	                      					'text': '🚫 Закрыть', 
-											'callback': self.callback_handler_ok,
+										{
+											"text": "🚫 Закрыть", 
+											"callback": self.callback_handler_ok,
 											"args": (message.chat.id,)
-	          							}
-	                  				]
+										}
+									]
 								],
 								silent=True
 							)
@@ -450,8 +431,8 @@ class AstroAfkMod(loader.Module):
 								reply_markup=[
 									[
 										{
-											"text": self.config['link_button'][0],
-											"url": self.config['link_button'][1],
+											"text": self.config["link_button"][0],
+											"url": self.config["link_button"][1],
 										}
 									],
 									[
@@ -461,17 +442,17 @@ class AstroAfkMod(loader.Module):
 										}
 									],
 									[
-	            						{
-	                      					'text': '🚫 Закрыть', 
-											'callback': self.callback_handler_ok,
+										{
+											"text": "🚫 Закрыть", 
+											"callback": self.callback_handler_ok,
 											"args": (message.chat.id,)
-	          							}
-	                  				]
+										}
+									]
 								],
 								silent=True
 							)
 			else:
-				if self.config["afk_text"] == None:
+				if not self.config["afk_text"]:
 					await utils.answer(
 						message,
 						(
@@ -485,7 +466,7 @@ class AstroAfkMod(loader.Module):
 					await utils.answer(message, self._afk_custom_text())
 
 	async def button_cancel(self, call: InlineCall):
-		'''Callback button'''
+		"""Callback button"""
 
 		self._db.set(__name__, "afk", False)
 		self._db.set(__name__, "gone", None)
@@ -494,14 +475,14 @@ class AstroAfkMod(loader.Module):
 		change_name = self._db.get(__name__, "change_name")
 		await self.allmodules.log("TxAFК now not working.")
 
-		if change_name == False and change_bio == False:
+		if not change_name and not change_bio:
 			await call.edit(self.strings["bt_off_afk"])
 			return
 
-		if change_name == True:
-			await self._client(UpdateProfileRequest(last_name=' '))
+		if change_name:
+			await self._client(UpdateProfileRequest(last_name=" "))
 
-		if change_bio == True:
+		if change_bio:
 			try:
 				await self._client(UpdateProfileRequest(about=self.db.get(__name__, "about")))
 			except:
@@ -510,7 +491,7 @@ class AstroAfkMod(loader.Module):
 		await call.edit(self.strings["bt_off_afk"])
 
 	async def settings(self, call: InlineCall):
-		'''Callback button'''
+		"""Callback button"""
 
 		info = self.render_settings()
 		await call.edit(
@@ -518,196 +499,216 @@ class AstroAfkMod(loader.Module):
 			reply_markup=[
 				[
 					{
-						'text': "📖 Биография",
-						'callback': self.settings_about
+						"text": "📖 Биография",
+						"callback": self.settings_about
 					},
 					{
-						'text': '📝 Префикс',
-						'callback': self.settings_name
+						"text": "📝 Префикс",
+						"callback": self.settings_name
 					}
 				],
 				[
 					{
 						"text": "🚫 Закрыть",
-						"action": 'close'
+						"action": "close"
 					}
 				]
 			]
 		)
 
 	async def settings_name(self, call: InlineCall):
-		'''Callback button'''
+		"""Callback button"""
 		
 		await call.edit(
 			text=(
-				f'<b>📖 Установка префикса</b>\n\n'
-				+ '<i>❔ Хотите ли Вы, чтобы при входе в АФК режим к вашему '
-				+ 'нику добавлялся префикс <code>| afk.</code> ?</i>\n\n'
-				+ 'ℹ️ Так же Вы можете <b>изменить префикс</b>, '
-				+ '<b>отменить</b> или <b>сделать</b> действие, нажав на <b>кнопки ниже</b>'
+				"<b>📖 Установка префикса</b>\n\n"
+				+ "<i>❔ Хотите ли Вы, чтобы при входе в АФК режим к вашему "
+				+ "нику добавлялся префикс <code>| afk.</code> ?</i>\n\n"
+				+ "ℹ️ Так же Вы можете <b>изменить префикс</b>, "
+				+ "<b>отменить</b> или <b>сделать</b> действие, нажав на <b>кнопки ниже</b>"
 			),
 			reply_markup=[
 				[
 					{
-						'text': '✅ Да',
+						"text": "✅ Да",
 						"callback": self.name_yes
 					},
 					{
-						"text": '🚫 Нет',
+						"text": "🚫 Нет",
 						"callback": self.name_no
 					}
 				],
-				[{'text': '↩️ Назад', 'callback': self.settings}]
+				[
+					{
+						"text": "↩️ Назад",
+						"callback": self.settings
+					}
+				]
 			]
 		)
-	async def name_yes(self, call: InlineCall):
-		'''Callback button'''
 
-		self._db.set(__name__, 'change_name', True)
+
+	async def name_yes(self, call: InlineCall):
+		"""Callback button"""
+
+		self._db.set(__name__, "change_name", True)
 		info = self.render_settings()
 		await call.edit(
 			text=info,
 			reply_markup=[
 				[
 					{
-						'text': "📖 Биография",
-						'callback': self.settings_about
+						"text": "📖 Биография",
+						"callback": self.settings_about
 					},
 					{
-						'text': '📝 Префикс',
-						'callback': self.settings_name
+						"text": "📝 Префикс",
+						"callback": self.settings_name
 					}
 				],
 				[
 					{
 						"text": "🚫 Закрыть",
-						"action": 'close'
+						"action": "close"
 					}
 				]
 			]
 		)
+
+
 	async def name_no(self, call: InlineCall):
-		'''Callback button'''
+		"""Callback button"""
 		
-		self._db.set(__name__, 'change_name', False)
+		self._db.set(__name__, "change_name", False)
 		info = self.render_settings()
 		await call.edit(
 			text=info,
 			reply_markup=[
 				[
 					{
-						'text': "📖 Биография",
-						'callback': self.settings_about
+						"text": "📖 Биография",
+						"callback": self.settings_about
 					},
 					{
-						'text': '📝 Префикс',
-						'callback': self.settings_name
+						"text": "📝 Префикс",
+						"callback": self.settings_name
 					}
 				],
 				[
 					{
 						"text": "🚫 Закрыть",
-						"action": 'close'
+						"action": "close"
 					}
 				]
 			]
 		)
+
+
 	async def settings_about(self, call: InlineCall):
-		'''Callback button'''
+		"""Callback button"""
 		
-		if self.config['feedback'] == None:
+		if not self.config["feedback"]:
 			text = (
-				f'📖 <b>Смена биографии</b>'
-				+ '\n\n❔ <b>Хотите</b> ли Вы, чтобы при <b>входе в АФК</b> режим Ваша биография <b>менялась</b>'
-				+ '  на "<code>Нахожусь в афк</code>"?\n\n'
-				+ 'ℹ️ Так же Вы можете <b>изменить биографию</b> в <b>конфиге</b>. '
-				+ 'Можно <b>отменить</b> или <b>сделать</b> действие, нажав на <b>кнопки ниже</b>'
+				"📖 <b>Смена биографии</b>"
+				+ "\n\n❔ <b>Хотите</b> ли Вы, чтобы при <b>входе в АФК</b> режим Ваша биография <b>менялась</b>"
+				+ "  на \"<code>Нахожусь в афк</code>\"?\n\n"
+				+ "ℹ️ Так же Вы можете <b>изменить биографию</b> в <b>конфиге</b>. "
+				+ "Можно <b>отменить</b> или <b>сделать</b> действие, нажав на <b>кнопки ниже</b>"
 			)
 		else:
 			text = (
-				f'📖 <b>Смена биографии</b>'
-				+ '\n\n❔ <b>Хотите</b> ли Вы, чтобы при <b>входе в АФК</b> режим '
-				+ 'Ваша биография <b>менялась</b> на  "<code>Нет, на месте нахожусь в афк</code><code>.'
-				+ f' Связь только через @{self.config["feedback"]}</code>"?\n🤖 <b>Бот для связи</b>: <code>@{self.config["feedback"]}</code>\n\n'
-				+ 'ℹ️ Так же Вы можете <b>изменить биографию</b> в <b>конфиге</b>. '
-				+ 'Можно <b>отменить</b> или <b>сделать</b> действие, нажав на <b>кнопки ниже</b>'
+				"📖 <b>Смена биографии</b>"
+				+ "\n\n❔ <b>Хотите</b> ли Вы, чтобы при <b>входе в АФК</b> режим "
+				+ "Ваша биография <b>менялась</b> на  \"<code>Нет, на месте нахожусь в афк</code><code>."
+				+ f" Связь только через @{self.config['feedback']}</code>\"?\n🤖 <b>Бот для связи</b>: <code>@{self.config['feedback']}</code>\n\n"
+				+ "ℹ️ Так же Вы можете <b>изменить биографию</b> в <b>конфиге</b>. "
+				+ "Можно <b>отменить</b> или <b>сделать</b> действие, нажав на <b>кнопки ниже</b>"
 			)
 		await call.edit(
 			text=text,
 			reply_markup=[
 				[
 					{
-						'text': '✅ Да',
+						"text": "✅ Да",
 						"callback": self.bio
 					},
 					{
-						"text": '🚫 Нет',
+						"text": "🚫 Нет",
 						"callback": self.bio_n
 					}
 				],
-				[{'text': '↩️ Назад', 'callback': self.settings}]
-			]
-		)
-	async def bio(self, call: InlineCall):
-		'''Callback button'''
-		
-		self._db.set(__name__, 'change_bio', True)
-		info = self.render_settings()
-		await call.edit(
-			text=info,
-			reply_markup=[
 				[
 					{
-						'text': "📖 Биография",
-						'callback': self.settings_about
-					},
-					{
-						'text': '📝 Префикс',
-						'callback': self.settings_name
-					}
-				],
-				[
-					{
-						"text": "🚫 Закрыть",
-						"action": 'close'
+						"text": "↩️ Назад",
+						"callback": self.settings
 					}
 				]
 			]
 		)
-	async def bio_n(self, call: InlineCall):
-		'''Callback button'''
+
+
+	async def bio(self, call: InlineCall):
+		"""Callback button"""
 		
-		self._db.set(__name__, 'change_bio', False)
+		self._db.set(__name__, "change_bio", True)
 		info = self.render_settings()
 		await call.edit(
 			text=info,
 			reply_markup=[
 				[
 					{
-						'text': "📖 Биография",
-						'callback': self.settings_about
+						"text": "📖 Биография",
+						"callback": self.settings_about
 					},
 					{
-						'text': '📝 Префикс',
-						'callback': self.settings_name
+						"text": "📝 Префикс",
+						"callback": self.settings_name
 					}
 				],
 				[
 					{
 						"text": "🚫 Закрыть",
-						"action": 'close'
+						"action": "close"
+					}
+				]
+			]
+		)
+
+
+	async def bio_n(self, call: InlineCall):
+		"""Callback button"""
+		
+		self._db.set(__name__, "change_bio", False)
+		info = self.render_settings()
+		await call.edit(
+			text=info,
+			reply_markup=[
+				[
+					{
+						"text": "📖 Биография",
+						"callback": self.settings_about
+					},
+					{
+						"text": "📝 Префикс",
+						"callback": self.settings_name
+					}
+				],
+				[
+					{
+						"text": "🚫 Закрыть",
+						"action": "close"
 					}
 				]
 			]
 		)
 
 	async def callback_handler_ok(self, call, chat_id: int):
-		'''Callback button'''
+		"""Callback button"""
 		
 		await call.delete()
-		limit: list = self._db.get(__name__, 'ratelimit', [])
+		limit: list = self._db.get(__name__, "ratelimit", [])
 		limit.remove(chat_id)
-		self._db.set(__name__, 'ratelimit', limit)
+		self._db.set(__name__, "ratelimit", limit)
 	
 	def get_afk(self):
 		return self._db.get(__name__, "afk", False)

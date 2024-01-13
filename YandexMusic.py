@@ -11,7 +11,7 @@ __version__ = (1, 1, 1)
 # 	::   :::  :::: ::      ::    ::   :::  ::::: ::  :::     ::   ::::: ::   :::: ::  ::::: ::   :: ::::   :: ::::  :::: ::
 # 	 :   : :  :: : :       :      :   : :   : :  :    :      :     : :  :   :: :  :    : :  :   : :: : :  : :: ::   :: : :
 # 	
-#                                             © Copyright 2023
+#                                             © Copyright 2024
 #
 #                                    https://t.me/Den4ikSuperOstryyPer4ik
 #                                                  and
@@ -24,6 +24,7 @@ __version__ = (1, 1, 1)
 # meta banner: https://raw.githubusercontent.com/Den4ikSuperOstryyPer4ik/Astro-modules/main/Banners/YaMusic.jpg
 
 from .. import loader, utils
+
 
 class YaMusicMod(loader.Module):
 	'''Поиск музыки через музыкального бота от Яндекса'''
@@ -46,7 +47,7 @@ class YaMusicMod(loader.Module):
 			await message.delete()
 			try:
 				await utils.answer_file(message, music[1].result.document, caption="<b>🎧 Возможно, это тот трек, который вы искали</b>")
-			except:
+			except Exception:
 				await utils.answer_file(message, music[3].result.document, caption="<b>🎧 Возможно, это тот трек, который вы искали</b>")
-		except:
+		except Exception:
 			await utils.answer(message, f"<b>😔 Нам не удалось найти трек с названием <code>{args}</code><b>")

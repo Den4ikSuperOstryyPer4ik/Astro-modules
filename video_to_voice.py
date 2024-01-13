@@ -10,7 +10,7 @@
 # 	::   :::  :::: ::      ::    ::   :::  ::::: ::  :::     ::   ::::: ::   :::: ::  ::::: ::   :: ::::   :: ::::  :::: ::
 # 	 :   : :  :: : :       :      :   : :   : :  :    :      :     : :  :   :: :  :    : :  :   : :: : :  : :: ::   :: : :
 # 	
-#                                             © Copyright 2023
+#                                             © Copyright 2024
 #
 #                                    https://t.me/Den4ikSuperOstryyPer4ik
 #                                                  and
@@ -21,16 +21,15 @@
 #
 # meta developer: @AstroModules
 # meta banner: https://raw.githubusercontent.com/Den4ikSuperOstryyPer4ik/Astro-modules/main/Banners/VideoToVoice.jpg
-# scope: hikka_only
 # requires: moviepy
 
-from .. import loader, utils
-
-import moviepy.editor
 import os
 from pathlib import Path
 
+import moviepy.editor
 import telethon
+
+from .. import loader, utils
 
 
 @loader.tds
@@ -77,7 +76,21 @@ class VideoToVoice(loader.Module):
 		
 		
 		path = self.get_audio((await msg_media.download_media()))
-		await self.client.send_file(message.chat.id, path, attributes=[telethon.tl.types.DocumentAttributeAudio(duration=(self.get_duration(msg_media.media.document.attributes)), voice=True, title=None, performer=None, waveform=None)])
+		
+		await self.client.send_file(
+			message.chat.id,
+			path,
+			attributes=[
+				telethon.tl.types.DocumentAttributeAudio(
+					duration=(self.get_duration(msg_media.media.document.attributes)),
+					voice=True,
+					title=None,
+					performer=None,
+					waveform=None
+				)
+			]
+		)
 		os.remove(path)
-		if msg.out: await msg.delete()
-		return
+
+		if msg.out:
+			await msg.delete()

@@ -11,7 +11,7 @@ __version__ = (1, 0, 1)
 # 	::   :::  :::: ::      ::    ::   :::  ::::: ::  :::     ::   ::::: ::   :::: ::  ::::: ::   :: ::::   :: ::::  :::: ::
 # 	 :   : :  :: : :       :      :   : :   : :  :    :      :     : :  :   :: :  :    : :  :   : :: : :  : :: ::   :: : :
 # 	
-#                                             © Copyright 2023
+#                                             © Copyright 2024
 #
 #                                    https://t.me/Den4ikSuperOstryyPer4ik
 #                                                  and
@@ -23,9 +23,11 @@ __version__ = (1, 0, 1)
 # meta developer: @AstroModules, @HikariMods
 # meta banner: https://raw.githubusercontent.com/Den4ikSuperOstryyPer4ik/Astro-modules/main/Banners/Emotions.jpg
 
-from .. import loader, utils
 import grapheme
 from telethon.tl.types import Message
+
+from .. import loader, utils
+
 
 @loader.tds
 class EmotionsMod(loader.Module):
@@ -73,7 +75,8 @@ class EmotionsMod(loader.Module):
 				'delete',
 				True,
 				doc=lambda: self.strings("delete_msg"),
-				validator=loader.validators.Boolean(),)
+				validator=loader.validators.Boolean()
+			)
 		)
 
 	async def emogocmd(self, message: Message):
@@ -168,11 +171,12 @@ class EmotionsMod(loader.Module):
 		else:
 			emoji = "<emoji document_id=5373230475022179039>🥺</emoji>"
 
-		if self.config['delete'] == True:
+		if self.config['delete']:
 			if message.out:
 				pass
 			else:
 				await message.delete()
+
 		await utils.answer(
 			message, 
 			f'{emoji} <a href="tg://user?id={sender.id}">{utils.escape_html(sender.first_name)}</a> <b>{utils.escape_html(msg)}</b> {emoji}')

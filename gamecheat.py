@@ -11,7 +11,7 @@ __version__ = (1, 0, 5)
 # 	::   :::  :::: ::      ::    ::   :::  ::::: ::  :::     ::   ::::: ::   :::: ::  ::::: ::   :: ::::   :: ::::  :::: ::
 # 	 :   : :  :: : :       :      :   : :   : :  :    :      :     : :  :   :: :  :    : :  :   : :: : :  : :: ::   :: : :
 # 	
-#                                             © Copyright 2023
+#                                             © Copyright 2024
 #
 #                                    https://t.me/Den4ikSuperOstryyPer4ik
 #                                                  and
@@ -24,16 +24,16 @@ __version__ = (1, 0, 5)
 # meta developer: @astromodules
 # meta banner: https://raw.githubusercontent.com/Den4ikSuperOstryyPer4ik/Astro-modules/main/Banners/GameeCheat.jpg
 # meta designer: @XizurK
-# support: @visionavtr
 # requirements: certifi==2022.6.15, charset-normalizer==2.1.0, idna==3.3, requests==2.28.1, urllib3==1.26.10
 
-import re
-import random
 import hashlib
-import requests
-from .. import loader, utils
+import random
+import re
+
 from telethon.tl.types import Message
-from requests.structures import CaseInsensitiveDict
+
+from .. import loader, utils
+
 
 class GameeCheatMod(loader.Module):
 	'''Читы для игр в @gamee'''
@@ -89,12 +89,12 @@ class GameeCheatMod(loader.Module):
 
 		try:
 			game, score = args.split(' ')
-		except:
+		except ValueError:
 			await utils.answer(message, self.strings('err_args').format(self.get_prefix()))
 			return
 
 		game_url = await self.game_link(game)
-		if game_url == False:
+		if not game_url:
 			await utils.answer(message, self.strings('error_link'))
 			return
 

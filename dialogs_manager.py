@@ -10,7 +10,7 @@
 # 	::   :::  :::: ::      ::    ::   :::  ::::: ::  :::     ::   ::::: ::   :::: ::  ::::: ::   :: ::::   :: ::::  :::: ::
 # 	 :   : :  :: : :       :      :   : :   : :  :    :      :     : :  :   :: :  :    : :  :   : :: : :  : :: ::   :: : :
 # 	
-#                                             © Copyright 2023
+#                                             © Copyright 2024
 #
 #                                    https://t.me/Den4ikSuperOstryyPer4ik
 #                                                  and
@@ -22,11 +22,13 @@
 # meta developer: @AstroModules
 # meta banner: https://raw.githubusercontent.com/Den4ikSuperOstryyPer4ik/Astro-modules/main/Banners/DialogsManager.jpg
 
-from .. import loader, utils
-from ..utils import answer, get_args_raw
-from telethon.tl.types import Message
 import random
-from telethon import types, functions
+
+from telethon import functions
+from telethon.tl.types import Message
+
+from .. import loader
+from ..utils import answer, get_args_raw
 
 premium_emojies = [
 	"<emoji document_id=5807752501042089473>⭐️</emoji>",
@@ -220,5 +222,3 @@ class DialogsManagerMod(loader.Module):
 			await self._client(functions.channels.LeaveChannelRequest(channel=id))
 			leave_chatsss += 1
 		await answer(msg, f'<b>Работа завершена.\nВы успешно покинули {leave_chatsss} чата(-ов)!</b>')
-
-	

@@ -10,7 +10,7 @@
 # 	::   :::  :::: ::      ::    ::   :::  ::::: ::  :::     ::   ::::: ::   :::: ::  ::::: ::   :: ::::   :: ::::  :::: ::
 # 	 :   : :  :: : :       :      :   : :   : :  :    :      :     : :  :   :: :  :    : :  :   : :: : :  : :: ::   :: : :
 # 	
-#                                             © Copyright 2023
+#                                             © Copyright 2024
 #
 #                                    https://t.me/Den4ikSuperOstryyPer4ik
 #                                                  and
@@ -22,8 +22,6 @@
 # meta developer: @AstroModules
 # meta banner: https://raw.githubusercontent.com/Den4ikSuperOstryyPer4ik/Astro-modules/main/Banners/Demotivator.jpg
 # requires: pillow
-# Amore, come back please...
-
 
 import io
 import os
@@ -31,10 +29,10 @@ import re
 from typing import Optional
 
 import requests
-from .. import loader, utils
-from PIL import Image, ImageDraw, ImageFont, ImageOps, ImageColor
-
 from hikkatl.tl.types import MessageMediaDocument, MessageMediaPhoto
+from PIL import Image, ImageColor, ImageDraw, ImageFont, ImageOps
+
+from .. import loader, utils
 
 MIME_TYPES = ["webp", "png", "jpeg", "jpg", "bmp", "dds", "dib", "eps", "ico", "tiff"]
 

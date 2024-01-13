@@ -11,7 +11,7 @@ __version__ = (1, 0, 0)
 # 	::   :::  :::: ::      ::    ::   :::  ::::: ::  :::     ::   ::::: ::   :::: ::  ::::: ::   :: ::::   :: ::::  :::: ::
 # 	 :   : :  :: : :       :      :   : :   : :  :    :      :     : :  :   :: :  :    : :  :   : :: : :  : :: ::   :: : :
 # 	
-#                                             © Copyright 2023
+#                                             © Copyright 2024
 #
 #                                    https://t.me/Den4ikSuperOstryyPer4ik
 #                                                  and
@@ -23,10 +23,12 @@ __version__ = (1, 0, 0)
 # meta developer: @AstroModules
 # meta banner: https://raw.githubusercontent.com/Den4ikSuperOstryyPer4ik/Astro-modules/main/Banners/PCManager.jpg
 
-from .. import loader, utils
-
+from typing import Union
 from telethon.tl.types import Message
+
+from .. import loader, utils
 from ..inline.types import InlineCall
+
 
 class PCManagerMod(loader.Module):
 	'''Управление вашим компьютером через юзербота'''
@@ -65,7 +67,7 @@ class PCManagerMod(loader.Module):
 	async def pcoff(self, message: Message):
 		"""- выключить компьютер""" 
 		bot = self.config["bot_username"]
-		call = await self.lib.message_g(f'🛑 Shutdown',
+		call = await self.lib.message_g('🛑 Shutdown',
 			bot,
 			mark_read=True,
 			delete=True
@@ -76,7 +78,7 @@ class PCManagerMod(loader.Module):
 	async def pcreboot(self, message: Message):
 		"""- перезагрузить компьютер"""
 		bot = self.config["bot_username"]
-		call = await self.lib.message_g(f'🔄 Reboot',
+		call = await self.lib.message_g('🔄 Reboot',
 			bot,
 			mark_read=True,
 			delete=True
@@ -87,7 +89,7 @@ class PCManagerMod(loader.Module):
 	async def pcinfo(self, message: Message):
 		"""- просмотреть характеристики системы"""
 		bot = self.config["bot_username"]
-		call = await self.lib.message_q(f'💻 System Info',
+		call = await self.lib.message_q('💻 System Info',
 			bot,
 			mark_read=True,
 			delete=True
@@ -98,7 +100,7 @@ class PCManagerMod(loader.Module):
 	async def pcip(self, message: Message):
 		"""- просмотреть информацию об айпи адресе"""
 		bot = self.config["bot_username"]
-		call = await self.lib.message_q(f'🌐 IP Info',
+		call = await self.lib.message_q('🌐 IP Info',
 			bot,
 			mark_read=True,
 			delete=True
@@ -109,12 +111,12 @@ class PCManagerMod(loader.Module):
 	async def pcscrin(self, message: Message):
 		"""- сделать скриншот экрана"""
 		bot = self.config['bot_username']
-		call = await self.lib.message_g(f'/screenshot',
+		call = await self.lib.message_g('/screenshot',
 			bot,
 			mark_read=True,
 			delete=True
 		)
-		await utils.answer(message, f'<emoji document_id=5787544344906959608>ℹ️</emoji> <b>[PC_Manager]</b> <emoji document_id=5787544344906959608>ℹ️</emoji>\n\nОтправка скриншота...')
+		await utils.answer(message, '<emoji document_id=5787544344906959608>ℹ️</emoji> <b>[PC_Manager]</b> <emoji document_id=5787544344906959608>ℹ️</emoji>\n\nОтправка скриншота...')
 		await message.respond(call)
 
 	@loader.command()
@@ -135,12 +137,12 @@ class PCManagerMod(loader.Module):
 
 🔑 Дополнительно:"""
 		bot = self.config['bot_username']
-		call = await self.lib.message_g(f'/photo',
+		call = await self.lib.message_g('/photo',
 			bot,
 			mark_read=True,
 			delete=True
 		)
-		await utils.answer(message, f'<emoji document_id=5787544344906959608>ℹ️</emoji> <b>[PC_Manager]</b> <emoji document_id=5787544344906959608>ℹ️</emoji>\n\nОтправка снимка...')
+		await utils.answer(message, '<emoji document_id=5787544344906959608>ℹ️</emoji> <b>[PC_Manager]</b> <emoji document_id=5787544344906959608>ℹ️</emoji>\n\nОтправка снимка...')
 		await message.respond(call)
 
 	@loader.command()
@@ -165,60 +167,77 @@ class PCManagerMod(loader.Module):
 				[
 					{
 						"text": "10%",
-						"callback": self.vol10
+						"callback": self.set_volume,
+						"args": (10,)
 					},
 					{
 						"text": "20%",
-						"callback": self.vol20
+						"callback": self.set_volume,
+						"args": (20,)
 					},
 					{
 						"text": "30%",
-						"callback": self.vol30
+						"callback": self.set_volume,
+						"args": (30,)
 					},
 				],
 				[
 					{
 						"text": "40%",
-						"callback": self.vol40
+						"callback": self.set_volume,
+						"args": (40,)
 					},
 					{
 						"text": "50%",
-						"callback": self.vol50
+						"callback": self.set_volume,
+						"args": (50,)
 					},
 					{
 						"text": "60%",
-						"callback": self.vol60
+						"callback": self.set_volume,
+						"args": (60,)
 					},
 				],
 				[	
 					{
 						"text": "70%",
-						"callback": self.vol70
+						"callback": self.set_volume,
+						"args": (70,)
 					},
 					{
 						"text": "80%",
-						"callback": self.vol80
+						"callback": self.set_volume,
+						"args": (80,)
 					},
 					{
 						"text": "90%",
-						"callback": self.vol90
+						"callback": self.set_volume,
+						"args": (90,)
 					},
 				],
 				[	
 					{
 						"text": "⬆️",
-						"callback": self.volUp
+						"callback": self.set_volume,
+						"args": ("up",)
 					},			
 					{
 						"text": "100%",
-						"callback": self.vol100
+						"callback": self.set_volume,
+						"args": (100,)
 					},
 					{
 						"text": "⬇️",
-						"callback": self.volDown
+						"callback": self.set_volume,
+						"args": ("down",)
 					},
 				],
-				[{"text": "🚫 Закрыть", "action": "close"}],
+				[
+					{
+						"text": "🚫 Закрыть",
+						"action": "close"
+					}
+				],
 			],
 			message=message,
 		)
@@ -247,66 +266,26 @@ class PCManagerMod(loader.Module):
 			],
 			message=message,
 		)
+	
+
+	async def set_volume(self, call: InlineCall, volume: Union[int, str]):
+		bot = self.config['bot_username']
+		await self.client.send_message(bot, f'/volume {volume}')
+		return await call.answer("Успешно!", show_alert=False)
 
 	async def nazad(self, call: InlineCall):
 		bot = self.config['bot_username']
 		await self.client.send_message(f'{bot}', '/key__prev')
 		return await call.answer("Успешно!", show_alert=False)
+
 	async def pausa(self, call: InlineCall):
 		bot = self.config['bot_username']
 		await self.client.send_message(f'{bot}', '/key__play')
 		return await call.answer("Успешно!", show_alert=False)
+
 	async def vpered(self, call: InlineCall):
 		bot = self.config['bot_username']
 		await self.client.send_message(f'{bot}', '/key__next')
-		return await call.answer("Успешно!", show_alert=False)
-	async def vol10(self, call: InlineCall):
-		bot = self.config['bot_username']
-		await self.client.send_message(f'{bot}', '/volume 10')
-		return await call.answer("Успешно!", show_alert=False)
-	async def vol20(self, call: InlineCall):
-		bot = self.config['bot_username']
-		await self.client.send_message(f'{bot}', '/volume 20')
-		return await call.answer("Успешно!", show_alert=False)
-	async def vol30(self, call: InlineCall):
-		bot = self.config['bot_username']
-		await self.client.send_message(f'{bot}', '/volume 30')
-		return await call.answer("Успешно!", show_alert=False)
-	async def vol40(self, call: InlineCall):
-		bot = self.config['bot_username']
-		await self.client.send_message(f'{bot}', '/volume 40')
-		return await call.answer("Успешно!", show_alert=False)
-	async def vol50(self, call: InlineCall):
-		bot = self.config['bot_username']
-		await self.client.send_message(f'{bot}', '/volume 50')
-		return await call.answer("Успешно!", show_alert=False)
-	async def vol60(self, call: InlineCall):
-		bot = self.config['bot_username']
-		await self.client.send_message(f'{bot}', '/volume 60')
-		return await call.answer("Успешно!", show_alert=False)
-	async def vol70(self, call: InlineCall):
-		bot = self.config['bot_username']
-		await self.client.send_message(f'{bot}', '/volume 70')
-		return await call.answer("Успешно!", show_alert=False)
-	async def vol80(self, call: InlineCall):
-		bot = self.config['bot_username']
-		await self.client.send_message(f'{bot}', '/volume 80')
-		return await call.answer("Успешно!", show_alert=False)
-	async def vol90(self, call: InlineCall):
-		bot = self.config['bot_username']
-		await self.client.send_message(f'{bot}', '/volume 90')
-		return await call.answer("Успешно!", show_alert=False)
-	async def vol100(self, call: InlineCall):
-		bot = self.config['bot_username']
-		await self.client.send_message(f'{bot}', '/volume 100')
-		return await call.answer("Успешно!", show_alert=False)
-	async def volUp(self, call: InlineCall):
-		bot = self.config['bot_username']
-		await self.client.send_message(f'{bot}', '/volume up')
-		return await call.answer("Успешно!", show_alert=False)
-	async def volDown(self, call: InlineCall):
-		bot = self.config['bot_username']
-		await self.client.send_message(f'{bot}', '/volume down')
 		return await call.answer("Успешно!", show_alert=False)
 
 																			# Tx...

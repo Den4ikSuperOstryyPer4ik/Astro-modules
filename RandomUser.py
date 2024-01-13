@@ -22,7 +22,7 @@ __version__ = (1, 6, 0)
 # 	::   :::  :::: ::      ::    ::   :::  ::::: ::  :::     ::   ::::: ::   :::: ::  ::::: ::   :: ::::   :: ::::  :::: ::
 # 	 :   : :  :: : :       :      :   : :   : :  :    :      :     : :  :   :: :  :    : :  :   : :: : :  : :: ::   :: : :
 # 	
-#                                             © Copyright 2023
+#                                             © Copyright 2024
 #
 #                                    https://t.me/Den4ikSuperOstryyPer4ik
 #                                                  and
@@ -33,28 +33,18 @@ __version__ = (1, 6, 0)
 #
 # meta developer: @AstroModules
 # meta banner: https://raw.githubusercontent.com/Den4ikSuperOstryyPer4ik/Astro-modules/main/Banners/RandomUser.jpg
-# scope: hikka_only
-# scope: inline
-# scope: hikka_min 1.3.0
 
-from .. import loader
-from ..inline.types import InlineCall
-
-from telethon.tl.types import Message
 import logging
 import random as r
-import grapheme
 
-from telethon.errors import ChatAdminRequiredError, UserAdminInvalidError
-from telethon.tl.functions.channels import EditAdminRequest, EditBannedRequest, InviteToChannelRequest
-from telethon.tl.types import ChatAdminRights, ChatBannedRights
-from telethon.tl.functions.messages import AddChatUserRequest
+import grapheme
 from telethon.errors import (
     BotGroupsBlockedError,
     ChannelPrivateError,
     ChatAdminRequiredError,
     ChatWriteForbiddenError,
     InputUserDeactivatedError,
+    UserAdminInvalidError,
     UserAlreadyParticipantError,
     UserBlockedError,
     UserKickedError,
@@ -62,6 +52,16 @@ from telethon.errors import (
     UserPrivacyRestrictedError,
     YouBlockedUserError,
 )
+from telethon.tl.functions.channels import (
+    EditAdminRequest,
+    EditBannedRequest,
+    InviteToChannelRequest,
+)
+from telethon.tl.functions.messages import AddChatUserRequest
+from telethon.tl.types import ChatAdminRights, ChatBannedRights, Message
+
+from .. import loader
+from ..inline.types import InlineCall
 
 logger = logging.getLogger(__name__)
 
@@ -496,5 +496,6 @@ class RandomUserMod(loader.Module):
         except UserAlreadyParticipantError:
             m = self.strings("invite-error-7")
         except YouBlockedUserError:
-            m = "<b>Вы заблокировали этого пользователя.</b>"
+            m = "Вы заблокировали этого пользователя."
+
         await call.answer(m, show_alert=True)
