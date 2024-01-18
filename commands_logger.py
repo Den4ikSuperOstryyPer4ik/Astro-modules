@@ -78,7 +78,7 @@ class HikkaCommandsLoggerMod(loader.Module):
     @loader.watcher(only_commands=True)
     async def watcher(self, message):
         is_pm = isinstance(message.peer_id, PeerUser)
-        is_channel = message.post
+        is_channel = message.post or isinstance(message.peer_id, PeerChannel)
         chat_id = (
             message.peer_id.user_id
             if is_pm
