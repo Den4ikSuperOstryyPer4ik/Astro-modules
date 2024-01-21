@@ -25,7 +25,7 @@
 import logging
 
 from telethon.tl.functions.channels import InviteToChannelRequest
-from hikkatl.tl.types import PeerUser, PeerChannel, PeerChat
+from hikkatl.tl.types import PeerUser, PeerChannel, PeerChat, Channel, User
 
 from .. import loader
 from .. import utils
@@ -78,7 +78,8 @@ class HikkaCommandsLoggerMod(loader.Module):
     @loader.watcher(only_commands=True)
     async def watcher(self, message):
         is_pm = isinstance(message.peer_id, PeerUser)
-        is_channel = message.post or isinstance(message.peer_id, PeerChannel)
+        sender = await message.get_sender()
+        is_channel = message.post or isinstance(sender, Channel)
         chat_id = (
             message.peer_id.user_id
             if is_pm
@@ -90,16 +91,16 @@ class HikkaCommandsLoggerMod(loader.Module):
         )
 
         chat = await self._client.get_entity(chat_id)
+        chat_username = getattr(chat, "username", None)
 
-        sender = await message.get_sender()
         user_link = (
             f"<a href='https://t.me/{sender.username}'>{sender.first_name if not is_channel else sender.title}</a>"
             if sender.username
             else f"<a href=tg://user?id={sender.id}>{sender.first_name if not is_channel else sender.title}</a>"
         )
         chat_link = (
-            f"<a href='https://t.me/{chat.username}'>{chat.title}</a>"
-            if chat.username
+            f"<a href='https://t.me/{chat_username}'>{chat.title}</a>"
+            if chat_username
             else chat.title
         ) if not is_pm else (
             f"<a href='https://t.me/{chat.username}'>{chat.first_name}</a>"
@@ -114,7 +115,7 @@ class HikkaCommandsLoggerMod(loader.Module):
                     "log-pm"
                     if is_pm
                     else "log-channels"
-                    if is_channel
+                    if message.post
                     else "log-groups"
                 ).format(
                     message.raw_text,
