@@ -162,29 +162,14 @@ class AchievementsMod(loader.Module):
             data_icon = f"data:image/{file_mime_type};base64,{base64.b64encode(icon).decode()}"
             
         return requests.post(
-            "https://minecraft-inside.ru/achievements/",
-            cookies={
-                '_csrf': '279c3656b9de4bf115e8e53b44054c2550d983fad37fe9a4488573970c3717fea%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%220jFHV8uKEZIgOaU7V_ScKg6PGt9IXl65%22%3B%7D'
-            },
-            headers={
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:120.0) Gecko/20100101 Firefox/120.0',
-                'Accept': 'application/json, text/javascript, */*; q=0.01',
-                'Accept-Language': 'ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3',
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-                'X-Requested-With': 'XMLHttpRequest',
-            },
-            data=(
-                "_csrf=Hr8jnXib5xbZJIx28X0-wv7hXI1k0n2N_wJTGg-wQhwu1WXVLqOSXZx-xRG-HGv1qL4P7i-1S924dmpTV9x0KQ%3D%3D"
-                f"&AchievementForm%5Btitle%5D={urllib.parse.quote(title)}"
-                "&AchievementForm%5B"
-                f"title_color%5D={title_color}"
-                "&AchievementForm%5B"
-                f"text%5D={urllib.parse.quote(text)}"
-                "&AchievementForm%5B"
-                f"text_color%5D={text_color}"
-                "&AchievementForm%5B"
-                f"icon%5D={urllib.parse.quote(data_icon)}"
-            )
+            "https://dsop.online/tg-stickers-api/achievement",
+            json={
+                "title": title,
+                "text": text,
+                "data_icon": data_icon,
+                "title_color": title_color,
+                "text_color": text_color
+            }
         )
 
     async def create_achievement(self, message):
