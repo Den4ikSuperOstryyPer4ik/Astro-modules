@@ -28,7 +28,7 @@ import base64
 import io
 import os
 import re
-import urllib.parse
+from typing import Union
 
 import requests
 from hikkatl.tl.types import MessageMediaDocument, MessageMediaPhoto
@@ -146,7 +146,7 @@ class AchievementsMod(loader.Module):
             self,
             title: str,
             text: str,
-            icon: str | bytes | io.BytesIO,
+            icon: Union[str, bytes, io.BytesIO],
             title_color: str,
             text_color: str,
             file_mime_type: str = "png"
