@@ -79,8 +79,8 @@ class AntiMatMod(loader.Module):
         )
 
     @loader.command()
-    async def amaddcmd(self, message: Message):
-        """- запретить чату выражаться цензурой"""
+    async def amchatcmd(self, message: Message):
+        """- запретить/разрешить чату выражаться нецензурой"""
         amc = str(utils.get_chat_id(message))
 
         if amc in self.chats:
@@ -93,7 +93,10 @@ class AntiMatMod(loader.Module):
         self.set("active", self.chats)
 
     @loader.watcher()
-    async def watcher(self, message: Message):
+    async def watcher_out(self, message: Message):
+        if getattr(message, "out", True):
+            return
+
         cid = str(utils.get_chat_id(message))
 
         txt = message.text
@@ -104,13 +107,26 @@ class AntiMatMod(loader.Module):
         mats = self.config['list']
 
         if antimat:
-            if cid not in self.chats:
-                for mat in mats:
-                    m = txt.lower().find(mat)
-                    if m != -1:
-                        await message.edit("<emoji document_id=5213285132709929474>🤬</emoji> <b>Не матерись!</b>")
-            else:
+            if cid in self.chats:
                 for mat in mats:
                     m = txt.lower().find(mat)
                     if m != -1:
                         await utils.answer(message, "<emoji document_id=5213285132709929474>🤬</emoji> <b>Не матерись!</b>")
+
+    @loader.watcher()
+    async def watcher_in(self, message: Message):
+        if not getattr(message, "out", True):
+            return
+
+        txt: str = message.text
+        antimat = self.db.get(
+            "am_status",
+            "antimat",
+        )
+        mats = self.config['list']
+
+        if antimat:
+            for mat in mats:
+                m = txt.lower().find(mat)
+                if m != -1:
+                    await message.edit("<emoji document_id=5213285132709929474>🤬</emoji> <b>Не матерись!</b>")
