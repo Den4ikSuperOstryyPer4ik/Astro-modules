@@ -35,24 +35,24 @@ class ShazamMod(loader.Module):
 
     strings = {
         "name": 'Shazam',
-        "Downloading": "<emoji document_id=5971801057540443125>📥</emoji> <b>Downloading...</b>",
-        "Searching": "<emoji document_id=5972211849687470465>🔎</emoji> <b>Searching...</b>",
-        "no_reply": "<emoji document_id=5321004106494526877>🎤</emoji> <b>Please reply to an audio message.</b>",
-        "not_found": "<emoji document_id=5346107391475725719>🤷‍♂️</emoji> <b>Song not found.</b>\n<i>Sorry..(</i>",
+        "Downloading": "<emoji document_id=5443127283898405358>📥</emoji> <b>Downloading...</b>",
+        "Searching": "<emoji document_id=5447410659077661506>🔎</emoji> <b>Searching...</b>",
+        "no_reply": "<emoji document_id=5294339927318739359>🎙</emoji> <b>Please reply to an audio message.</b>",
+        "not_found": "<emoji document_id=5210952531676504517>🚫</emoji> <b>Song not found.</b>",
         "track_info": (
-            "<emoji document_id=5346259862814734771>📱</emoji> <b>Song found! Title:</b>\n"
-            "\n<emoji document_id=5879841310902324730>✏️</emoji> <code>{}</code>"
+            "<emoji document_id=5325547803936572038>✨</emoji> <b>Song found</b>\n"
+            '<emoji document_id=5460795800101594035>📝</emoji> <b>Name</b> "<code>{}</code>"'
         )
     }
 
     strings_ru = {
-        "Downloading": "<emoji document_id=5971801057540443125>📥</emoji> <b>Загрузка...</b>",
-        "Searching": "<emoji document_id=5972211849687470465>🔎</emoji> <b>Поиск...</b>",
-        "no_reply": "<emoji document_id=5321004106494526877>🎤</emoji> <b>Пожалуйста, ответьте на аудиосообщение.</b>",
-        "not_found": "<emoji document_id=5346107391475725719>🤷‍♂️</emoji> <b>Не удалось найти песню.</b>\n<i>Извините хозяин..~</i>",
+        "Downloading": "<emoji document_id=5443127283898405358>📥</emoji> <b>Загрузка..</b>",
+        "Searching": "<emoji document_id=5447410659077661506>🔎</emoji> <b>Поиск..</b>",
+        "no_reply": "<emoji document_id=5294339927318739359>🎙</emoji> <b>Oтветьте на аудио сообщение</b>",
+        "not_found": "<emoji document_id=5210952531676504517>🚫</emoji> <b>Не удалось найти песню</b>",
         "track_info": (
-            "<emoji document_id=5346259862814734771>📱</emoji> <b>Песня найдена! Название:</b>\n"
-            "\n<emoji document_id=5879841310902324730>✏️</emoji> <code>{}</code>"
+            "<emoji document_id=5325547803936572038>✨</emoji> <b>Песня найдена</b>\n"
+            '<emoji document_id=5460795800101594035>📝</emoji> <b>Название:</b> "<code>{}</code>"'
         )
     }
 
