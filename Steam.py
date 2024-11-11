@@ -23,7 +23,7 @@ __version__ = (1, 0, 0)
 # meta banner: 
 # meta developer: @AstroModules
 # required: steampy
-#
+# meta banner: https://raw.githubusercontent.com/Den4ikSuperOstryyPer4ik/Astro-modules/main/Banners/AstroSteamNow.png
 # Part of the module taken from WakaTime by @hikariatama: 38, 158, 208, 324 lines
 
 import time
