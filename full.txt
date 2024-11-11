@@ -25,3 +25,5 @@ gamecheat
 wordly
 akinator
 mindtalk
+steam
+shazam
