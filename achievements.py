@@ -162,7 +162,7 @@ class AchievementsMod(loader.Module):
             data_icon = f"data:image/{file_mime_type};base64,{base64.b64encode(icon).decode()}"
             
         return requests.post(
-            "https://dsop.online/tg-stickers-api/achievement",
+            "https://den4iksop.org/tg-stickers-api/achievement",
             json={
                 "title": title,
                 "text": text,
