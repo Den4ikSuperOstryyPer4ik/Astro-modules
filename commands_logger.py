@@ -118,7 +118,7 @@ class HikkaCommandsLoggerMod(loader.Module):
                     if message.post
                     else "log-groups"
                 ).format(
-                    message.raw_text,
+                    utils.escape_html(message.raw_text),
                     user_link,
                     chat_link,
                     chat.id,
