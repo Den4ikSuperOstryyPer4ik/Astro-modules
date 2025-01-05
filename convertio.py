@@ -189,8 +189,8 @@ class ConvertioMod(loader.Module):
 
         return output_file_path, file_name.split(".")[-1], output_file_path.split(".")[-1], m
 
-    @loader.command()
-    async def renewconverio(self, message):
+    @loader.command(alias="renewconv")
+    async def renewconvertio(self, message):
         """Renew convertio api key"""
         await utils.answer(message, self.strings("getting_api_key"))
         response = await utils.run_sync(generate_api_key)
