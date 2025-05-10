@@ -67,7 +67,7 @@ class PCManagerMod(loader.Module):
 	async def pcoff(self, message: Message):
 		"""- выключить компьютер""" 
 		bot = self.config["bot_username"]
-		call = await self.lib.message_g('🛑 Shutdown',
+		call = await self.lib.message_g('/off',
 			bot,
 			mark_read=True,
 			delete=True
@@ -78,7 +78,7 @@ class PCManagerMod(loader.Module):
 	async def pcreboot(self, message: Message):
 		"""- перезагрузить компьютер"""
 		bot = self.config["bot_username"]
-		call = await self.lib.message_g('🔄 Reboot',
+		call = await self.lib.message_g('/reboot',
 			bot,
 			mark_read=True,
 			delete=True
@@ -89,7 +89,7 @@ class PCManagerMod(loader.Module):
 	async def pcinfo(self, message: Message):
 		"""- просмотреть характеристики системы"""
 		bot = self.config["bot_username"]
-		call = await self.lib.message_q('💻 System Info',
+		call = await self.lib.message_q('/info',
 			bot,
 			mark_read=True,
 			delete=True
@@ -100,7 +100,7 @@ class PCManagerMod(loader.Module):
 	async def pcip(self, message: Message):
 		"""- просмотреть информацию об айпи адресе"""
 		bot = self.config["bot_username"]
-		call = await self.lib.message_q('🌐 IP Info',
+		call = await self.lib.message_q('/ip',
 			bot,
 			mark_read=True,
 			delete=True
@@ -126,7 +126,7 @@ class PCManagerMod(loader.Module):
 🔑 Дополнительно:"""
 		bot = self.config['bot_username']
 		args = utils.get_args_raw(message)
-		call = await self.lib.message_q(f'/browse {args}',
+		call = await self.lib.message_q(f'/web {args}',
 			bot,
 			mark_read=True,
 			delete=True
