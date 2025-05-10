@@ -121,7 +121,9 @@ class PCManagerMod(loader.Module):
 
 	@loader.command()
 	async def pcweb(self, message: Message):
-		"""<ссылка> - открыть ссылку в браузере"""
+		"""<ссылка> - открыть ссылку в браузере
+  
+🔑 Дополнительно:"""
 		bot = self.config['bot_username']
 		args = utils.get_args_raw(message)
 		call = await self.lib.message_q(f'/browse {args}',
@@ -131,19 +133,7 @@ class PCManagerMod(loader.Module):
 		)
 		await utils.answer(message, f'<emoji document_id=5787544344906959608>ℹ️</emoji> <b>[PC_Manager]</b> <emoji document_id=5787544344906959608>ℹ️</emoji>\n\n{call.text}\n\nСсылка: {args}')
 
-	@loader.command()
-	async def pcwebscrin(self, message: Message):
-		"""- сделать снимок с веб-камеры
 
-🔑 Дополнительно:"""
-		bot = self.config['bot_username']
-		call = await self.lib.message_g('/photo',
-			bot,
-			mark_read=True,
-			delete=True
-		)
-		await utils.answer(message, '<emoji document_id=5787544344906959608>ℹ️</emoji> <b>[PC_Manager]</b> <emoji document_id=5787544344906959608>ℹ️</emoji>\n\nОтправка снимка...')
-		await message.respond(call)
 
 	@loader.command()
 	async def pcalert(self, message: Message):
