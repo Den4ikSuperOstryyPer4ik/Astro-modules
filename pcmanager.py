@@ -111,7 +111,7 @@ class PCManagerMod(loader.Module):
 	async def pcscreen(self, message: Message):
 		"""- сделать скриншот экрана"""
 		bot = self.config['bot_username']
-		call = await self.lib.message_g('/screenshot',
+		call = await self.lib.message_q('/screenshot',
 			bot,
 			mark_read=True,
 			delete=True
