@@ -108,7 +108,7 @@ class PCManagerMod(loader.Module):
 		await utils.answer(message, f'<emoji document_id=5787544344906959608>ℹ️</emoji> <b>[PC_Manager]</b> <emoji document_id=5787544344906959608>ℹ️</emoji>\n\n{call.text}')
 
 	@loader.command()
-	async def pcscrin(self, message: Message):
+	async def pcscreen(self, message: Message):
 		"""- сделать скриншот экрана"""
 		bot = self.config['bot_username']
 		call = await self.lib.message_g('/screenshot',
