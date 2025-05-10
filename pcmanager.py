@@ -207,19 +207,14 @@ class PCManagerMod(loader.Module):
 				],
 				[	
 					{
-						"text": "⬆️",
+						"text": "0%",
 						"callback": self.set_volume,
-						"args": ("up",)
-					},			
+						"args": (0,)
+					},
 					{
 						"text": "100%",
 						"callback": self.set_volume,
 						"args": (100,)
-					},
-					{
-						"text": "⬇️",
-						"callback": self.set_volume,
-						"args": ("down",)
 					},
 				],
 				[
